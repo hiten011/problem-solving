@@ -33,8 +33,6 @@ class PartySeats {
             if ((n / 2) + 1 == i) ans[i] = "HOSTESS";
             else if (i % 2 == 1) ans[i] = girls[ptr1++];
             else ans[i] = boys[ptr2++];
-
-            // cout << ans[i] << " ";
         }
 
         return ans;
