@@ -3,3 +3,6 @@ The problem told us to find out the number of times the Inchworm its the leave, 
 
 [Problem 2]:
 The problem told ius to find out the number of times the ball was passed accoriding to the conditions mentioned, it looks i can easily solve this question by just running a simulation of the game, and calculating the number of passes, but this will give me a complexity of O(N*M). which I am currently thinking is it possible to improve. I am not able to think of any statergy to improve the complexity right now so will try the O(N*M) algorithm.
+
+[Problem 3]:
+The problem asks us to find the number of places where we can park the car, we can do that by just simiply looping throught the street and blocking the spaces by marking them as X, so wt  am doing is I am just looping and marking the places as X in which I cannot park the car this takes O(N) time complexity
