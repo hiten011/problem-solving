@@ -12,7 +12,7 @@ class StreetParking {
                 street[i] = 'X';
             } else if (street[i] == 'S') {
                 street[i] = 'X';
-                if (i + 1 < n) street[i + 1] = 'X';
+                if (i + 1 < n && street[i + 1] == '-') street[i + 1] = 'X';
                 if (i - 1 >= 0) street[i - 1] = 'X';
             } else if (street[i] == 'B') {
                 street[i] = 'X';
