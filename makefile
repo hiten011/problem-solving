@@ -1,2 +1,2 @@
 all:
-	g++ -std=c++20 -o main.out main.cpp && ./main.out
+	g++ -o main.out main.cpp && ./main.out

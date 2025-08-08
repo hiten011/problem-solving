@@ -16,7 +16,7 @@ class CircleLine {
         return ans;
     }
 
-    int calcDis(int x, int y, auto &d) {
+    int calcDis(int x, int y, vector<int> &d) {
         // forward dis
         int forDis = dis(x, y, d);
         // backDis
@@ -25,7 +25,7 @@ class CircleLine {
         return min(backDis, forDis);
     };
 
-    int dis(int x, int y, auto &vec) {
+    int dis(int x, int y, vector<int> &vec) {
         int dis = 0;
         for (int i = x; i < y; i++) {
             dis += vec[i];
