@@ -1,0 +1,4 @@
+[Problem 1]:
+The problem told us to find out the number of times the Inchworm its the leave, I intially thought of running a for loop and checking  if that positon ontains a leaf or not, this would haver esulted in a O(n) solution, which was working, however, I reliased, the leach and the leaf are meting after set intervals, that means if i can find out the interval of their first meeting point, then that itneral would be respected and they meet after same interval. Also, I reliased that interval can be found by finding the lcm() of the leaf and branch as it gives me the least common multiple of both which is basically ii need here and as 0 contains the leaf i need to consider that leaf in my answer so i return the answer as +1.
+
+
