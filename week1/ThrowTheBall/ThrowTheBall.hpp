@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class ThroeTheBall {
+class ThrowTheBall {
   public:
     int timesThrown(int N, int M, int L) {
         vector<int> p(N, 0);
