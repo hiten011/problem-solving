@@ -1,8 +1,5 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 // personal files
-#include "week1/Inchworm.hpp"
+#include "week1/Inchworm/Inchworm.hpp"
 
 int main() {
     Inchworm c1;
