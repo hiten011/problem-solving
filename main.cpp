@@ -19,7 +19,7 @@ int main() {
     cout << c4.longestTravel({1,4,4,1,5}) << endl;
 
     PartySeats c5;
-    c5.seating({"BOB boy","SUZIE girl"});
+    c5.seating({"BOB boy", "SUZIE girl", "DAVE boy", "JO girl", "AL boy", "BOB boy", "CARLA girl", "DEBBIE girl"});
 
     return 0;
 }
