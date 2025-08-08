@@ -14,7 +14,7 @@ int main() {
     StreetParking c3;
     cout << c3.freeParks("SSD-B---BD-DDSB-----S-S--------S-B----BSB-S--B-S-D") << endl;
 
-    CircleLine c4;
+    CircularLine c4;
     cout << c4.longestTravel({1,1,1,1,4}) << endl;
 
     return 0;

@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class CircleLine {
+class CircularLine {
   public:
     int n, ans;
 
