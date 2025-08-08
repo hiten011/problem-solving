@@ -3,11 +3,10 @@ using namespace std;
 
 class PartySeats {
   public:
-    vector<string> boys, girls;
     vector<string> seating(vector<string> attendees) {
         // parsing input
         int n = attendees.size();
-        vector<string> ans(n + 2);
+        vector<string> ans(n + 2), boys, girls;
         for (string &s : attendees) {
             size_t start = 0, end;
             end = s.find(" ", start);
