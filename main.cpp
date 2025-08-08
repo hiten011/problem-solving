@@ -2,6 +2,7 @@
 #include "week1/Inchworm/Inchworm.hpp"
 #include "week1/ThrowTheBall/ThrowTheBall.hpp"
 #include "week1/StreetParking/StreetParking.hpp"
+#include "week1/CircularLine/CircularLine.hpp"
 
 int main() {
     Inchworm c1;
@@ -12,6 +13,9 @@ int main() {
 
     StreetParking c3;
     cout << c3.freeParks("SSD-B---BD-DDSB-----S-S--------S-B----BSB-S--B-S-D") << endl;
+
+    CircleLine c4;
+    cout << c4.longestTravel({1,1,1,1,4}) << endl;
 
     return 0;
 }

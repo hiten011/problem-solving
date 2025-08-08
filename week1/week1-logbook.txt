@@ -8,3 +8,6 @@ The problem told ius to find out the number of times the ball was passed accorid
 The problem asks us to find the number of places where we can park the car, we can do that by just simiply looping throught the street and blocking the spaces by marking them as X, so wt  am doing is I am just looping and marking the places as X in which I cannot park the car this takes O(N) time complexity, 
 I got a wrong asnwer for one of tehe test case, I reliased that, if i update the forward spaces as well they migh result in incorrect soluton, as my above method wont work with DB input, D makes the B X, so I need to be carfull when changin the forward statements, that can be simpley done by keep track of how many forward spaces do i need to mark as X, and I can do it at last
 I am changing the code such that when I encounter a street, I will make my forward stree X only in the case if the front is a -, otherwise I won't do it
+
+[Problem 4]:
+The brute force method i thought of doing was, by calculating the dis from each point to each point from forward and backward i can calculate all teh possible path, and keeping the fast of from each point, then finding the max would give me my answer, but that would take O(N^3) solution, and i am calculating each subaaray distance. however, I think I can optimise it further by using prefix sum. 
