@@ -2,7 +2,7 @@
 using namespace std;
 
 // personal files
-#include "Inchworm.hpp"
+#include "week1/Inchworm.hpp"
 
 int main() {
     Inchworm c1;
