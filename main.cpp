@@ -15,7 +15,7 @@ int main() {
     cout << c3.freeParks("SSD-B---BD-DDSB-----S-S--------S-B----BSB-S--B-S-D") << endl;
 
     CircularLine c4;
-    cout << c4.longestTravel({1,1,1,1,4}) << endl;
+    cout << c4.longestTravel({1,4,4,1,5}) << endl;
 
     return 0;
 }

@@ -10,4 +10,4 @@ I got a wrong asnwer for one of tehe test case, I reliased that, if i update the
 I am changing the code such that when I encounter a street, I will make my forward stree X only in the case if the front is a -, otherwise I won't do it
 
 [Problem 4]:
-The brute force method i thought of doing was, by calculating the dis from each point to each point from forward and backward i can calculate all teh possible path, and keeping the fast of from each point, then finding the max would give me my answer, but that would take O(N^3) solution, and i am calculating each subaaray distance. however, I think I can optimise it further by using prefix sum. 
+The brute force method i thought of doing was, by calculating the dis from each point to each point from forward and backward i can calculate all teh possible path, and keeping the fast of from each point, then finding the max would give me my answer, but that would take O(N^3) solution, and i am calculating each subaaray distance. however, I think I can optimise it further by using prefix sum. By using prefix Sum I optimised my code to O(N^2)
