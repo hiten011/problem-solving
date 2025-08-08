@@ -3,6 +3,7 @@
 #include "week1/ThrowTheBall/ThrowTheBall.hpp"
 #include "week1/StreetParking/StreetParking.hpp"
 #include "week1/CircularLine/CircularLine.hpp"
+#include "week1/PartySeats/PartySeats.hpp"
 
 int main() {
     Inchworm c1;
@@ -16,6 +17,9 @@ int main() {
 
     CircularLine c4;
     cout << c4.longestTravel({1,4,4,1,5}) << endl;
+
+    PartySeats c5;
+    c5.seating({"BOB boy","SUZIE girl"});
 
     return 0;
 }

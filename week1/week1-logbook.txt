@@ -1,13 +1,16 @@
-[Problem 1]:
+[Problem Inchworm]:
 The problem told us to find out the number of times the Inchworm its the leave, I intially thought of running a for loop and checking  if that positon ontains a leaf or not, this would haver esulted in a O(n) solution, which was working, however, I reliased, the leach and the leaf are meting after set intervals, that means if i can find out the interval of their first meeting point, then that itneral would be respected and they meet after same interval. Also, I reliased that interval can be found by finding the lcm() of the leaf and branch as it gives me the least common multiple of both which is basically ii need here and as 0 contains the leaf i need to consider that leaf in my answer so i return the answer as +1.
 
-[Problem 2]:
-The problem told ius to find out the number of times the ball was passed accoriding to the conditions mentioned, it looks i can easily solve this question by just running a simulation of the game, and calculating the number of passes, but this will give me a complexity of O(N*M). which I am currently thinking is it possible to improve. I am not able to think of any statergy to improve the complexity right now so will try the O(N*M) algorithm.
+[Problem ThrowTheBall]:
+The problem told us to find out the number of times the ball was passed accoriding to the conditions mentioned, it looks i can easily solve this question by just running a simulation of the game, and calculating the number of passes, but this will give me a complexity of O(N*M). which I am currently thinking is it possible to improve. I am not able to think of any statergy to improve the complexity right now so will try the O(N*M) algorithm.
 
-[Problem 3]:
+[Problem StreetParking]:
 The problem asks us to find the number of places where we can park the car, we can do that by just simiply looping throught the street and blocking the spaces by marking them as X, so wt  am doing is I am just looping and marking the places as X in which I cannot park the car this takes O(N) time complexity, 
 I got a wrong asnwer for one of tehe test case, I reliased that, if i update the forward spaces as well they migh result in incorrect soluton, as my above method wont work with DB input, D makes the B X, so I need to be carfull when changin the forward statements, that can be simpley done by keep track of how many forward spaces do i need to mark as X, and I can do it at last
 I am changing the code such that when I encounter a street, I will make my forward stree X only in the case if the front is a -, otherwise I won't do it
 
-[Problem 4]:
-The brute force method i thought of doing was, by calculating the dis from each point to each point from forward and backward i can calculate all teh possible path, and keeping the fast of from each point, then finding the max would give me my answer, but that would take O(N^3) solution, and i am calculating each subaaray distance. however, I think I can optimise it further by using prefix sum. By using prefix Sum I optimised my code to O(N^2)
+[Problem CircularLine]:
+The brute force method i thought of doing was, by calculating the dis from each point to each point from forward and backward i can calculate all teh possible path, and keeping the fast of from each point, then finding the max would give me my answer, but that would take O(N^3) solution, and i am calculating each subaaray distance. however, I think I can optimise it further by using prefix sum. By using prefix Sum I optimised my code to O(N^2), becaus i dont need to calculate distance each time now, as the distance cab be easily calculated in O(1) time.
+
+[problem PartySeats]:
+
