@@ -22,7 +22,7 @@ class PartySeats {
         int nBoys = boys.size(), nGirls = girls.size();
         if (nBoys != nGirls || nBoys < 2 || nBoys % 2 == 1) return {};
 
-        // sorting girls and biys lexographically
+        // sorting girls and boys lexographically
         sort(boys.begin(), boys.end());
         sort(girls.begin(), girls.end());
         
