@@ -20,8 +20,7 @@ class PartySeats {
         
         // checking if input is valid
         int nBoys = boys.size(), nGirls = girls.size();
-        if (nBoys != nGirls) return {};
-        if (nBoys < 2) return {};
+        if (nBoys != nGirls || nBoys < 2 || nBoys % 2 == 1) return {};
 
         // sorting girls and biys lexographically
         sort(boys.begin(), boys.end());
