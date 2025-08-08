@@ -11,6 +11,7 @@ I am changing the code such that when I encounter a street, I will make my forwa
 
 [Problem CircularLine]:
 The brute force method i thought of doing was, by calculating the dis from each point to each point from forward and backward i can calculate all teh possible path, and keeping the fast of from each point, then finding the max would give me my answer, but that would take O(N^3) solution, and i am calculating each subaaray distance. however, I think I can optimise it further by using prefix sum. By using prefix Sum I optimised my code to O(N^2), becaus i dont need to calculate distance each time now, as the distance cab be easily calculated in O(1) time.
+I am thinking can we solve this problem with O(N) time using sliding window approach, I will try that idea out
 
 [problem PartySeats]:
 The problem is asking for placing the people in an alternative way of boys and girls, which seems fairly simple, but we also need to retuern the elxographically samllest order. I will record the boys and girls in two seperate arrays, and then sorrt the array to make them lexographically smaller. I also, noticed, the number of boys and girls needs to be equal to make them alternative, adn shoul be more than 2 as well. After that I am looping through seats and and placing each student one by one, by making sure they are lexographically smaller. 

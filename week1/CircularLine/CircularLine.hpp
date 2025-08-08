@@ -9,11 +9,26 @@ class CircularLine {
     int longestTravel(vector<int> t) {
         n = t.size(), ans = 0;
         createPrefixSuffix(t);
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                ans = max(calcDis(i, j), ans);
+
+        int st = 0, en = 1;
+        while (en < n) {
+            int forDis = prefix[en] - prefix[st]; // forward dis
+            int backDis = prefix[st] - prefix[0] + prefix[n] - prefix[en]; // backDis
+
+            if (forDis <= backDis) {
+                ans = max(ans, forDis);
+                en++;
+            } else {
+                ans = max(backDis, ans);
+                st++;
             }
         }
+
+        // for (int i = 0; i < n; i++) {
+        //     for (int j = i + 1; j < n; j++) {
+        //         ans = max(calcDis(i, j), ans);
+        //     }
+        // }
 
         return ans;
     };
