@@ -20,5 +20,7 @@ class ThrowTheBall {
             p[idx]++;
             ans++;
         }
+
+        return ans;
     }
 };
