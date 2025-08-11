@@ -1,0 +1,4 @@
+Weekly Logbook
+
+Problem: [SquareOfDigits]
+itnially I thought of performing dfs at each point, and check how big of square can i make, I will check 
