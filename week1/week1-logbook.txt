@@ -1,18 +1,64 @@
-[Problem Inchworm]:
-The problem told us to find out the number of times the Inchworm its the leave, I intially thought of running a for loop and checking  if that positon ontains a leaf or not, this would haver esulted in a O(n) solution, which was working, however, I reliased, the leach and the leaf are meting after set intervals, that means if i can find out the interval of their first meeting point, then that itneral would be respected and they meet after same interval. Also, I reliased that interval can be found by finding the lcm() of the leaf and branch as it gives me the least common multiple of both which is basically ii need here and as 0 contains the leaf i need to consider that leaf in my answer so i return the answer as +1.
+Weekly Logbook
 
-[Problem ThrowTheBall]:
-The problem told us to find out the number of times the ball was passed accoriding to the conditions mentioned, it looks i can easily solve this question by just running a simulation of the game, and calculating the number of passes, but this will give me a complexity of O(N*M). which I am currently thinking is it possible to improve. I am not able to think of any statergy to improve the complexity right now so will try the O(N*M) algorithm.
+Problem: [Inchworm]
 
-[Problem StreetParking]:
-The problem asks us to find the number of places where we can park the car, we can do that by just simiply looping throught the street and blocking the spaces by marking them as X, so wt  am doing is I am just looping and marking the places as X in which I cannot park the car this takes O(N) time complexity, 
-I got a wrong asnwer for one of tehe test case, I reliased that, if i update the forward spaces as well they migh result in incorrect soluton, as my above method wont work with DB input, D makes the B X, so I need to be carfull when changin the forward statements, that can be simpley done by keep track of how many forward spaces do i need to mark as X, and I can do it at last
-I am changing the code such that when I encounter a street, I will make my forward stree X only in the case if the front is a -, otherwise I won't do it
+Design Thinking:
+The problem told us to find out the number of times the Inchworm hits the leaf. I initially thought of running a for loop and checking if that position contains a leaf or not, this would have resulted in a O(n) solution, which was working. However, I realised the leach and the leaf are meeting after set intervals, that means if I can find out the interval of their first meeting point, then that interval would be respected and they meet after same interval. Also, I realised that interval can be found by finding the lcm() of the leaf and branch as it gives me the least common multiple of both which is basically what I need here.
 
-[Problem CircularLine]:
-The brute force method i thought of doing was, by calculating the dis from each point to each point from forward and backward i can calculate all teh possible path, and keeping the fast of from each point, then finding the max would give me my answer, but that would take O(N^3) solution, and i am calculating each subaaray distance. however, I think I can optimise it further by using prefix sum. By using prefix Sum I optimised my code to O(N^2), becaus i dont need to calculate distance each time now, as the distance cab be easily calculated in O(1) time.
-I am thinking can we solve this problem with O(N) time using sliding window approach, I will try that idea out. Yes it works, I am increasing the size of window when the forward dis is smaller than backDis as I would need to make it grater to get maximum answer, aand then vise versa in case of my back Dis, I am increasing my st pointer. This is all possible because the constraints are given the dis is always positive, that means the result will only increase if the width increases. This way I am able to solve teh solution in O(N).
+Troubleshooting:
+As 0 contains the leaf I need to consider that leaf in my answer so I return the answer as +1.
 
-[problem PartySeats]:
-The problem is asking for placing the people in an alternative way of boys and girls, which seems fairly simple, but we also need to retuern the elxographically samllest order. I will record the boys and girls in two seperate arrays, and then sorrt the array to make them lexographically smaller. I also, noticed, the number of boys and girls needs to be equal to make them alternative, adn shoul be more than 2 as well. After that I am looping through seats and and placing each student one by one, by making sure they are lexographically smaller. 
-I failed one test case, i reliased, if their are odd number of boys and girls then i cannot arrange them.
+Reflection:
+Realised that identifying repetitive meeting intervals can reduce time complexity significantly and that LCM can be used to find the exact meeting cycle instead of simulating every step.
+
+
+Problem: [ThrowTheBall]
+
+Design Thinking:
+The problem told us to find out the number of times the ball was passed according to the conditions mentioned. It looks I can easily solve this question by just running a simulation of the game, and calculating the number of passes, but this will give me a complexity of O(N*M).
+
+Troubleshooting:
+I am currently thinking is it possible to improve. I am not able to think of any strategy to improve the complexity right now so will try the O(N*M) algorithm.
+
+Reflection:
+Currently no optimised strategy found, so I proceeded with the brute force simulation. Need to revisit to check if mathematical or pattern-based optimisations are possible.
+
+
+Problem: [StreetParking]
+
+Design Thinking:
+The problem asks us to find the number of places where we can park the car. We can do that by just simply looping through the street and blocking the spaces by marking them as X. So what I am doing is I am just looping and marking the places as X in which I cannot park the car, this takes O(N) time complexity.
+
+Troubleshooting:
+I got a wrong answer for one of the test cases. I realised that, if I update the forward spaces as well they might result in incorrect solution, as my above method won’t work with DB input. D makes the B X, so I need to be careful when changing the forward statements. That can be simply done by keeping track of how many forward spaces do I need to mark as X, and I can do it at last. I am changing the code such that when I encounter a street, I will make my forward street X only in the case if the front is a -, otherwise I won't do it.
+
+Reflection:
+Learned that updating state while iterating can cause incorrect results if dependencies exist between elements ahead. Deferring updates until after checking all necessary conditions can prevent these errors.
+
+
+Problem: [CircularLine]
+
+Design Thinking:
+The brute force method I thought of doing was, by calculating the distance from each point to each point from forward and backward I can calculate all the possible paths, and keeping the fastest from each point, then finding the max would give me my answer. But that would take O(N³) solution, and I am calculating each subarray distance. However, I think I can optimise it further by using prefix sum.
+
+Troubleshooting:
+By using prefix Sum I optimised my code to O(N²), because I don’t need to calculate distance each time now, as the distance can be easily calculated in O(1) time. I am thinking can we solve this problem with O(N) time using sliding window approach, I will try that idea out. Yes it works — I am increasing the size of window when the forward distance is smaller than back distance as I would need to make it greater to get maximum answer, and then vice versa in case of my back distance, I am increasing my start pointer. This is all possible because the constraints given say the distance is always positive, which means the result will only increase if the width increases.
+
+Reflection:
+This problem showed me the progression from brute force → prefix sums → sliding window. Also, recognising positive constraints allowed me to safely apply a window-expansion strategy for an O(N) solution.
+
+
+Problem: [PartySeats]
+
+Design Thinking:
+The problem is asking for placing the people in an alternative way of boys and girls, which seems fairly simple, but we also need to return the lexographically smallest order. I will record the boys and girls in two separate arrays, and then sort the arrays to make them lexographically smaller. I also noticed, the number of boys and girls needs to be equal to make them alternative, and should be more than 2 as well.
+
+Troubleshooting:
+After that I am looping through seats and placing each student one by one, making sure they are lexographically smaller. I failed one test case — I realised, if there are odd numbers of boys and girls then I cannot arrange them.
+
+Reflection:
+Reinforced the importance of validating constraints before implementing logic. The arrangement logic itself was straightforward once constraints were met.
+
+
+Overall Weekly Reflection:
+This week I explored a variety of problem types — mathematical interval finding (Inchworm), simulations (ThrowTheBall), state-updating loops (StreetParking), optimising path calculations (CircularLine), and sorting with constraints (PartySeats). A common pattern I noticed is that initial brute-force solutions can often be replaced with mathematical formulas or more efficient data structures like prefix sums or sliding windows. I also learned the value of checking constraints before implementing a full solution (PartySeats, CircularLine) and being careful with in-loop updates that affect future positions (StreetParking). Moving forward, I want to spend more time brainstorming multiple approaches before coding, and explicitly checking for optimisation opportunities before settling on the first working solution.
