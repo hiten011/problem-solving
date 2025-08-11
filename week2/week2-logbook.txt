@@ -1,4 +1,4 @@
 Weekly Logbook
 
 Problem: [SquareOfDigits]
-itnially I thought of performing dfs at each point, and check how big of square can i make, I will check 
+intially I thought of performing dfs at each point, and check how big of square can that make, I will check right, bottom, and right-bottom square, how big of a squae can each point make, and take the minum and that would be the largest square I can make at that point. But this would result in O(N*M)^2 solution, however I can improve this by using DP and recording at each point hoe big of the square can it make, but this will result in extra space, but reduce the TC to O(N*M).
