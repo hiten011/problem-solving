@@ -7,10 +7,10 @@ class SquareOfDigits {
         int getMax(vector<string> data) {
             int ans = 1;
             int n = data[0].size(), m = data.size();
-            vector<vector<int>> dp(n, vector<int>(m, 1));
+            vector<vector<int>> dp(m, vector<int>(n, 1));
 
-            for (int i = m - 1; i >= 0; i--) {
-                for (int j = n - 1; j >= 0; j--) {
+            for (int i = m - 2; i >= 0; i--) {
+                for (int j = n - 2; j >= 0; j--) {
                     int maxSquare = INT_MAX;
                     
                     for (auto &d : dir) {
@@ -23,6 +23,6 @@ class SquareOfDigits {
                 }
             }
 
-            return ans;
+            return ans * ans;
         };
 };

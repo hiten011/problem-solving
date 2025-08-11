@@ -3,6 +3,6 @@
 
 int main() {
     SquareOfDigits c1;
-    cout << c1.getMax({"12","34"}) << endl;
+    cout << c1.getMax({"1255","3455"}) << endl;
     return 0;
 }
