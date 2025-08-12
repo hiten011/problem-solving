@@ -5,4 +5,6 @@ intially I thought of performing dfs at each point, and check how big of square 
 So, I just noticed, I read the question wrong they are asking to find the lasrgest square with same corner cells, I should read the question carefully.
 A method to solve this would be from each positon I would start expaninding the square and checking their corders and record the largest length, and will repeat for each point, hencie will give me the largest square. this would result in TC of O(N*M)*(N + M), I will test this out and then move to thinking a more optimised solution.
 
-Problem: []
+Problem: [EggCartons]
+I computed the equation 6*x + 8*y = n, which gave me the equation y = (n - 6*x) / 8, and as I am given x, and y are whole numbers, I just started from 0 substituting value for x until i find a y which is a whole number, I can check that by simplpy (n - 6*x) % 8 == 0. I belive, this would be a O(n) solution, as the total value will only run until n >= 6*x.
+I belive I can still improve my solution.
