@@ -1,10 +1,11 @@
 {
-    "files.associations": {
-        "regex": "cpp",
-        "forward_list": "cpp",
-        "list": "cpp",
-        "flat_map": "cpp",
-        "flat_set": "cpp",
-        "string_view": "cpp"
-    }
+  "files.associations": {
+    "regex": "cpp",
+    "forward_list": "cpp",
+    "list": "cpp",
+    "flat_map": "cpp",
+    "flat_set": "cpp",
+    "string_view": "cpp",
+    "iostream": "cpp"
+  }
 }

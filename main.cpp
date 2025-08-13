@@ -1,8 +1,10 @@
 // personal files
 #include "week2/SquareOfDigits/SquareOfDigits.hpp"
 #include "week2/EggCartons/EggCartons.hpp"
+#include "week2/ElevatorLimit/ElevatorLimit.hpp"
 
-int main() {
+int main()
+{
     SquareOfDigits c1;
     cout << c1.getMax({"9785409507",
                        "2055103694",
@@ -19,5 +21,10 @@ int main() {
 
     EggCartons c2;
     cout << c2.minCartons(15) << endl;
+
+    ElevatorLimit c3;
+    vector<int> ans = c3.getRange(
+        {6, 85, 106, 1, 199, 76, 162, 141}, {38, 68, 62, 83, 170, 12, 61, 114}, 668);
+    cout << ans[0] << " " << ans[1] << endl;
     return 0;
 }
