@@ -29,6 +29,6 @@ int main()
     cout << ans[0] << " " << ans[1] << endl;
 
     ChristmasTree c4;
-    cout << c4.decorationWays(2, 1, 1, 1) << endl;
+    cout << c4.decorationWays(8, 1, 15, 20) << endl;
     return 0;
 }
