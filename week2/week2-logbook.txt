@@ -9,3 +9,6 @@ Problem: [EggCartons]
 I computed the equation 6*x + 8*y = n, which gave me the equation y = (n - 6*x) / 8, and as I am given x, and y are whole numbers, I just started from 0 substituting value for x until i find a y which is a whole number, I can check that by simplpy (n - 6*x) % 8 == 0. I belive, this would be a O(n) solution, as the total value will only run until n >= 6*x.
 I belive I can still improve my solution. but need to figure out how to do it.
 
+Problem: [ElevatorLimit]
+I need to find the maximum and minimum, person that could have been before stating the elvator, so wt I can do is, I can assume, x and y to be maximum and minimum, people before the start of eleator, and assume x = maximum limit allowed, and y = 0, now as i go throught the vector, I can add the people that got in the elvator, and subtract the people that got off the eleator, as it is given the number of people cannot excced the physical limit, adn cannot be less that 0, so incase I try to add more people to lift than allowed, I will lower the number o people I had in the start, by decreasing x, and incase I try to subtract people resulting in less than zero I will add in y, to make positive. This way in the end, i will be able to process the values for x and y, which would return me the answers.
+
