@@ -15,6 +15,6 @@ int main() {
     cout << c1.number({7, 5, 4, 3, 6}) << endl;
 
     QuickSums c3;
-    cout << c3.minSums("99999", 45) << endl;
+    cout << c3.minSums("9230560001", 71) << endl;
     return 0;
 }

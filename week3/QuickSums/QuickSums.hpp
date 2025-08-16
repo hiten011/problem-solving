@@ -8,6 +8,7 @@ public:
         int n = numbers.size() - 1;
         vector<bool> add(n, false); // [false: i,(i+1)] [true: i + (i + 1)] 
         int ans = rec(numbers, sum, add, 0);
+        
         return ans == INT_MAX ? -1 : ans;
     }
 
