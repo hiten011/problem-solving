@@ -14,3 +14,6 @@ I need to find the maximum and minimum, person that could have been before stati
 
 Problem: [ChristmasTree]
 Intially, I tried putting either r, g, b at each position, and check do recursion for each and every possiblity, this resulted in N* 3^(N*N) that was too large. Then I noticed, as each level their are only 6 possiblitly in total to arrange the level correctly, this reduced the complexity ot N*6^N, and this passed by test cases, as N = 10, after this I will try using memoisination to even further iprove my complexxity. I tried memoisation and was able to reduce the complexity to O(red * green * blue * N) using 4D dp.
+
+Problem: [Derivative sequence]
+I am just running the simulation as told in the question n time this gives me complexity of O(N*a.size()).
