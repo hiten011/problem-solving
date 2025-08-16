@@ -3,6 +3,12 @@
 #include "week2/EggCartons/EggCartons.hpp"
 #include "week2/ElevatorLimit/ElevatorLimit.hpp"
 #include "week2/ChristmasTree/ChristmasTree.hpp"
+#include "week2/DerivativeSequence/DerivativeSequence.hpp"
+
+void print(vector<int> vec) {
+    for (int i : vec) cout << i << " ";
+    cout << endl;
+}
 
 int main()
 {
@@ -30,5 +36,8 @@ int main()
 
     ChristmasTree c4;
     cout << c4.decorationWays(8, 1, 15, 20) << endl;
+
+    DerivativeSequence c5;
+    print(c5.derSeq({5, 6, 3, 9, -1}, 4));
     return 0;
 }

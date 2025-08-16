@@ -6,6 +6,8 @@
     "flat_map": "cpp",
     "flat_set": "cpp",
     "string_view": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "random": "cpp",
+    "ostream": "cpp"
   }
 }
