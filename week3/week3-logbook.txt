@@ -1,0 +1,5 @@
+Week 3 Logbook
+
+Problem: [FewesrFactor]
+For this question I divided it into two parts, one was finding all teh permutations from the given digigts, and for all the permutaions finding the factors, and recording the number with the lowest factors. to find  all teh permuatioatins, I used recursion, that resulted in n! complexity and for the factors, I ran a loop till n to find the number of factors, the total complexity was O(n!*n) which passed all teh test cases.
+

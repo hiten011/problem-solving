@@ -1,6 +1,7 @@
 // personal files
 #include "crazyRobot.hpp"
 #include "week3/FewestFactors/FewestFactors.hpp"
+#include "week3/QuickSums/QuickSums.hpp"
 
 int main() {
     CrazyRobot c2;
@@ -12,5 +13,8 @@ int main() {
 
     FewestFactors c1;
     cout << c1.number({7, 5, 4, 3, 6}) << endl;
+
+    QuickSums c3;
+    cout << c3.minSums("99999", 45) << endl;
     return 0;
 }
