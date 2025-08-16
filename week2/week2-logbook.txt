@@ -1,19 +1,60 @@
 Weekly Logbook
 
 Problem: [SquareOfDigits]
-intially I thought of performing dfs at each point, and check how big of square can that make, I will check right, bottom, and right-bottom square, how big of a squae can each point make, and take the minum and that would be the largest square I can make at that point. But this would result in O(N*M)^2 solution, however I can improve this by using DP and recording at each point hoe big of the square can it make, but this will result in extra space, but reduce the TC to O(N*M).
-So, I just noticed, I read the question wrong they are asking to find the lasrgest square with same corner cells, I should read the question carefully.
-A method to solve this would be from each positon I would start expaninding the square and checking their corders and record the largest length, and will repeat for each point, hencie will give me the largest square. this would result in TC of O(N*M)*(N + M), I will test this out and then move to thinking a more optimised solution.
+
+Design Thinking:
+Initially I thought of performing dfs at each point, and check how big of square can that make. I will check right, bottom, and right-bottom square, how big of a square can each point make, and take the minimum and that would be the largest square I can make at that point. But this would result in O(NM)² solution. However I can improve this by using DP and recording at each point how big of the square can it make, but this will result in extra space, but reduce the TC to O(NM).
+
+Troubleshooting:
+So, I just noticed, I read the question wrong — they are asking to find the largest square with same corner cells. I should read the question carefully.
+
+Reflection:
+A method to solve this would be from each position I would start expanding the square and checking their corners and record the largest length, and will repeat for each point, hence will give me the largest square. This would result in TC of O(NM)(N + M). I will test this out and then move to thinking a more optimised solution.
 
 Problem: [EggCartons]
-I computed the equation 6*x + 8*y = n, which gave me the equation y = (n - 6*x) / 8, and as I am given x, and y are whole numbers, I just started from 0 substituting value for x until i find a y which is a whole number, I can check that by simplpy (n - 6*x) % 8 == 0. I belive, this would be a O(n) solution, as the total value will only run until n >= 6*x.
-I belive I can still improve my solution. but need to figure out how to do it.
+
+Design Thinking:
+I computed the equation 6x + 8y = n, which gave me the equation y = (n - 6x) / 8. And as I am given x and y are whole numbers, I just started from 0 substituting value for x until I find a y which is a whole number. I can check that by simply (n - 6x) % 8 == 0.
+
+Troubleshooting:
+I believe this would be a O(n) solution, as the total value will only run until n >= 6*x.
+
+Reflection:
+I believe I can still improve my solution but need to figure out how to do it.
 
 Problem: [ElevatorLimit]
-I need to find the maximum and minimum, person that could have been before stating the elvator, so wt I can do is, I can assume, x and y to be maximum and minimum, people before the start of eleator, and assume x = maximum limit allowed, and y = 0, now as i go throught the vector, I can add the people that got in the elvator, and subtract the people that got off the eleator, as it is given the number of people cannot excced the physical limit, adn cannot be less that 0, so incase I try to add more people to lift than allowed, I will lower the number o people I had in the start, by decreasing x, and incase I try to subtract people resulting in less than zero I will add in y, to make positive. This way in the end, i will be able to process the values for x and y, which would return me the answers.
+
+Design Thinking:
+I need to find the maximum and minimum person that could have been before starting the elevator. So what I can do is, I can assume x and y to be maximum and minimum people before the start of elevator, and assume x = maximum limit allowed, and y = 0.
+
+Troubleshooting:
+Now as I go through the vector, I can add the people that got in the elevator, and subtract the people that got off the elevator. As it is given the number of people cannot exceed the physical limit, and cannot be less than 0, so in case I try to add more people to lift than allowed, I will lower the number of people I had in the start, by decreasing x. And in case I try to subtract people resulting in less than zero, I will add in y to make positive.
+
+Reflection:
+This way in the end, I will be able to process the values for x and y, which would return me the answers.
 
 Problem: [ChristmasTree]
-Intially, I tried putting either r, g, b at each position, and check do recursion for each and every possiblity, this resulted in N* 3^(N*N) that was too large. Then I noticed, as each level their are only 6 possiblitly in total to arrange the level correctly, this reduced the complexity ot N*6^N, and this passed by test cases, as N = 10, after this I will try using memoisination to even further iprove my complexxity. I tried memoisation and was able to reduce the complexity to O(red * green * blue * N) using 4D dp.
+
+Design Thinking:
+Initially, I tried putting either r, g, b at each position, and check/do recursion for each and every possibility. This resulted in N * 3^(N*N), that was too large.
+
+Troubleshooting:
+Then I noticed, as each level there are only 6 possibilities in total to arrange the level correctly. This reduced the complexity to N*6^N, and this passed my test cases, as N = 10. After this I will try using memoisation to even further improve my complexity.
+
+Reflection:
+I tried memoisation and was able to reduce the complexity to O(red * green * blue * N) using 4D dp.
 
 Problem: [Derivative sequence]
-I am just running the simulation as told in the question n time this gives me complexity of O(N*a.size()).
+
+Design Thinking:
+I am just running the simulation as told in the question n time.
+
+Troubleshooting:
+This gives me complexity of O(N*a.size()).
+
+Reflection:
+Simulation is enough to solve the problem within given constraints.
+
+Overall Weekly Reflection
+
+This week I practiced problems involving DFS, DP, equations, constraints, and memoisation. A big takeaway was the importance of carefully reading the problem statement (SquareOfDigits misinterpretation). I also learned to use mathematical approaches to simplify brute force loops (EggCartons), and how to dynamically adjust maximum/minimum values within constraints (ElevatorLimit). Optimisation strategies like memoisation and limiting valid states proved very useful (ChristmasTree). Lastly, I saw that sometimes a direct simulation is sufficient (Derivative sequence). For next week, I want to spend more time identifying optimisation opportunities earlier and double-checking problem requirements before coding.
