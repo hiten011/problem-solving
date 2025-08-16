@@ -1,11 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class ChristmasTree
-{
+class ChristmasTree {
 public:
+    vector<vector<vector<vector<long long>>>> dp; // red, green, blue, level
     long long decorationWays(int N, int red, int green, int blue)
     {
+        dp = vector<vector<vector<vector<long long>>>>(red + 1, vector<vector<vector<long long>>>(green + 1, vector<vector<long long>>(blue + 1, vector<long long>(N + 1, -1))));
         return helper(1, N, red, green, blue);
     }
 
@@ -14,6 +15,8 @@ private:
         if (lvl > maxLvl) return 1;
         
         long long ans = 0;
+
+        if (dp[red][green][blue][lvl] != -1) return dp[red][green][blue][lvl];
 
         vector<int> vec(3, 0); // [red: 0, green: 1, blue: 2]
 
@@ -107,7 +110,7 @@ private:
             }
         }
 
-        return ans;
+        return dp[red][green][blue][lvl] = ans;
     }
 
     long long perm(vector<int> &freq) {
