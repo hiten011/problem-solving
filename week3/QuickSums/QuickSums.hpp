@@ -8,12 +8,14 @@ public:
         int n = numbers.size() - 1;
         vector<bool> add(n, false); // [false: i,(i+1)] [true: i + (i + 1)] 
         int ans = rec(numbers, sum, add, 0);
-        
+
         return ans == INT_MAX ? -1 : ans;
     }
 
     int rec(string &num, int sum, vector<bool> &add, int idx) {
         if (idx == add.size()) {
+            // cout << idx << endl;
+            // cout << idx << " " << evaluate(num, add) << endl;
             if (evaluate(num, add) == sum) return 0;
             return INT_MAX;
         }
@@ -36,18 +38,19 @@ public:
 
     int evaluate(string &num, vector<bool> &add) {
         string temp(1, num[0]);
+        
         int sum = 0;
         for (int i = 1; i < num.size(); i++)
         {
             if (add[i - 1]) {
-                sum += stoi(temp);
+                sum += stoll(temp);
                 temp = string(1, num[i]);
             }
             else {
                 temp += num[i];
             }
         }
-        sum += stoi(temp);
+        sum += stoll(temp);
         return sum;
     }
 };
