@@ -19,6 +19,6 @@ int main() {
     cout << c3.minSums("9230560001", 71) << endl;
 
     SimpleCompressor c4;
-    cout << c4.uncompress("C[6AB]C") << endl;
+    cout << c4.uncompress("C[2[3AB]]C") << endl;
     return 0;
 }
