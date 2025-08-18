@@ -3,3 +3,5 @@ Week 3 Logbook
 Problem: [FewesrFactor]
 For this question I divided it into two parts, one was finding all teh permutations from the given digigts, and for all the permutaions finding the factors, and recording the number with the lowest factors. to find  all teh permuatioatins, I used recursion, that resulted in n! complexity and for the factors, I ran a loop till n to find the number of factors, the total complexity was O(n!*n) which passed all teh test cases.
 
+Problem: [QuickSum]
+I did a brute force recursion, where I was running two options at each steps either I put a plus sign or not put a plus sign, and by dong so ,  in the end I evaluate my expression if it equals to the target, then I return 0, and callculate how many addition signs I needed. One problem I ran into was I was using stoi, to convert my string to int, however, as string contained 10 number it gave me out of bounds exceprion, so had to use stll. GOt to learn about stll for string to long long. The complexity for this resulted in 2^N.

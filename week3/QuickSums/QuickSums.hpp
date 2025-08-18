@@ -14,8 +14,6 @@ public:
 
     int rec(string &num, int sum, vector<bool> &add, int idx) {
         if (idx == add.size()) {
-            // cout << idx << endl;
-            // cout << idx << " " << evaluate(num, add) << endl;
             if (evaluate(num, add) == sum) return 0;
             return INT_MAX;
         }

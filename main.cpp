@@ -2,6 +2,7 @@
 #include "crazyRobot.hpp"
 #include "week3/FewestFactors/FewestFactors.hpp"
 #include "week3/QuickSums/QuickSums.hpp"
+#include "week3/SimpleCompressor/SimpleCompressor.hpp"
 
 int main() {
     CrazyRobot c2;
@@ -16,5 +17,8 @@ int main() {
 
     QuickSums c3;
     cout << c3.minSums("9230560001", 71) << endl;
+
+    SimpleCompressor c4;
+    cout << c4.uncompress("C[6AB]C") << endl;
     return 0;
 }
