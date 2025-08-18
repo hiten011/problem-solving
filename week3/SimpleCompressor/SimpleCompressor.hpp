@@ -5,49 +5,51 @@ class SimpleCompressor
 {
 public:
     string uncompress(string data) {
-        stack<char> st;
+        stack<char> st1;
         for (char c : data) {
-            st.push(c);
+            st1.push(c);
         }
 
-        string ans = "", compressed = "";
-        bool isCompress = false;
-        while (!st.empty()) {
-            char cur = st.top();
-            st.pop();
+        stack<char> st2;
+        while (!st1.empty()) {
+            char cur = st1.top();
+            st1.pop();
 
-            if (cur == ']') {
-                isCompress = true;
-            } else if (cur == '[') {
-                reverse(compressed.begin(), compressed.end());
-                string temp = decompress(compressed);
-                reverse(temp.begin(), temp.end());
-
-                ans += temp;
-
-                compressed = "";
-                isCompress = false;
-            } else if (isCompress) {
-                compressed += cur;
+            if (cur == '[') {
+                decompress(st2);
             } else {
-                ans += cur;
+                st2.push(cur);
             }
         }
 
-        reverse(ans.begin(), ans.end());
+        string ans = "";
+        while (!st2.empty()) {
+            ans += st2.top();
+            st2.pop();
+        }
+
         return ans;
     }
 
 private:
-    string decompress(string str) {
-        int num = stoi(string(1, str[0]));
-        string temp = str.substr(1);
+    void decompress(stack<char> &st) {
+        int num = (int) (st.top() - '0');
+        st.pop();
 
-        string result;
-        for (int i = 0; i < num; i++) {
-            result += temp;
+        string ans = "";
+        while (!st.empty() && st.top() != ']') {
+            ans += st.top();
+            st.pop();
+        }
+        st.pop(); // remove ']'
+
+        string res = "";
+        while (num--) {
+            res += ans;
         }
 
-        return result;
+        for (int i = res.size() - 1; i >= 0; i--) {
+            st.push(res[i]);
+        }
     }
 };
