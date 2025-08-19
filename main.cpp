@@ -3,6 +3,7 @@
 #include "week3/FewestFactors/FewestFactors.hpp"
 #include "week3/QuickSums/QuickSums.hpp"
 #include "week3/SimpleCompressor/SimpleCompressor.hpp"
+#include "week3/BlackAndRed/BlackAndRed.hpp"
 
 int main() {
     CrazyRobot c2;
@@ -20,5 +21,8 @@ int main() {
 
     SimpleCompressor c4;
     cout << c4.uncompress("C[6AB]C") << endl;
+
+    BlackAndRed c5;
+    cout << c5.cut("RBRBBRRRRBBBRBBRRBRBBRRRBRBBBRBRBRBRBRRB") << endl;
     return 0;
 }

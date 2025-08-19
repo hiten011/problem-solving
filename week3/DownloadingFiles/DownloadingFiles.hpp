@@ -4,23 +4,19 @@ using namespace std;
 class DownloadingFiles {
 public:
     double actualTime(vector<string> tasks) {
-        vector<pair<int, int>> vec;
+        vector<pair<int, int>> vec; // [time, speed]
+        int idx = 0;
         for (string str : tasks) {
-            
+            vec[idx++] = split(str);
         }
-
-        return 0.0;
     }
 private:
-    vector<string> split(const string &str, char delimiter) {
-        vector<string> tokens;
-        string token;
-        stringstream ss(str);
-
-        while (getline(ss, token, delimiter))
-        {
-            tokens.push_back(token);
+    pair<int, int> split(const string &str) {
+        int i;
+        while (i < str.size()) {
+            if (str[i++] == ' ') break;
         }
-        return tokens;
+
+        return {stoi(str.substr(i + 1)), stoi(str.substr(0, i))};
     }
 };
