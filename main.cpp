@@ -5,7 +5,8 @@
 #include "week3/SimpleCompressor/SimpleCompressor.hpp"
 #include "week3/BlackAndRed/BlackAndRed.hpp"
 
-int main() {
+int main()
+{
     CrazyRobot c2;
     printf("%0.20f\n", c2.getProb(1, 0.25, 0.25, 0.25, 0.25));
     // printf("%0.20f\n", c2.getProb(2, 0.25, 0.25, 0.25, 0.25));
@@ -23,6 +24,6 @@ int main() {
     cout << c4.uncompress("C[6AB]C") << endl;
 
     BlackAndRed c5;
-    cout << c5.cut("RBRBBRRRRBBBRBBRRBRBBRRRBRBBBRBRBRBRBRRB") << endl;
+    cout << c5.cut("RBRBBRRRRBBBRBBRRBRBBRRRBRBBBRBRBRBRBRRBRRRR") << endl;
     return 0;
 }

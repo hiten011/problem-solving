@@ -9,4 +9,5 @@ I did a brute force recursion, where I was running two options at each steps eit
 Problem: [StringCompressor]
 starting th eloop from the end of the string. I started adding that to a stack, if I encounter, a '[' I starting poping from my stack until I encounter a ']' and then decompress the string and put it mback in the stack coninnue this untill I reach the 0 index. the stack will result in uncompressed versoin of the string.
 
-Proble: []
+Problem: [Black and Red]
+The intial approach i came up with was, I was cutting the deck at each deck, and checking if ic an win by cutting the deck at that point. Time complexity for this approach was O(N^2). However, I noticed, if get the point at which the red increased the balck, i can always cut the deck at that point, and reset the my red and black to 0, and starting counting again from that point, and i repeat this until i reach n, the last index where the red > black colors will be my answer, as this is the point wher ei can cut the deck and win the game. The timeComplexity for this solution would be O(N).
