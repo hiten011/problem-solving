@@ -12,7 +12,5 @@ public:
         }
 
         return n < 6*x ? -1 : x + ((n - 6 * x) / 8);
-
-        return 0;
     }
 };
