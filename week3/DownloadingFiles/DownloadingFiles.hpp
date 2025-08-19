@@ -6,10 +6,21 @@ public:
     double actualTime(vector<string> tasks) {
         vector<pair<int, int>> vec;
         for (string str : tasks) {
-            continue;
+            
         }
 
         return 0.0;
     }
 private:
+    vector<string> split(const string &str, char delimiter) {
+        vector<string> tokens;
+        string token;
+        stringstream ss(str);
+
+        while (getline(ss, token, delimiter))
+        {
+            tokens.push_back(token);
+        }
+        return tokens;
+    }
 };
