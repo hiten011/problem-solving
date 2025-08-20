@@ -1,22 +1,25 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <string>
+
 using namespace std;
-
-class DownloadingFiles {
+class DownloadingFiles
+{
 public:
-    double actualTime(vector<string> tasks) {
-        vector<pair<int, int>> vec; // [time, speed]
-        int idx = 0;
-        for (string str : tasks) {
-            vec[idx++] = split(str);
+    double actualTime(vector<string> tasks)
+    {
+        double totalTime = 0.0;
+        vector<double> downloadSpeed(tasks.size(), 0.0);
+        vector<double> downloadTimes(tasks.size(), 0.0);
+        int bandwidth = 0;
+        for (int i = 0; i < tasks.size(); ++i)
+        {
+            size_t pos = tasks[i].find(' ');
+            downloadSpeed[i] = stod(tasks[i].substr(0, pos));
+            downloadTimes[i] = stod(tasks[i].substr(pos + 1));
+            bandwidth += downloadSpeed[i];
+            totalTime += downloadTimes[i];
         }
-    }
-private:
-    pair<int, int> split(const string &str) {
-        int i;
-        while (i < str.size()) {
-            if (str[i++] == ' ') break;
-        }
-
-        return {stoi(str.substr(i + 1)), stoi(str.substr(0, i))};
+        return totalTime / bandwidth;
     }
 };
