@@ -4,6 +4,7 @@
 #include "week3/QuickSums/QuickSums.hpp"
 #include "week3/SimpleCompressor/SimpleCompressor.hpp"
 #include "week3/BlackAndRed/BlackAndRed.hpp"
+#include "week3/DownloadingFiles/DownloadingFiles.hpp"
 
 int main()
 {
@@ -25,5 +26,8 @@ int main()
 
     BlackAndRed c5;
     cout << c5.cut("RBRBBRRRRBBBRBBRRBRBBRRRBRBBBRBRBRBRBRRBRRRR") << endl;
+
+    DownloadingFiles c6;
+    cout << c6.actualTime({"3 57", "2 22"}) << endl;
     return 0;
 }

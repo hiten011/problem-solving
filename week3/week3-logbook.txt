@@ -1,13 +1,53 @@
 Week 3 Logbook
 
-Problem: [FewesrFactor]
-For this question I divided it into two parts, one was finding all teh permutations from the given digigts, and for all the permutaions finding the factors, and recording the number with the lowest factors. to find  all teh permuatioatins, I used recursion, that resulted in n! complexity and for the factors, I ran a loop till n to find the number of factors, the total complexity was O(n!*n) which passed all teh test cases.
+Problem: [FewestFactor]
+
+Design Thinking:
+For this question, I divided it into two parts: one was finding all the permutations from the given digits, and for all the permutations, finding the factors and recording the number with the lowest factors. To find all the permutations, I used recursion, which resulted in n! complexity.
+
+Troubleshooting:
+For the factors, I ran a loop till n to find the number of factors. The total complexity was O(n! * n), but it still passed all the test cases.
+
+Reflection:
+Although the approach was expensive in terms of time complexity, it was sufficient for the given constraints. In future, I could consider more efficient ways to count factors or prune permutations earlier.
+
 
 Problem: [QuickSum]
-I did a brute force recursion, where I was running two options at each steps either I put a plus sign or not put a plus sign, and by dong so ,  in the end I evaluate my expression if it equals to the target, then I return 0, and callculate how many addition signs I needed. One problem I ran into was I was using stoi, to convert my string to int, however, as string contained 10 number it gave me out of bounds exceprion, so had to use stll. GOt to learn about stll for string to long long. The complexity for this resulted in 2^N.
+
+Design Thinking:
+I did a brute force recursion where, at each step, I had two options: either place a plus sign or not. By doing so, at the end I evaluated the expression. If it equaled the target, then I returned 0 and calculated how many addition signs I needed.
+
+Troubleshooting:
+One problem I ran into was that I was using stoi to convert my string to an int. However, as the string contained 10 numbers, it gave me an out-of-bounds exception. I had to use stoll instead. I learned about stoll for string-to-long-long conversion.
+
+Reflection:
+The complexity of this approach was O(2^N). Even though it’s exponential, it was valuable practice in brute-force recursion, and I also learned an important detail about integer conversion limits in C++.
+
 
 Problem: [StringCompressor]
-starting th eloop from the end of the string. I started adding that to a stack, if I encounter, a '[' I starting poping from my stack until I encounter a ']' and then decompress the string and put it mback in the stack coninnue this untill I reach the 0 index. the stack will result in uncompressed versoin of the string.
+
+Design Thinking:
+Starting the loop from the end of the string, I began adding characters to a stack. If I encountered a ']', I started popping from the stack until I encountered a '['. Then I decompressed the string and pushed it back into the stack. I continued this until I reached index 0.
+
+Troubleshooting:
+The stack correctly resulted in the uncompressed version of the string.
+
+Reflection:
+This problem reinforced how stacks can be effectively used to handle nested structures and decompression problems.
+
 
 Problem: [Black and Red]
-The intial approach i came up with was, I was cutting the deck at each deck, and checking if ic an win by cutting the deck at that point. Time complexity for this approach was O(N^2). However, I noticed, if get the point at which the red increased the balck, i can always cut the deck at that point, and reset the my red and black to 0, and starting counting again from that point, and i repeat this until i reach n, the last index where the red > black colors will be my answer, as this is the point wher ei can cut the deck and win the game. The timeComplexity for this solution would be O(N).
+
+Design Thinking:
+The initial approach I came up with was to cut the deck at each position and check if I could win by cutting at that point. The time complexity for this approach was O(N²).
+
+Troubleshooting:
+However, I noticed that if I tracked the point at which red cards outnumbered black cards, I could always cut the deck at that point, reset my red and black counts to 0, and start counting again. Repeating this until reaching n, the last index where red > black would be my answer.
+
+Reflection:
+This reduced the time complexity to O(N). I learned how careful observation of a problem can reveal a greedy strategy that eliminates the need for brute-force checking.
+
+
+Overall Weekly Reflection
+
+This week I practiced problems involving recursion, brute force, stacks, and greedy strategies. A key learning moment was in QuickSum, where I learned the importance of handling large integers with stoll instead of stoi. I also gained confidence in using stacks for parsing (StringCompressor) and realised that brute force is not always necessary when a greedy observation can simplify the problem (Black and Red). While some of my approaches, like in FewestFactor, were not optimal in complexity, they worked within the constraints and helped me build a better understanding of problem-solving strategies. Going forward, I will focus on identifying optimisation opportunities earlier and balancing correctness with efficiency.

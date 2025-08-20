@@ -13,15 +13,16 @@ public:
             totalSpeed += cur.first;
         }
 
-        return totalTime / totalSpeed;
+        cout << totalTime << " " << totalSpeed << endl;
+        return (double) totalTime / totalSpeed;
     }
 private:
     pair<int, int> split(const string &str) {
-        int i;
+        int i = 0;
         while (i < str.size()) {
-            if (str[i++] == ' ') break;
+            if (str[++i] == ' ') break;
         }
 
-        return {stoi(str.substr(i + 1)), stoi(str.substr(0, i))};
+        return {stoi(str.substr(0, i)), stoi(str.substr(i + 1))};
     }
 };
