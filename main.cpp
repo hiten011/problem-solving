@@ -7,6 +7,6 @@ int main() {
     cout << c1.minimumPrice({8, 5, 10}, {1, 1, 2}) << endl;
 
     UnsealTheSafe c2;
-    cout << c2.countPasswords(3) << endl;
+    cout << c2.countPasswords(25) << endl;
     return 0;
 }
