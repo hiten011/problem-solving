@@ -1,0 +1,10 @@
+Problem: [MonsterValley2]
+
+Design Thinking:
+At each position, I considered two options: either bribe the monster or not. This naturally led me to design a recursive function to explore all possible choices.
+
+Troubleshooting:
+While implementing this, I realized that at each step I only needed to keep track of the minimum number of coins required to reach the end, which simplified the state management in the recursion.
+
+Reflection:
+The total time complexity of this solution is O(2^N). I learned how recursion can help model choice-based problems, but also how its exponential complexity makes it inefficient for larger inputs.
