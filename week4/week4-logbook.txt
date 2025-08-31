@@ -9,6 +9,7 @@ While implementing this, I realized that at each step I only needed to keep trac
 Reflection:
 The total time complexity of this solution is O(2^N). I learned how recursion can help model choice-based problems, but also how its exponential complexity makes it inefficient for larger inputs.
 
+
 Problem: [UnsealTheSafe]
 
 Design Thinking:
@@ -20,6 +21,7 @@ To optimize, I applied memoization, which reduced the complexity to O(N × 10 ×
 Reflection:
 The final DP solution achieved O(N × 10 × 10) time complexity with efficient space usage. Through this problem, I learned how recursive solutions can often be transformed into DP by identifying overlapping subproblems and transition states.
 
+
 Problem: [PaternityTest]
 
 Design Thinking:
@@ -30,3 +32,30 @@ The main challenge was ensuring that unmatched positions between the mother and 
 
 Reflection:
 This problem reinforced how greedy checking combined with careful case handling can solve string-matching problems efficiently. By structuring the logic step by step, I was able to avoid unnecessary computations and ensure correctness.
+
+
+Problem: [FriendlySequences]
+
+Design Thinking:
+The problem requires counting subarrays where numbers have the same set of digits. To represent this efficiently, I converted each number into a frequency vector (boolean array of size 10) marking which digits appear. As I iterated through the array, I compared each number’s digit-set with the previous one. If they matched, I extended the current sequence; otherwise, I ended the sequence and added the count of possible subsequences from the accumulated segment.
+
+Troubleshooting:
+Initially, I used a simple counter but realized I was not properly accumulating subsequences from each block. To fix this, I applied the combinatorial formula total * (total - 1) / 2 to count all pairs within a segment. Another challenge was handling the transition between segments: when moving to a new digit-set, I reset the counter and updated the result.
+
+Reflection:
+This problem reinforced the usefulness of representing properties with compact data structures (like a boolean digit presence vector). By carefully handling segment boundaries and using a combinatorial formula, I was able to reduce the problem to O(N × D) complexity (where N is array length and D = 10). This ensured efficiency even for large input sizes.
+
+
+Weekly Reflection
+
+This week, I worked on four problems: MonsterValley2, UnsealTheSafe, PaternityTest, and FriendlySequences. Each of these problems required different approaches, and collectively, they gave me a deeper understanding of recursion, dynamic programming, greedy methods, and combinatorial counting.
+
+From MonsterValley2, I learned how recursion naturally models decision-making problems, but I also realized the limitation of exponential complexity. This pushed me to think more critically about optimization and efficiency.
+
+UnsealTheSafe highlighted the transition from recursion to dynamic programming. At first, my recursive solution led to inefficiency, but by applying memoization and later a bottom-up DP, I was able to significantly reduce time complexity. This problem solidified my understanding of how overlapping subproblems can be leveraged in DP.
+
+In PaternityTest, I practiced applying a greedy strategy to a string-matching problem. I saw the importance of carefully handling edge cases, especially when overlaps between the mother and father’s DNA could cause incorrect results. This problem showed me how greedy solutions, when structured properly, can provide both efficiency and correctness.
+
+Finally, FriendlySequences taught me how compact representations (like a boolean digit presence vector) can simplify the problem-solving process. By breaking sequences into segments and applying combinatorial formulas, I learned how to count efficiently without iterating over all subarrays.
+
+Overall, this week helped me strengthen my problem-solving toolkit. I gained experience in recognizing when recursion is appropriate versus when DP is necessary, how to apply greedy methods with careful checks, and how to use mathematical formulas to optimize counting. These skills will be valuable as I continue practicing and tackling more complex problems.
