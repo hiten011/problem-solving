@@ -8,3 +8,15 @@ While implementing this, I realized that at each step I only needed to keep trac
 
 Reflection:
 The total time complexity of this solution is O(2^N). I learned how recursion can help model choice-based problems, but also how its exponential complexity makes it inefficient for larger inputs.
+
+Problem: [UnsealTheSafe]
+
+Design Thinking:
+Initially, I wrote a recursive function to calculate the total number of possible combinations. However, this resulted in a Time Limit Exceeded (TLE) because the time complexity was O(N × 10^N).
+
+Troubleshooting:
+To optimize, I applied memoization, which reduced the complexity to O(N × 10 × 10). While this worked, I realized the problem could be solved more efficiently using dynamic programming. By building the solution bottom-up, I successfully implemented a DP approach that kept track of valid moves for each digit and state.
+
+Reflection:
+The final DP solution achieved O(N × 10 × 10) time complexity with efficient space usage. Through this problem, I learned how recursive solutions can often be transformed into DP by identifying overlapping subproblems and transition states.
+
