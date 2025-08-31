@@ -1,5 +1,5 @@
 // personal files
-#include "week4/MonstersValley2.hpp"
+#include "week4/MonstersValley2/MonstersValley2.hpp"
 
 int main() {
     MonstersValley2 c1;

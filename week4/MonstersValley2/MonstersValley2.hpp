@@ -3,7 +3,7 @@ using namespace std;
 
 class MonstersValley2 {
     public:
-        int minimumPrice(vector<int> dread, vector<int> price, int idx = 0, int party = 0, int cost = 0) {
+        int minimumPrice(vector<int> dread, vector<int> price, int idx = 0, long long party = 0, int cost = 0) {
             if (idx == dread.size()) return cost;
             
             // bribe
