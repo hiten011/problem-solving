@@ -20,3 +20,13 @@ To optimize, I applied memoization, which reduced the complexity to O(N × 10 ×
 Reflection:
 The final DP solution achieved O(N × 10 × 10) time complexity with efficient space usage. Through this problem, I learned how recursive solutions can often be transformed into DP by identifying overlapping subproblems and transition states.
 
+Problem: [PaternityTest]
+
+Design Thinking:
+I approached this problem using a greedy strategy. First, I matched all positions in the child’s DNA with the mother’s DNA. Any positions that did not match the mother must match the father, otherwise the candidate father is invalid. After that, I only needed to check positions where the child’s DNA matched both the mother and the candidate father. These positions can be considered as possibly belonging to the father. If the count of such positions is at least half of the child’s DNA length (n / 2), then the man can be considered a possible father.
+
+Troubleshooting:
+The main challenge was ensuring that unmatched positions between the mother and child were strictly enforced to match with the candidate father. Initially, I overlooked cases where overlaps between mother and father DNA could confuse the count, but after adjusting the logic to decrement the overlap count properly, the solution worked as expected.
+
+Reflection:
+This problem reinforced how greedy checking combined with careful case handling can solve string-matching problems efficiently. By structuring the logic step by step, I was able to avoid unnecessary computations and ensure correctness.
