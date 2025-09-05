@@ -8,3 +8,15 @@ Initially, I missed multiplying frequencies by the press depth, which gave wrong
 
 Reflection:
 Sorting and greedy allocation reduced the problem to O(M log M). I learned how careful ordering of tasks (highest frequency first) can greatly simplify weighted cost problems. TC: O(mlogm+m⋅n)
+
+
+Problem: [HouseBuilding]
+
+Design Thinking:
+The task is to minimize the total cost of leveling buildings represented by digits. I stored the frequency of each digit (0–9) and then used a two-pointer approach. Starting from both ends, I repeatedly shifted the smaller frequency towards the middle, adding the cost along the way. This way, all values eventually converge to the same height.
+
+Troubleshooting:
+At first, I considered brute force by testing every possible target height and summing costs, but this would have been inefficient. The frequency compression with two pointers gave a more direct and efficient way to simulate the leveling process.
+
+Reflection:
+This solution runs in O(N × M) for processing the grid and then O(10) for balancing heights. I learned that when a problem involves “leveling” or “equalizing,” working with frequencies and merging from extremes can simplify the approach compared to brute force.
