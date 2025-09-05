@@ -33,3 +33,42 @@ Initially, I only split numbers into two parts, which failed on test cases where
 Reflection:
 This problem was tricky because of the exponential number of digit splits. However, combining recursion for split generation with DP for sequence length gave me an efficient-enough solution. I learned the importance of carefully reading problem constraints — overlooking the possibility of multiple splits initially caused me to miss valid cases.
 TC: O(N * D * 2 ^ D):- [D = log(N): number of digits in N]
+
+
+Problem: [RGBStreet]
+
+Design Thinking:
+The task is to minimize the cost of painting houses, with the constraint that no two adjacent houses have the same color. I used bottom-up dynamic programming where dp[i][c] stores the minimum cost to paint houses from i onwards, starting with color c. The transition is dp[i][c] = cost(c) + min(dp[i+1][other colors]).
+
+Troubleshooting:
+At first, parsing the input costs from strings was a bit tricky since each house's costs came in one line. I solved this with a helper function getCost() that splits the string into integers. Once parsing was fixed, the DP logic worked smoothly.
+
+Reflection:
+This problem reinforced the idea of breaking down a DP state into "choice + constraint". Handling the parsing separately also kept the DP logic clean. The final solution runs in O(n) with constant space per house, which is efficient.
+
+
+
+Weekly Review
+
+Problems Solved:
+TomekPhone (Greedy allocation)
+HouseBuilding (Frequency compression + two pointers)
+NumberSplit (DP + recursion over digit splits)
+RGBStreet (DP with state transitions)
+
+Main Themes:
+This week I tackled a mix of greedy, dynamic programming, and frequency-based problems. A common theme was balancing efficiency with correctness — whether through sorting, compressing states, or enumerating splits.
+
+Key Learnings:
+Greedy works when tasks have clear priority: In TomekPhone, assigning highest-frequency letters first minimized cost.
+Frequency compression simplifies equalization: In HouseBuilding, simulating merges from extremes avoided brute force.
+Don’t overlook problem constraints: NumberSplit taught me that considering only two splits wasn’t enough; fully enumerating splits was required.
+DP is about “choice + constraint”: RGBStreet reinforced that states and transitions must carefully encode constraints (like adjacent colors).
+
+Reflection:
+I noticed a pattern where my first attempt was too narrow (e.g., missing multiplications in TomekPhone, missing multi-splits in NumberSplit). Slowing down to think about all constraints upfront could save time. On the other hand, once the direction was right, implementing clean helper functions (like parsing costs in RGBStreet) made the solutions much easier to debug and reason about.
+
+Next Focus:
+Practice problems that combine greedy + DP, since both themes came up this week.
+Work on identifying edge cases earlier (e.g., multiple splits, not enough keys).
+Try to reduce recursion-heavy approaches (like NumberSplit) by thinking of iterative or memoized optimizations.
