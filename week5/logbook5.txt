@@ -1,0 +1,10 @@
+Problem: [TomekPhone]
+
+Design Thinking:
+I needed to minimize keystrokes when assigning letters to keys. If the total number of slots was less than the number of letters, I returned -1. Otherwise, I sorted frequencies in descending order and assigned the most frequent letters first, cycling through keys while tracking how many presses each key already had.
+
+Troubleshooting:
+Initially, I missed multiplying frequencies by the press depth, which gave wrong results. Adding a counter (numKeys[idx]) fixed this by correctly accounting for how many times a key had been pressed.
+
+Reflection:
+Sorting and greedy allocation reduced the problem to O(M log M). I learned how careful ordering of tasks (highest frequency first) can greatly simplify weighted cost problems. TC: O(mlogm+m⋅n)
