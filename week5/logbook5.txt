@@ -19,4 +19,17 @@ Troubleshooting:
 At first, I considered brute force by testing every possible target height and summing costs, but this would have been inefficient. The frequency compression with two pointers gave a more direct and efficient way to simulate the leveling process.
 
 Reflection:
-This solution runs in O(N × M) for processing the grid and then O(10) for balancing heights. I learned that when a problem involves “leveling” or “equalizing,” working with frequencies and merging from extremes can simplify the approach compared to brute force.
+This solution runs in O(N) for processing the grid and then O(10) for balancing heights. I learned that when a problem involves “leveling” or “equalizing,” working with frequencies and merging from extremes can simplify the approach compared to brute force. TC:O(N)
+
+
+Problem: [NumberSplit]
+
+Design Thinking:
+The goal was to find the longest sequence starting from a given number, where each step splits the number into factors. I used dynamic programming (dp[i]) to store the longest sequence length for each number up to start. For each number, I needed to generate all possible products of splits of its digits and then transition to those states.
+
+Troubleshooting:
+Initially, I only split numbers into two parts, which failed on test cases where numbers could be split into more than two parts. This made me realize that I needed to consider all possible splits of a number, not just two. To handle this, I used recursion with bitmasking (2^D possibilities, where D = number of digits) to enumerate every valid split and calculate products. Once I fixed this, I updated dp[i] by checking transitions from all products.
+
+Reflection:
+This problem was tricky because of the exponential number of digit splits. However, combining recursion for split generation with DP for sequence length gave me an efficient-enough solution. I learned the importance of carefully reading problem constraints — overlooking the possibility of multiple splits initially caused me to miss valid cases.
+TC: O(N * D * 2 ^ D):- [D = log(N): number of digits in N]
