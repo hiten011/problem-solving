@@ -7,10 +7,10 @@ class JumpyNum {
             if (low == 0) low = 1;
             string l = to_string(low - 1), h = to_string(high);
             int ans = helper(h, 0, true, 11);
-            // cout << ans << endl;
+            cout << ans << endl;
 
             int lAns = (l.size() == 1 ? getInt(l[0]) + 1 : helper(l, 0, true, 11));
-            // cout << lAns << endl;
+            cout << lAns << endl;
 
             return ans - lAns;
         }
