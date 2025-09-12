@@ -1,6 +1,5 @@
 // personal files
-#include "week6/JumpyNum/JumpyNum.h"
-#include "TimeTravellingCellar.hpp"
+#include "week6/JumpyNum/JumpyNum.hpp"
 
 int main() {
     JumpyNum c1;
