@@ -5,28 +5,24 @@ class NiceOrUgly {
     public:
         string describe(string s) {
             int n = s.size();
-            bool isU = isUgly(s, n, true);
+            bool isC = isUglyC(s, n);
+            bool isV = isUglyV(s, n);
 
-            if (!isU) return "NICE";
-
-            bool isN = !isUgly(s, n, false);
-            if (isN) {
-                return "42";
-            }
-
-            return "UGLY";
+            if (isC && isV) return "UGLY";
+            if (!isC && !isV) return "NICE";
+            return "42";
         }
 
     private:
 
-        bool isUgly(string &s, int n, bool withQ) {
+        bool isUglyC(string s, int n) {
             // check for Ugly
-
-            // conso
             int st = 0, en = 0;
             int count = 0;
             while (en < 5 && en < n) {
-                if (s[en] == '?' && withQ || s[en] != '?' && !isVowel(s[en])) count++;
+                if (s[en] == '?') s[en] = 'C';
+
+                if (!isVowel(s[en])) count++;
                 else count = 0;
 
                 en++;
@@ -35,19 +31,26 @@ class NiceOrUgly {
             while (en < n) {
                 if (count == 5) return true;
 
-                if (s[en] == '?' && withQ || s[en] != '?' && !isVowel(s[en])) count++;
+                if (s[en] == '?') s[en] = 'C';
+
+                if (!isVowel(s[en])) count++;
                 else count = 0;
 
                 en++;
             }
 
             if (count == 5) return true;
+            return false;
+        }
 
-            // vowoles
-            st = 0; en = 0;
-            count = 0;
+        bool isUglyV(string s, int n) {
+            // check for Ugly
+            int st = 0, en = 0;
+            int count = 0;
             while (en < 3 && en < n) {
-                if (s[en] == '?' && withQ || s[en] != '?' && isVowel(s[en])) count++;
+                if (s[en] == '?') s[en] = 'A';
+
+                if (isVowel(s[en])) count++;
                 else count = 0;
 
                 en++;
@@ -56,14 +59,15 @@ class NiceOrUgly {
             while (en < n) {
                 if (count == 3) return true;
 
-                if (s[en] == '?' && withQ || s[en] != '?' && isVowel(s[en])) count++;
+                if (s[en] == '?') s[en] = 'A';
+
+                if (isVowel(s[en])) count++;
                 else count = 0;
 
                 en++;
             }
 
             if (count == 3) return true;
-
             return false;
         }
 
