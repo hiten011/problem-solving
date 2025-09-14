@@ -7,6 +7,6 @@ int main() {
     cout << c1.howMany(8000, 20934) << endl;
 
     NiceOrUgly c2;
-    cout << c2.describe("EI?RQQ?A?WWQ?I?QRQ?A?QRQ?I?WQR?A?RWR?E?WQR?E?QRR") << endl;
+    cout << c2.describe("H??LOWOR??") << endl;
     return 0;
 }
