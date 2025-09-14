@@ -18,7 +18,7 @@ public:
         for (int i = 0; i < 3; i++) {
             for (int j = i + 1; j < 3; j++) {
                 ans += 2 * (newDim[i] * newDim[j]);
-                minVal = min(minVal, ans);
+                minVal = min(minVal, 2 * (newDim[i] * newDim[j]));
             }
         }
 
