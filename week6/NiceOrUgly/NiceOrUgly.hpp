@@ -33,6 +33,7 @@ class NiceOrUgly {
                     }
 
                     dp[i][0] = isCurUgly;
+                    cout << dp[i][0] << endl;
                 }
 
                 if (c >= 5) {
@@ -50,11 +51,13 @@ class NiceOrUgly {
                     dp[i][1] = isCurUgly;
                 }
 
-                if (v >= 3 || c >= 5) {
+                if (s[i] == '?' && (v >= 3 || c >= 5)) {
                     isNice = isNice && (!dp[i][0] || !dp[i][1]);
+                } else if (v >= 3) {
+                    isNice = isNice && !dp[i][v];
+                } else if (c >= 5) {
+                    isNice = isNice && !dp[i][1];
                 }
-
-                
             }
             
             if (s.find("?") == string::npos) {
