@@ -17,10 +17,12 @@ class ForestGarbage {
                         continue;
                     }
 
-                    if (forest[i][j] == 'F' || forest[i][j] == 'g') {
+                    if (forest[i][j] == 'F') {
                         finalLoc = {i, j};
                         continue;
                     }
+
+                    if (forest[i][j] == 'g') continue;
 
                     for (vector<int> d : dir) {
                         int newi = i + d[0], newj = j + d[1];
