@@ -33,7 +33,6 @@ class NiceOrUgly {
                     }
 
                     dp[i][0] = isCurUgly;
-                    cout << dp[i][0] << endl;
                 }
 
                 if (c >= 5) {
@@ -54,7 +53,7 @@ class NiceOrUgly {
                 if (s[i] == '?' && (v >= 3 || c >= 5)) {
                     isNice = isNice && (!dp[i][0] || !dp[i][1]);
                 } else if (v >= 3) {
-                    isNice = isNice && !dp[i][v];
+                    isNice = isNice && !dp[i][0];
                 } else if (c >= 5) {
                     isNice = isNice && !dp[i][1];
                 }
