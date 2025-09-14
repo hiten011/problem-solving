@@ -23,3 +23,91 @@ DP state size: O(D * 11) where D = number of digits.
 Each state checks transitions to up to 10 digits.
 Overall complexity: O(D * 10 * 10) ≈ O(D * 100) per number.
 For range queries, we compute count(high) - count(low - 1), so still efficient
+
+
+
+Problem: [NiceOrUgly]
+
+Design Thinking:
+The problem was to classify a given string (containing uppercase letters and '?' placeholders) as NICE, UGLY, or 42 (if it could be both). A string is ugly if it has 3 consecutive vowels or 5 consecutive consonants. The '?' adds complexity since it can be either a vowel or a consonant.
+
+At first, my idea was straightforward:
+
+Replace all '?' with consonants and check ugliness.
+
+Replace all '?' with vowels and check again.
+
+But I quickly realized this approach fails because '?' doesn’t have a fixed role — in one part of the string it might need to be vowel, while in another it might need to be consonant. A brute-force replacement strategy would miss combinations.
+
+That’s why I shifted to dynamic programming (DP):
+
+Use DP states to track whether, from position i, the string can still remain NICE if '?' is treated as vowel or consonant.
+
+Keep track of consecutive vowels (v) and consonants (c) as I scan backwards.
+
+dp[i][0]: can the suffix starting at i be valid if '?' is vowel?
+
+dp[i][1]: can the suffix starting at i be valid if '?' is consonant?
+
+This way, I could correctly propagate “ugly” vs “nice” outcomes through the string while considering both interpretations of '?'.
+
+Troubleshooting:
+
+Initial approach (brute replacements): Failed since I only considered all-vowel and all-consonant replacements, ignoring mixed cases.
+
+First DP attempt: I didn’t even maintain a DP vector; instead I just tracked the last state (isUgly and isNice). That didn’t work because earlier '?' decisions affect later ones — I needed proper memoization over indices.
+
+Off-by-one issues: When updating v and c, I sometimes forgot to reset the opposite counter (e.g., after hitting a vowel, consonant count must reset to 0). This caused false “UGLY” flags.
+
+Suffix DP logic: At first, I tried to propagate only from the left, but that made it hard to check “future” validity of '?'. Switching to backward DP (i from n-1 to 0) fixed this, since each state could look ahead.
+
+Edge conditions in loops: For checking 3 vowels or 5 consonants, I had to be careful not to run out of bounds when peeking forward in the string.
+
+Reflection:
+This problem was tricky because the '?' character made it impossible to settle on a single replacement strategy. It forced me to think in terms of possibility spaces instead of single outcomes. The DP transition logic was the key breakthrough — representing “can this suffix still be NICE if I treat '?' as X” gave me a systematic way to propagate constraints.
+
+I also learned that sometimes just keeping two global flags (isUgly, isNice) isn’t enough — DP arrays are essential when the decision at one index can ripple down the string. Debugging the vowel/consonant streak counters taught me the importance of carefully resetting state variables when switching categories.
+
+In the end, the DP allowed me to cleanly distinguish between always NICE, always UGLY, and ambiguous (42) cases. This problem reinforced how important it is to abandon brute force when hidden dependencies exist, and instead rely on structured state machines or DP.
+
+Complexity:
+
+Each position checks up to 10 transitions (bounded by '?' choices).
+
+Total complexity: O(n) with constant-factor checks, efficient enough.
+
+
+
+Problem: [ForestGarbage]
+
+Design Thinking:
+The task was to find the best path in a forest grid from a start (S) to a finish (F) such that the number of garbage cells (g) encountered is minimized. If multiple paths have the same garbage count, we then minimize the number of “near-garbage” cells — cells that are adjacent to garbage.
+
+To solve this, I treated the problem as a shortest path with lexicographic costs. Each state (i, j) keeps track of two values:
+
+Number of garbage cells visited.
+
+Number of near-garbage cells visited.
+
+I used BFS (since all moves have equal step cost) and propagated the (garbage, near-garbage) pair through the grid. At each step, I only updated if the new path had strictly fewer garbage cells, or the same garbage but fewer near-garbage.
+
+Troubleshooting:
+
+At first, I mistakenly counted neighbors of g cells as well. This inflated the near-garbage cost, because garbage cells themselves shouldn’t have their neighbors double-counted. After checking small cases, I realized that the definition of near-garbage applies only to non-garbage cells next to a garbage cell, not the garbage cell itself.
+
+Another issue was handling updates: if two paths reached the same cell with the same garbage but different near-garbage counts, my early version didn’t compare both properly. Switching to lexicographic comparison (garbage, near-garbage) fixed this.
+
+Edge-case debugging: I had to ensure S and F were treated normally, i.e., they don’t count as garbage or near-garbage unless the rules explicitly apply.
+
+Reflection:
+This problem was interesting because it’s not a plain BFS shortest path — it’s a multi-criteria optimization problem. The trickiest part was correctly modeling “near-garbage.” My first instinct was to mark neighbors for every g, but that caused overcounting. Only after re-reading the problem did I realize that garbage cells should not themselves add to the “near-garbage” penalty — only their adjacent non-garbage cells should.
+
+The main lesson I learned here was that understanding subtle problem definitions matters as much as coding the algorithm. Once the state transition was clarified, BFS with lexicographic cost worked cleanly.
+
+Complexity:
+
+BFS visits each cell at most once per state update.
+
+Each cell has 4 neighbors, so time complexity is O(n * m).
+
+Space complexity is also O(n * m) for the DP table.
