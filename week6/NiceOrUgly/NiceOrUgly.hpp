@@ -58,11 +58,6 @@ class NiceOrUgly {
                     isNice = isNice && !dp[i][1];
                 }
             }
-            
-            if (s.find("?") == string::npos) {
-                if (isUgly) return "UGLY";
-                else return "NICE";
-            }
 
             if (isUgly && isNice) return "42";
             else if (isUgly) return "UGLY";
