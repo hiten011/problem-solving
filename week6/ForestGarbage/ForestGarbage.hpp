@@ -17,7 +17,7 @@ class ForestGarbage {
                         continue;
                     }
 
-                    if (forest[i][j] == 'F') {
+                    if (forest[i][j] == 'F' || forest[i][j] == 'g') {
                         finalLoc = {i, j};
                         continue;
                     }
