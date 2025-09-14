@@ -7,6 +7,6 @@ int main() {
     cout << c1.howMany(8000, 20934) << endl;
 
     NiceOrUgly c2;
-    cout << c2.describe("A???????A") << endl;
+    cout << c2.describe("?????") << endl;
     return 0;
 }
