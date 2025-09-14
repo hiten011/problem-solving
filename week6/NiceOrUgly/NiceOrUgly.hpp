@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class NiceorUgly {
+class NiceOrUgly {
     public:
         string describe(string s) {
             int n = s.size();

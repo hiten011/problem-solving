@@ -6,7 +6,7 @@ int main() {
     JumpyNum c1;
     cout << c1.howMany(8000, 20934) << endl;
 
-    NiceorUgly c2;
+    NiceOrUgly c2;
     cout << c2.describe("EE?FFFF") << endl;
     return 0;
 }
