@@ -5,6 +5,12 @@ class NiceOrUgly {
     public:
         string describe(string s) {
             int n = s.size();
+
+            // cout << s << endl;
+
+            string str = consc(s);
+            if (str != "-1") return str;
+
             bool isC = isUglyC(s, n);
             bool isV = isUglyV(s, n);
 
@@ -21,6 +27,31 @@ class NiceOrUgly {
         }
 
     private:
+
+        string consc(string s) {
+            int count = 0;
+            for (int i = 0; i < s.size(); i++) {
+                if (s[i] == '?') count++;
+                else count = 0;
+
+                if (count == 6) {
+                    count--;
+                    while (i < s.size() && s[i] == '?') {
+                        count++;
+                        i++;
+                    }
+
+                    string rec1 = describe(s.substr(0, i - count));
+                    string rec2 = describe(s.substr(i));
+
+                    if (rec1 == "NICE" || rec1 == "42" || rec2 == "NICE" || rec2 == "42") return "42";
+                    else return "UGLY";
+                    break;
+                }
+            }
+
+            return "-1";
+        }
 
         bool isUglyC(string s, int n) {
             // check for Ugly
