@@ -6,6 +6,7 @@ class NiceOrUgly {
         string describe(string s) {
             int n = s.size();
             int v = 0, c = 0;
+            vector<vector<bool>> dp(n, vector<bool>(2, false));
             bool isUgly = false, isNice = true;
             for (int i = n - 1; i >= 0; i--) {
                 if (s[i] == '?') {
@@ -20,23 +21,44 @@ class NiceOrUgly {
                 }
 
                 if (v >= 3) {
+                    dp[i][0] = true;
                     isUgly = true;
+
+                    // try to keep nice
+                    bool isCurUgly = true;
+                    int ptr = -1;
+                    while (++ptr < 3) {
+                        if (s[ptr + i] == '?') {
+                            isCurUgly = isCurUgly && dp[ptr + i][1];
+                        }
+                    }
+
+                    isNice = !isCurUgly;
                 }
 
                 if (c >= 5) {
+                    dp[i][1] = true;
                     isUgly = true;
+
+                    // try to keep nice
+                    bool isCurUgly = true;
+                    int ptr = -1;
+                    while (++ptr < 5) {
+                        if (s[ptr + i] == '?') {
+                            isCurUgly = isCurUgly && dp[ptr + i][0];
+                        }
+                    }
+
+                    isNice = !isCurUgly;
                 }
 
-                if (v >= 3 && c >= 5) {
-                    isNice = false;
-                }
+                
             }
             
-            if (s.find('?') == string::npos) {
-                if (isUgly) return "UGLY";
-                else return "NICE";
-            }
-            
+            //     if (isUgly) return "UGLY";
+            //     else return "NICE";
+            // }
+
             if (isUgly && isNice) return "42";
             else if (isUgly) return "UGLY";
             return "NICE";
