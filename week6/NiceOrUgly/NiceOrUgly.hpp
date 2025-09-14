@@ -32,7 +32,6 @@ class NiceOrUgly {
                         }
                     }
 
-                    isNice = !isCurUgly;
                     dp[i][0] = isCurUgly;
                 }
 
@@ -48,8 +47,11 @@ class NiceOrUgly {
                         }
                     }
 
-                    isNice = !isCurUgly;
                     dp[i][1] = isCurUgly;
+                }
+
+                if (v >= 3 || c >= 5) {
+                    isNice = (!dp[i][0] || !dp[i][0]);
                 }
 
                 
