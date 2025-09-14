@@ -34,7 +34,7 @@ class NiceOrUgly {
                 if (s[i] == '?') count++;
                 else count = 0;
 
-                if (count == 6) {
+                if (count == 5) {
                     count--;
                     while (i < s.size() && s[i] == '?') {
                         count++;
