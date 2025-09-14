@@ -51,7 +51,7 @@ class NiceOrUgly {
                 }
 
                 if (v >= 3 || c >= 5) {
-                    isNice = (!dp[i][0] || !dp[i][0]);
+                    isNice = isNice && (!dp[i][0] || !dp[i][0]);
                 }
 
                 
