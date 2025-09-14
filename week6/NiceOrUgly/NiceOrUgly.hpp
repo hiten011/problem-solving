@@ -57,9 +57,10 @@ class NiceOrUgly {
                 
             }
             
-            //     if (isUgly) return "UGLY";
-            //     else return "NICE";
-            // }
+            if (s.find("?") == string::npos) {
+                if (isUgly) return "UGLY";
+                else return "NICE";
+            }
 
             if (isUgly && isNice) return "42";
             else if (isUgly) return "UGLY";
