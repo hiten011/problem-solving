@@ -8,66 +8,49 @@ class NiceOrUgly {
             bool isC = isUglyC(s, n);
             bool isV = isUglyV(s, n);
 
-            if (isC && isV) return "UGLY";
-            if (!isC && !isV) return "NICE";
-            return "42";
+
+            size_t pos = s.find("?");
+            if (pos != string::npos) {
+                if (isC && isV) return "UGLY";
+                if (!isC && !isV) return "NICE";
+                return "42";
+            } else {
+                if (isC || isV) return "UGLY";
+                else return "NICE";
+            }
         }
 
     private:
 
         bool isUglyC(string s, int n) {
             // check for Ugly
-            int st = 0, en = 0;
-            int count = 0;
-            while (en < 5 && en < n) {
-                if (s[en] == '?') s[en] = 'C';
-
-                if (!isVowel(s[en])) count++;
-                else count = 0;
-
-                en++;
-            }
-
+            int en = 0, count = 0;
             while (en < n) {
-                if (count == 5) return true;
-
                 if (s[en] == '?') s[en] = 'C';
 
                 if (!isVowel(s[en])) count++;
                 else count = 0;
 
                 en++;
+                if (count == 5) return true;
             }
 
-            if (count == 5) return true;
             return false;
         }
 
         bool isUglyV(string s, int n) {
             // check for Ugly
-            int st = 0, en = 0;
-            int count = 0;
-            while (en < 3 && en < n) {
-                if (s[en] == '?') s[en] = 'A';
-
-                if (isVowel(s[en])) count++;
-                else count = 0;
-
-                en++;
-            }
-
+            int en = 0, count = 0;
             while (en < n) {
-                if (count == 3) return true;
-
                 if (s[en] == '?') s[en] = 'A';
 
                 if (isVowel(s[en])) count++;
                 else count = 0;
 
+                if (count == 3) return true;
                 en++;
             }
 
-            if (count == 3) return true;
             return false;
         }
 
