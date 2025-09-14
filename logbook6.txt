@@ -1,0 +1,25 @@
+Problem: [JumpyNum]
+
+Design Thinking:
+The goal was to count how many numbers in a given range [low, high] are jumpy numbers. A jumpy number is one where the absolute difference between every pair of adjacent digits is greater than 1.
+To solve this, I planned to use digit dynamic programming (digit DP), since directly iterating over the range would be inefficient for large inputs. The state needed to track the position in the number and the previous digit chosen, ensuring that the difference between digits was not 0 or 1. To handle leading digits and valid transitions, I added an extra "no previous digit" state.
+
+Troubleshooting:
+
+At first, I only considered transitions between digits [0–9], but I forgot to treat the "no previous digit" state separately. This caused invalid numbers (like leading zeros) to sneak into the count. I fixed it by adding an extra column (10) in my DP table to represent "no digit chosen yet."
+
+Another issue was overcounting when computing results for [low, high]. My first version didn’t handle low = 0 properly, which broke the subtraction formula count(high) - count(low - 1). I corrected this by bounding low = max(low, 1) since 0 isn’t a valid jumpy number.
+
+Debugging the transitions was also tricky — at one point I mistakenly allowed consecutive digits differing by 1. This inflated the count, so I had to carefully enforce abs(prev - curr) > 1.
+
+The last struggle was implementing the "tight" constraint (when the current prefix is equal to the input number’s prefix). Initially, I incorrectly carried over the "tight" state, which produced wrong answers on prefix-sensitive cases. I resolved this by explicitly checking digit bounds at each step.
+
+Reflection:
+This problem was a solid exercise in digit DP, especially handling the “previous digit” state and the tricky off-by-one issues in transitions. I learned that when working with digit DP, managing edge cases (leading zeros, tight bounds, and subtraction in ranges) is as important as writing the recurrence. Debugging was time-consuming, but it made me much more comfortable with structuring DP tables and validating states.
+I also realized how important it is to carefully trace through small test cases by hand — that’s how I caught the consecutive-digit bug.
+
+Time Complexity:
+DP state size: O(D * 11) where D = number of digits.
+Each state checks transitions to up to 10 digits.
+Overall complexity: O(D * 10 * 10) ≈ O(D * 100) per number.
+For range queries, we compute count(high) - count(low - 1), so still efficient
