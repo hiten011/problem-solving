@@ -21,12 +21,11 @@ class NiceOrUgly {
                 }
 
                 if (v >= 3) {
-                    dp[i][0] = true;
                     isUgly = true;
 
                     // try to keep nice
                     bool isCurUgly = true;
-                    int ptr = -1;
+                    int ptr = 0;
                     while (++ptr < 3) {
                         if (s[ptr + i] == '?') {
                             isCurUgly = isCurUgly && dp[ptr + i][1];
@@ -34,15 +33,15 @@ class NiceOrUgly {
                     }
 
                     isNice = !isCurUgly;
+                    dp[i][0] = isCurUgly;
                 }
 
                 if (c >= 5) {
-                    dp[i][1] = true;
                     isUgly = true;
 
                     // try to keep nice
                     bool isCurUgly = true;
-                    int ptr = -1;
+                    int ptr = 0;
                     while (++ptr < 5) {
                         if (s[ptr + i] == '?') {
                             isCurUgly = isCurUgly && dp[ptr + i][0];
@@ -50,6 +49,7 @@ class NiceOrUgly {
                     }
 
                     isNice = !isCurUgly;
+                    dp[i][1] = isCurUgly;
                 }
 
                 
