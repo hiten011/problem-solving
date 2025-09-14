@@ -3,9 +3,9 @@
 
 int main() {
     ShipBoxes c1;
-    cout << c1.bestCost({10000, 10000, 10000},
+    cout << c1.bestCost({314, 159, 262},
 
-                        {10000, 10000, 10000})
+                        {271, 818, 282})
          << endl;
     return 0;
 }
