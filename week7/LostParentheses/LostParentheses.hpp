@@ -8,13 +8,17 @@ public:
     {   
         int ans = 0;
         string val = "";
+        bool isAdd = true;
         for (char c : s) {
             if (c == '+' || c == '-') {
                 int num = stoi(val);
                 val = "";
 
-                if (c == '+') ans += num;
+                if (isAdd) ans += num;
                 else ans -= num;
+
+                if (c == '+') isAdd = true;
+                else isAdd = false;
             } else {
                 val += c;
             }
