@@ -1,0 +1,35 @@
+Problem: [TaliluluCoffee]
+
+Design Thinking:
+The problem was to maximize the total tips collected, where each customer gives a tip equal to their base value minus the number of customers already served before them. Essentially, if someone with tip x is served at position i, they contribute x - i (if non-negative) to the answer.
+
+The greedy approach seemed natural:
+
+Serve the customers with the largest tips first.
+
+For each customer in sorted order, subtract their position index from the tip.
+
+Stop when the tip becomes negative (since serving more customers would decrease the total).
+
+This ensured that I always collected the maximum possible tips while minimizing losses.
+
+Troubleshooting:
+
+Initially, I wondered if a more complex strategy like DP or priority queues was needed, but after simulating small examples, I noticed that sorting descending was always optimal — since delaying a high tip by serving smaller tips first would only reduce the final total.
+
+I also had to carefully handle the condition tips[i] - i >= 0. At first, I considered always adding all adjusted values, but that allowed negatives, which would reduce the answer incorrectly. Adding the if (tips[i] - i < 0) break; condition fixed this.
+
+Duplicating the code (as seen in the snippet) wasn’t intentional — just a copy-paste oversight.
+
+Reflection:
+This problem reinforced the importance of thinking greedily but proving it through examples. My first instinct was to overcomplicate it, but the greedy strategy turned out to be both correct and efficient. The main insight was realizing that serving higher tips earlier prevents them from being eroded by the position penalty.
+
+I also learned to be careful with negative contributions — just because someone is in the list doesn’t mean serving them is beneficial. Stopping early avoids losing total tips.
+
+Complexity:
+
+Sorting the tips: O(n log n).
+
+Single pass to compute answer: O(n).
+
+Overall: O(n log n).
