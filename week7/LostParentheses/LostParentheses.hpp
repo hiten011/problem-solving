@@ -1,56 +1,50 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <sstream>
+#include <vector>
+#include <string>
 using namespace std;
 
 class LostParentheses
 {
 public:
-    int minResult(string s)
-    {   
-        if (s[0] != '-' && s[0] != '+') {
-            s = '+' + s;
-        }
-
-        int ans1 = 0, ans2 = -1;
-        bool isFirst = true;
-        for (int i = 0; i < s.size(); i++) {
-            if (s[i] == '+') {
-                pair<int, int> p = getNum(i + 1, s);
-                int num = p.first;
-                i = p.second;
-
-                ans1 += num;
-            } else if (s[i] == '-' && isFirst) {
-                isFirst = false;
-                ans2 = ans1;
-                ans1 = 0;
-
-                pair<int, int> p = getNum(i + 1, s);
-                int num = p.first;
-                i = p.second;
-
-                ans1 += num;
-            } else if (s[i] == '-') {
-                pair<int, int> p = getNum(i + 1, s);
-                int num = p.first;
-                i = p.second;
-
-                ans1 -= num;
+    int minResult(string e)
+    {
+        vector<string> v;
+        string temp = "";
+        e += '-';
+        for (char c : e) {
+            if (c == '-') {
+                v.push_back(temp);
+                temp = "";
+            } else {
+                temp += c;
             }
         }
 
-        return (ans2 == -1 ? ans1 : ans2 - ans1);
-    }
-
-    pair<int, int> getNum(int idx, string &s) {
-        string num = "";
-        int j = idx;
-        for (j = idx; j < s.size(); j++) {
-            if (s[j] == '+' || s[j] == '-') break;
-            num += s[j];
+        
+        int result = sumBlock(v[0]) + sumBlock(v[0]);
+        for (string s : v) {
+            result -= sumBlock(s);
         }
 
-        return {stoi(num), j - 1};
+        return result;
     }
 
 private:
+    int sumBlock(string str)
+    {   
+        str += "+";
+        string num = "";
+        int ans = 0;
+        for (char c : str) {
+            if (c == '+') {
+                ans += stoi(num);
+                num = "";
+            } else {
+                num += c;
+            }
+        }
+
+        return ans;
+    }
 };

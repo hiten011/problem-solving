@@ -14,6 +14,6 @@ int main() {
     cout << c2.maxElements({"hello", "hi", "h", "run", "rerun", "running"}) << endl;
 
     LostParentheses c3;
-    cout << c3.minResult("55-50+40") << endl;
+    cout << c3.minResult("50980-46441-24363-78452+26293+52584-94259-46416+29") << endl;
     return 0;
 }
