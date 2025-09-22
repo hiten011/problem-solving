@@ -33,3 +33,72 @@ Sorting the tips: O(n log n).
 Single pass to compute answer: O(n).
 
 Overall: O(n log n).
+
+
+
+Problem: [PrefixFreeSets]
+
+Design Thinking:
+The goal was to find the maximum number of words we can keep from a given set such that no word is a prefix of another.
+
+My approach was:
+Sort the words lexicographically so that any prefix relationship will appear with the prefix word immediately before the longer word. Iterate through the sorted list while keeping track of the previous word. Count the word if the previous one is not a prefix of the current one. This way, I could greedily skip words that would otherwise form prefix conflicts.
+
+Troubleshooting:
+At first, I thought of checking all pairs of words to see if any prefix relation exists, but that would have been O(n²) and inefficient. Sorting simplified the problem since prefixes naturally align next to each other.
+My initial implementation of isPrefix compared strings incorrectly — I needed to make sure I only checked up to the length of the shorter string. Fixing this with min(s1.size(), s2.size()) resolved false positives.
+Another bug came from handling the very first word. If prev was empty, my function incorrectly treated it as a prefix. I fixed this by explicitly returning false when s1 is empty.
+I also realized that always updating prev = s was necessary, even if the word was skipped, so the comparisons remain correct as we move forward.
+
+Reflection:
+This problem highlighted how sorting can simplify prefix-related checks. By relying on lexicographic order, I reduced the complexity from checking every pair to just comparing consecutive words.
+It also taught me to be cautious with boundary conditions — an empty prev should never be considered a valid prefix, and prefix logic must handle cases where the candidate prefix is longer than the word being checked.
+The greedy strategy of counting only when the previous word isn’t a prefix gave the correct maximum result because once a prefix conflict appears, the shorter word “blocks” the longer one from being included.
+
+Complexity:
+Sorting: O(n log n).
+Single scan with prefix checks: O(n * L), where L is average word length.
+Overall efficient for reasonable input sizes.
+
+
+
+Problem: [LostParentheses]
+
+Design Thinking:
+The goal was to minimize the result of a given arithmetic expression containing digits, +, and -. The trick is that once you encounter a -, the optimal strategy is to subtract the sum of everything after it (because putting parentheses around the rest of the expression reduces the total the most).
+
+My approach was:
+
+Split the expression into blocks separated by -.
+
+Each block may have multiple +, so I created a helper sumBlock to compute the sum of each block.
+
+Take the first block as is, then subtract the sums of all remaining blocks.
+
+Troubleshooting:
+
+At first, I mistakenly wrote
+int result = sumBlock(v[0]) + sumBlock(v[0]);
+
+which added the first block twice before subtracting. This produced incorrect results because the formula was effectively first + first - rest instead of first - rest. I fixed this by setting result = sumBlock(v[0]) once.
+
+Another early bug was with splitting: I forgot to append a - at the end of the input string, which caused the last block to be skipped. Adding e += '-' before parsing fixed this.
+
+In sumBlock, I had to be careful with the + operator. Without appending a final +, the last number wouldn’t be processed. Appending a trailing + solved that.
+
+Edge cases: when the input has no -, the answer should just be the sum of everything. My approach already worked in that case since no extra subtraction is applied.
+
+Reflection:
+This problem was all about spotting the greedy insight: once a minus appears, everything after it should be grouped and subtracted. The implementation itself was straightforward string parsing, but the tricky part was managing off-by-one errors (like forgetting the last block or last number).
+
+I learned to be extra cautious about string parsing edge cases — appending a sentinel character (- for splitting, + for summing) is a simple and powerful trick to avoid missing the last segment.
+
+Complexity:
+
+Splitting into blocks: O(n) where n is the length of the expression.
+
+Summing inside each block: also O(n) overall.
+
+Total complexity: O(n).
+
+
