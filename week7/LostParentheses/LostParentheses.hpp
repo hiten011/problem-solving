@@ -1,14 +1,10 @@
-#include <iostream>
-#include <sstream>
-#include <vector>
-#include <string>
+#include <bits/stdc++.h>
 using namespace std;
 
 class LostParentheses
 {
 public:
-    int minResult(string e)
-    {
+    int minResult(string e) {
         vector<string> v;
         string temp = "";
         e += '-';
@@ -31,8 +27,7 @@ public:
     }
 
 private:
-    int sumBlock(string str)
-    {   
+    int sumBlock(string str) {   
         str += "+";
         string num = "";
         int ans = 0;

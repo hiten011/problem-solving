@@ -102,3 +102,42 @@ Summing inside each block: also O(n) overall.
 Total complexity: O(n).
 
 
+
+
+Problem: [FairWorkload]
+
+Design Thinking:
+The goal was to distribute a sequence of folders among a fixed number of workers such that the maximum work assigned to any single worker is minimized. Each worker must handle a contiguous block of folders.
+
+This is a classic binary search on the answer problem:
+
+The minimum possible workload is at least the maximum single folder size.
+
+The maximum possible workload is the sum of all folders.
+
+Using binary search between these bounds, I checked whether it’s possible to split the folders into workers groups such that no worker exceeds a candidate maximum workload.
+
+Troubleshooting:
+
+Initial confusion on the binary search direction: At first, I mistakenly set the loop and updates wrong (st and en handling). After careful thought, I realized that if a workload is possible, I need to try smaller values (en = mid), and if not, I must increase (st = mid + 1).
+
+Error in splitting logic: In isPos, I initially tried to reset curSum = folders[i-1] after exceeding the limit. This was incorrect — it should reset to the current folder (folders[i]), since that folder must belong to the new worker. Otherwise, I was effectively double-counting the previous folder.
+
+Worker count check: At one point, I compared cab < workers instead of cab <= workers. This caused false negatives when the split used exactly the available workers. Fixing it to <= solved the issue.
+
+Edge cases: If a single folder is larger than the candidate workload, it’s impossible to assign. I handled this early with a check if (folders[i] > num) return false;.
+
+Reflection:
+This problem taught me how powerful binary search on the answer can be for load-balancing problems. The main insight was that the feasibility check (isPos) needs to simulate worker assignment carefully without overlaps or double-counting.
+
+I also learned that subtle off-by-one bugs in binary search (st, en, mid handling) can completely flip the result. Debugging forced me to trace small cases by hand, which clarified that curSum must reset to the current folder, not the previous one.
+
+In the end, combining binary search with a greedy feasibility check gave an efficient solution.
+
+Complexity:
+
+Binary search runs O(log(sum)).
+
+Each isPos check scans all folders: O(n).
+
+Total: O(n log(sum)), efficient for typical input sizes.
