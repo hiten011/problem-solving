@@ -11,7 +11,7 @@ class FairWorkload {
 
             int st = 0, en = sum;
             while (st < en) {
-                int mid = (st + en) / 2;
+                int mid = (st + en - 1) / 2;
 
                 if (isPos(mid, folders, workers)) {
                     en = mid;
