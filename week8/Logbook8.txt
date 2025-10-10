@@ -1,0 +1,52 @@
+Problem: CorporationSalary
+
+Design Thinking:
+The goal was to calculate the total salary of all employees in a company where each employee’s salary depends on the salaries of the employees they manage.
+If an employee manages no one, their salary is 1. Otherwise, their salary is the sum of the salaries of all employees they manage.
+
+This forms a directed acyclic graph (DAG), where each employee is a node and edges point to subordinates. The problem is naturally solved using DFS + memoization, since we can recursively compute salaries and store results to avoid recomputation.
+
+Troubleshooting:
+
+At first, I was unsure how to handle employees with no subordinates. Adding the base case return salaries[curNode] = (ans ? ans : 1) fixed that neatly.
+
+I had to ensure I didn’t recompute the same salary multiple times, so I used a salaries vector initialized with -1 and memoized each result.
+
+Another small fix was skipping over already-computed values when summing the final answer, ensuring no duplicates or uninitialized states were included.
+
+Reflection:
+This problem taught me how DFS with memoization can turn what looks like an exponential recursion into an efficient solution. I also understood the importance of identifying dependencies between nodes (like manager → subordinate) and computing them in a bottom-up manner through recursion.
+
+The clean recursive structure made it easy to implement once I set up proper memoization and base conditions.
+
+Complexity:
+
+Time: O(N²) since each relation can be checked once.
+
+Space: O(N) for recursion and memoization.
+
+
+
+Problem: FillBox
+
+Design Thinking:
+The task was to fill a box of given dimensions using cubes of different sizes (powers of 2), minimizing the total number of cubes used. Each cube size has a limited count.
+
+I initially tried to solve this recursively — breaking down the box into smaller parts after placing one cube — but it didn’t work properly due to incorrect space division and overlap handling. Then I tried a volume-based approach (filling volume proportionally to cube size), but that also failed because it didn’t account for spatial fitting (3D geometry constraints).
+
+Troubleshooting:
+
+The recursive approach failed because I didn’t handle all sub-box combinations correctly after placing a cube.
+
+Using pow(2, i) as a map key caused precision issues since it’s a floating-point function — integer powers would be safer.
+
+I realized I also wasn’t tracking how smaller cubes fill leftover space after larger cubes are placed.
+
+After several test failures and incorrect counts, I decided to pause this problem and move on to CorporationSalary to refresh my recursion skills.
+
+Reflection:
+This problem showed me that 3D recursive decomposition requires careful spatial reasoning and a systematic breakdown of remaining box space. My recursion idea was logically correct but incomplete in handling all possible sub-boxes.
+
+I plan to revisit this problem later — probably using a greedy + volume fitting strategy (starting from largest cubes and filling downwards) rather than direct recursion.
+
+For now, I moved to CorporationSalary, which helped me rebuild confidence in recursive and memoization-based thinking.
