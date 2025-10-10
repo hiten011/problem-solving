@@ -14,8 +14,6 @@ public:
 
         if (fs > 0) {
             ans += fs;
-        } else {
-            return ss + sf;
         }
 
         return ans + ss + sf;
