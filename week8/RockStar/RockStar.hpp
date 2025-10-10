@@ -21,7 +21,7 @@ public:
         ans += ss;
         ans += 2 * min(sf, fs);
 
-        if (sf % 2 == 1) return ans + 1;
+        if (sf > fs) return ans + 1;
 
         return ans;
     }
