@@ -25,13 +25,17 @@ public:
                 oddMaxIndex = i;
             }
 
+            // cout << oddMinIndex<< " :min" << endl;
+
             int maxValue = max(pleasantness[oddMaxIndex], pleasantness[evenMaxIndex]);
-            int minValue = max(pleasantness[oddMinIndex], pleasantness[evenMinIndex]);
-            
+            int minValue = min(pleasantness[oddMinIndex], pleasantness[evenMinIndex]);
+
             if (pleasantness[evenMaxIndex] - pleasantness[evenMinIndex] >= variety) {
                 ans = min(((i / 2) + 1), ans);
+                // cout << ans << " :EVEN" << endl;
             } else if (maxValue - minValue >= variety) {
                 ans = min(((i / 2) + 2), ans);
+                // cout << ans << " :ODD" << endl;
             }
         }
 

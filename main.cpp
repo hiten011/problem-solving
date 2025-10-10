@@ -15,6 +15,6 @@ int main() {
          << endl;
 
     ProblemsToSolve c3;
-    cout << c3.minNumber({1, 2, 3}, 2) << endl;
+    cout << c3.minNumber({10, 1, 12, 101}, 100) << endl;
     return 0;
 }
