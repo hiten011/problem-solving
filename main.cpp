@@ -2,6 +2,7 @@
 #include "week8/FillBox/FillBox.hpp"
 #include "week8/CorporationSalary/CorporationSalary.hpp"
 #include "week8/ProblemsToSolve/ProblemsToSolve.hpp"
+#include "week8/RockStar/RockStar.hpp"
 
 int main() {
     FillBox c1;
@@ -16,5 +17,10 @@ int main() {
 
     ProblemsToSolve c3;
     cout << c3.minNumber({10, 1, 12, 101}, 100) << endl;
+
+    RockStar c4; 
+    cout << c4.getNumSongs(0, 0, 20, 200) << endl;
+
+
     return 0;
 }
