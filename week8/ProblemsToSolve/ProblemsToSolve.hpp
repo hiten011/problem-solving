@@ -6,6 +6,7 @@ class ProblemsToSolve
 public:
     int minNumber(vector<int> pleasantness, int variety) {
         int minIndex = 0, maxIndex = 0;
+        int ans = pleasantness.size();
         for (int i = 0; i < pleasantness.size(); i++) {
             if (pleasantness[i] < pleasantness[minIndex]) {
                 minIndex = i;
@@ -20,12 +21,12 @@ public:
             }
 
             if (pleasantness[maxIndex] - pleasantness[minIndex] >= variety) {
-                if (maxIndex % 2 == 0 && minIndex % 2 == 0) return (i / 2) + 1;
-                return (i / 2) + 2;
+                if (maxIndex % 2 == 0 && minIndex % 2 == 0) ans = min(((i / 2) + 1), ans);
+                else ans = min(((i / 2) + 2), ans);
             }
         }
 
-        return pleasantness.size();
+        return ans;
     }
 
     private:
