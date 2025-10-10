@@ -1,16 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class FillBox
+class ProblemsToSolve
 {
 public:
     int minNumber(vector<int> pleasantness, int variety) {
-        int minValue = INT_MAX, maxValue = INT_MIN;
+        int minIndex = 0;
         for (int i = 0; i < pleasantness.size(); i++) {
-            minValue = min(minValue, pleasantness[i]);
-            maxValue = max(maxValue, pleasantness[i]);
+            if (pleasantness[i] < pleasantness[minIndex]) {
+                minIndex = i;
+            }
 
-            if (maxValue - minValue <= variety) {
+            if (pleasantness[i] - pleasantness[minIndex] >= variety) {
                 return (i / 2) + 1;
             }
         }
