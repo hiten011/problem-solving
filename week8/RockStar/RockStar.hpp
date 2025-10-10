@@ -5,18 +5,23 @@ class RockStar
 {
 public:
     int getNumSongs(int ff, int fs, int sf, int ss) {
-        int ans = 0;
-        if (fs > 0) {
-            ans += ff;
-        } else if (ff != 0) {
-            return ff;
+        int ans = ff;
+        
+        if (!ff && !fs) {
+            ans += ss;
+            ans += min(sf, 1);
+            return ans;
         }
 
-        if (fs > 0) {
-            ans += fs;
-        }
+        if (!fs) return ans;
 
-        return ans + ss + sf;
+        ans++;
+        fs--;
+
+        ans += ss;
+        ans += 2 * min(sf, fs);
+
+        return ans;
     }
 
 private:
