@@ -9,10 +9,13 @@ public:
         for (int i = 0; i < pleasantness.size(); i++) {
             if (pleasantness[i] < pleasantness[minIndex]) {
                 minIndex = i;
+            } else if (pleasantness[i] == pleasantness[minIndex] && i % 2 == 0) {
+                minIndex = i;
             }
 
             if (pleasantness[i] - pleasantness[minIndex] >= variety) {
-                return (i / 2) + 1;
+                if (i % 2 == 0 && minIndex % 2 == 0) return (i / 2) + 1;
+                return (i / 2) + 2;
             }
         }
 
