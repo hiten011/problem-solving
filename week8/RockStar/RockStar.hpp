@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class RockStart
+class RockStar
 {
 public:
     int getNumSongs(int ff, int fs, int sf, int ss) {
