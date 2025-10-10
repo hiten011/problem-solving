@@ -5,24 +5,33 @@ class ProblemsToSolve
 {
 public:
     int minNumber(vector<int> pleasantness, int variety) {
-        int minIndex = 0, maxIndex = 0;
+        int oddMinIndex = 1, oddMaxIndex = 1, evenMinIndex = 0, evenMaxIndex = 0;
         int ans = pleasantness.size();
-        for (int i = 0; i < pleasantness.size(); i++) {
-            if (pleasantness[i] < pleasantness[minIndex]) {
-                minIndex = i;
-            } else if (pleasantness[i] == pleasantness[minIndex] && i % 2 == 0) {
-                minIndex = i;
+        for (int i = 1; i < pleasantness.size(); i++) {
+
+            if (i % 2 == 0 && pleasantness[i] <= pleasantness[evenMinIndex]) {
+                evenMinIndex = i;
             }
 
-            if (pleasantness[i] > pleasantness[maxIndex]) {
-                maxIndex = i;
-            } else if (pleasantness[i] == pleasantness[maxIndex] && i % 2 == 0) {
-                maxIndex = i;
+            if (i % 2 == 1 && pleasantness[i] <= pleasantness[oddMinIndex]) {
+                oddMinIndex = i;
             }
 
-            if (pleasantness[maxIndex] - pleasantness[minIndex] >= variety) {
-                if (maxIndex % 2 == 0 && minIndex % 2 == 0) ans = min(((i / 2) + 1), ans);
-                else ans = min(((i / 2) + 2), ans);
+            if (i % 2 == 0 && pleasantness[i] >= pleasantness[evenMaxIndex]) {
+                evenMaxIndex = i;
+            }
+
+            if (i % 2 == 1 && pleasantness[i] >= pleasantness[oddMaxIndex]) {
+                oddMaxIndex = i;
+            }
+
+            int maxValue = max(pleasantness[oddMaxIndex], pleasantness[evenMaxIndex]);
+            int minValue = max(pleasantness[oddMinIndex], pleasantness[evenMinIndex]);
+            
+            if (pleasantness[evenMaxIndex] - pleasantness[evenMinIndex] >= variety) {
+                ans = min(((i / 2) + 1), ans);
+            } else if (maxValue - minValue >= variety) {
+                ans = min(((i / 2) + 2), ans);
             }
         }
 
