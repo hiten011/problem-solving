@@ -52,68 +52,39 @@ I plan to revisit this problem later — probably using a greedy + volume fittin
 For now, I moved to CorporationSalary, which helped me rebuild confidence in recursive and memoization-based thinking.
 
 
+Problem: [ProblemsToSolve]
 
+Design Thinking:
+The goal was to determine the minimum number of problems you need to solve from a sequence so that the difference between the maximum and minimum “pleasantness” reaches or exceeds a given threshold (variety).
 
+Initially, I approached this problem naively, tracking just a single minIndex and maxIndex for the entire sequence. The first versions attempted to update minIndex and maxIndex as I iterated, comparing the current element with previous extremes and applying some formula to calculate the number of problems solved.
 
+As I encountered parity constraints (since you can only solve problems at every other index in some cases), I realized I needed separate tracking for odd- and even-indexed problems.
 
-#include <bits/stdc++.h>
-using namespace std;
+Troubleshooting:
 
-class ProblemsToSolve
-{
-public:
-    int minNumber(vector<int> pleasantness, int variety) {
-        int minIndex = 0;
-        for (int i = 0; i < pleasantness.size(); i++) {
-            if (pleasantness[i] < pleasantness[minIndex]) {
-                minIndex = i;
-            } else if (pleasantness[i] == pleasantness[minIndex] && i % 2 == 0) {
-                minIndex = i;
-            }
+Early versions: Only tracked one minIndex and one maxIndex. This produced incorrect results when the minimum and maximum pleasantness values occurred at indices of different parity, failing some test cases.
 
-            if (pleasantness[i] - pleasantness[minIndex] >= variety) {
-                if (i % 2 == 0 && minIndex % 2 == 0) return (i / 2) + 1;
-                return (i / 2) + 2;
-            }
-        }
+Handling ties: At first, I didn’t properly handle cases where pleasantness values were equal but the index parity differed. I added explicit rules like i % 2 == 0 to prioritize certain indices.
 
-        return pleasantness.size();
-    }
+Updating min/max separately by parity: Eventually, I realized I needed four trackers:
 
-    private:
-};
+evenMinIndex, evenMaxIndex for even indices
 
+oddMinIndex, oddMaxIndex for odd indices
+This allowed me to calculate maximum differences within the same parity and across parity separately, which was key to computing the minimum number of problems correctly.
 
-#include <bits/stdc++.h>
-using namespace std;
+Calculating answer: I initially used (i / 2) + 1 or (i / 2) + 2 inconsistently. Careful tracing of examples helped me identify exactly how many problems are needed depending on parity and which index triggered the difference.
 
-class ProblemsToSolve
-{
-public:
-    int minNumber(vector<int> pleasantness, int variety) {
-        int minIndex = 0, maxIndex = 0;
-        int ans = pleasantness.size();
-        for (int i = 0; i < pleasantness.size(); i++) {
-            if (pleasantness[i] < pleasantness[minIndex]) {
-                minIndex = i;
-            } else if (pleasantness[i] == pleasantness[minIndex] && i % 2 == 0) {
-                minIndex = i;
-            }
+Reflection:
+This problem highlighted the importance of tracking multiple parallel states (here, odd/even indices) when simple global min/max is insufficient. Early versions failed because I ignored parity effects on problem selection, and careful debugging showed that subtle off-by-one or parity errors can completely break correctness.
 
-            if (pleasantness[i] > pleasantness[maxIndex]) {
-                maxIndex = i;
-            } else if (pleasantness[i] == pleasantness[maxIndex] && i % 2 == 0) {
-                maxIndex = i;
-            }
+I also learned the value of iteratively refining your solution: starting with a simple idea, adding special handling for ties, then separating odd/even tracking, and finally producing a clean and fully working version. The process reinforced the importance of carefully reading problem constraints and walking through small examples to validate edge cases.
 
-            if (pleasantness[maxIndex] - pleasantness[minIndex] >= variety) {
-                if (maxIndex % 2 == 0 && minIndex % 2 == 0) ans = min(((i / 2) + 1), ans);
-                else ans = min(((i / 2) + 2), ans);
-            }
-        }
+Complexity:
 
-        return ans;
-    }
+Single pass through the array: O(n)
 
-    private:
-};
+Constant-time updates for four trackers per iteration: O(1)
+
+Total: O(n)
