@@ -90,4 +90,38 @@ Constant-time updates for four trackers per iteration: O(1)
 Total: O(n)
 
 
+Problem: [RockStar]
 
+Design Thinking:
+The task was to compute the maximum number of songs the rock star can perform given counts of four song types (ff, fs, sf, ss) while respecting tempo alternation rules.
+
+The approach was greedy:
+
+Start by performing all ff songs.
+
+Use fs songs to transition between fast and slow tempos.
+
+Pair sf songs with remaining fs to maintain alternation.
+
+Add ss songs at the end since slow-slow songs can follow any slow song.
+
+Handle any leftover unpaired sf song for an extra performance.
+
+Troubleshooting:
+
+Initial attempts: Simply summing song counts failed, ignoring tempo alternation.
+
+Second attempt: Greedy pairing worked for many cases but failed when sf > fs (extra slow-fast songs left unpaired).
+
+Final fix: After pairing, if there are more sf than fs, one additional song can still be performed. This adjustment correctly handles edge cases.
+
+Reflection:
+This problem highlighted the importance of handling edge cases in greedy algorithms. While the main greedy strategy (pairing songs to respect alternation) solves most scenarios, the leftover unpaired songs require careful consideration.
+
+I also learned the value of small test simulations to identify patterns where the naive greedy approach might fail, guiding the final adjustment (if sf > fs return ans + 1).
+
+Complexity:
+
+Time: O(1) — constant operations.
+
+Space: O(1) — only a few variables used.
