@@ -6,7 +6,7 @@ class RockStar
 public:
     int getNumSongs(int ff, int fs, int sf, int ss) {
         int ans = ff;
-        
+
         if (!ff && !fs) {
             ans += ss;
             ans += min(sf, 1);
@@ -20,6 +20,8 @@ public:
 
         ans += ss;
         ans += 2 * min(sf, fs);
+
+        if (sf % 2 == 1) return ans + 1;
 
         return ans;
     }
