@@ -30,16 +30,6 @@ class ErdosNumber {
                     }
                 }
             }
-            
-            // verify edges
-            // for (auto [k, v] : adj) {
-            //     cout << k << ": ";
-            //     for (auto i : v) {
-            //         cout << i << " ";
-            //     }
-
-            //     cout << endl;
-            // }
 
             // BFS
             unordered_map<string, int> number;
