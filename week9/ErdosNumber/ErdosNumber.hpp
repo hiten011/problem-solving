@@ -22,13 +22,13 @@ class ErdosNumber {
                 }
 
                 for (string u : authors) {
+                    nodes.insert(u);
                     for (string v : authors) {
                         if (v == u) continue;
                         adj[u].push_back(v);
                         adj[v].push_back(u);
 
                         // insert in nodes
-                        nodes.insert(u);
                         nodes.insert(v);
                     }
                 }
@@ -79,10 +79,10 @@ class ErdosNumber {
                     ans.push_back(s + " 0");
                 }
 
-                cout << ans[ans.size() - 1] << " ";
+                // cout << ans[ans.size() - 1] << " ";
             }
 
-            cout << endl;
+            // cout << endl;
 
             return ans;
         }
