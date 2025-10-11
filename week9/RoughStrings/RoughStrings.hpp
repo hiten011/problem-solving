@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class RoughString {
+class RoughStrings {
 public:
     int minRoughness(string s, int n) {
         vector<int> freq(26, 0);
