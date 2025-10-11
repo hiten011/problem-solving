@@ -39,7 +39,7 @@ public:
             dp[i[0] + 1] = min(dp[i[0] + 1], curCost);
         }
 
-        return dp[n];
+        return (dp[n] == INT_MAX ? -1 : dp[n]);
     }
 
 private:
