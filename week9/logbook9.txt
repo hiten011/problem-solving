@@ -49,150 +49,63 @@ Once the misunderstanding was resolved, the BFS structure worked smoothly, and t
 
 
 
+### **Problem: SentenceDecomposition**
 
-#include <bits/stdc++.h>
-using namespace std;
+#### **Design Thinking:**
 
-class SentenceDecomposition {
-public:
-    int decompose(string sentence, vector<string> validWords) {
-        unordered_map<int, vector<string>> sizeToWords;
-        for (string &s : validWords) {
-            sizeToWords[s.size()].push_back(s);
-        }
+The goal of this problem was to decompose a continuous sentence into a sequence of valid words, minimizing the total number of character mismatches. Each segment of the sentence can correspond to any valid word that is an anagram (i.e., contains the same letters), and the cost of each segment is the number of differing positions between the segment and the valid word.
+If a segment cannot be matched to any valid word (even as an anagram), the decomposition is invalid.
 
-        vector<vector<int>> cost; // [endIdx, stIdx, cost]
-        int n = sentence.size();
-        for (int i = 0; i < n; i++) {
-            string s = "";
-            for (int j = i; j < n; j++) {
-                s += sentence[j];
-                helper(s, sentence, cost, sizeToWords, i, j);
-            }
-        }
+This problem combines **dynamic programming (DP)** with **string matching and frequency comparison** logic. The challenge was efficiently checking all possible partitions of the input string and determining the minimum cost for each valid decomposition.
 
-        // DP
-        sort(cost.begin(), cost.end(), [](vector<int> &a, vector<int> &b){
-            return (a[1] == b[1] ? a[0] < b[0] : a[1] < b[1]);
-        });
+The key insight was to treat it as a **sequence optimization problem** — at each index `i`, try to match every substring starting from `i` with a valid word, compute its transformation cost (if possible), and update a DP array where `dp[j + 1]` stores the minimum cost to decompose the substring up to index `j`.
 
-        vector<int> dp(n + 1, INT_MAX);
-        if (cost.size() == 0 || cost[0][1] != 0) return -1;
+---
 
-        dp[0] = 0;
-        for (vector<int> &i : cost) {
-            if (dp[i[1]] == INT_MAX) continue;
+#### **Troubleshooting:**
 
-            int curCost = dp[i[1]] + i[2];
-            dp[i[0] + 1] = min(dp[i[0] + 1], curCost);
-        }
+My **first approach** was more complex than necessary.
+I precomputed a list of potential matches (`cost` array with start, end, and cost for each substring), then sorted and iterated over them in a second DP phase.
+While this technically worked, it was both inefficient and error-prone — managing indices and sorting made the logic harder to follow. It also caused unnecessary recomputation and edge cases when multiple valid substrings overlapped.
 
-        return (dp[n] == INT_MAX ? -1 : dp[n]);
-    }
+After reviewing the code, I realized I could simplify everything by performing **inline DP computation** directly inside the nested loops.
+In the improved version:
 
-private:
-    void helper(string &s, string &sentence, vector<vector<int>> &cost, unordered_map<int, vector<string>> &sizeToWords, int st, int en) {
-        if (sizeToWords.count(s.size()) == 0) return;
+* I removed the redundant preprocessing phase.
+* For every starting index `i`, I built substrings incrementally (`s += sentence[j]`), computed the cost immediately using the `helper()` function, and updated `dp[j + 1]` on the fly.
 
-        int minCost = INT_MAX;
-        for (string &str : sizeToWords[s.size()]) {
-            int curCost = findCost(s, str);
-            minCost = min(curCost, minCost);
-        }
+This change made the code more readable, efficient, and logically aligned with standard DP string segmentation problems (similar to “Word Break” or “Minimum Edit Cost” patterns).
 
-        if (minCost == INT_MAX) return;
-        cost.push_back({en, st, minCost});
-    }
+A small but critical detail was ensuring that when no valid word of the current substring’s length existed in the dictionary, I immediately skipped processing it — saving unnecessary cost computation.
+Also, I verified that only anagrams were considered valid matches by comparing character frequency vectors (`freqS == freqM`).
 
-    int findCost(string &s, string &match) {
-        vector<int> freqS(26, 0), freqM(26, 0);
-        int cost = 0;
-        for (int i = 0; i < s.size(); i++) {
-            freqS[getInt(s[i])]++;
-            freqM[getInt(match[i])]++;
+---
 
-            if (s[i] != match[i]) {
-                cost++;
-            }
-        }
+#### **Reflection:**
 
-        return (freqS == freqM ? cost : INT_MAX);
-    }
+This problem significantly strengthened my understanding of **dynamic programming with string-based states** and **nested substring evaluation**. It showed how a problem that initially feels combinatorial and complex can be efficiently solved by carefully designing state transitions.
 
-    int getInt(char c) {
-        return (int) (c - 'a');
-    }
-};
+One of the biggest takeaways was the importance of **simplifying your approach**. My first version was logically correct but overly complicated — introducing unnecessary data structures and sorting steps. The second version achieved the same outcome in a cleaner, more direct way by integrating substring exploration and DP updates together.
 
+I also gained experience with **string frequency comparison** and learned to handle subtle issues like differentiating valid anagrams from invalid ones, even when characters differ in order.
 
+---
 
-Second Code Improvement 
+#### **Complexity:**
 
-#include <bits/stdc++.h>
-using namespace std;
+* **Time Complexity:**
+  O(N² × K)
+  where N is the length of the sentence and K is the number of valid words (since each substring is compared against all words of the same length).
+  Each comparison requires O(L) time for strings of length L.
 
-class SentenceDecomposition {
-public:
-    int decompose(string sentence, vector<string> validWords) {
-        unordered_map<int, vector<string>> sizeToWords;
-        for (string &s : validWords) {
-            sizeToWords[s.size()].push_back(s);
-        }
+* **Space Complexity:**
+  O(N + 26) ≈ O(N)
+  for the DP array and frequency vectors.
 
-        // DP
-        int n = sentence.size();
-        vector<int> dp(n + 1, INT_MAX);
-        dp[0] = 0;
-        bool isStart = false;
-        for (int i = 0; i < n; i++) {
-            string s = "";
-            for (int j = i; j < n; j++) {
-                if (dp[i] == INT_MAX) continue;
+---
 
-                s += sentence[j];
-                int cost = helper(s, sentence, sizeToWords);
+#### **Summary:**
 
-                if (i == 0 && cost != INT_MAX) isStart = true;
-                if (cost == INT_MAX) continue;
-
-                // update dp
-                dp[j + 1] = min(dp[j + 1], dp[i] + cost);
-            }
-        }
-
-        return (dp[n] == INT_MAX || !isStart ? -1 : dp[n]);
-    }
-
-private:
-    int helper(string &s, string &sentence, unordered_map<int, vector<string>> &sizeToWords) {
-        if (sizeToWords.count(s.size()) == 0) return INT_MAX;
-
-        int minCost = INT_MAX;
-        for (string &str : sizeToWords[s.size()]) {
-            int curCost = findCost(s, str);
-            minCost = min(curCost, minCost);
-        }
-
-        return minCost;
-    }
-
-    int findCost(string &s, string &match) {
-        vector<int> freqS(26, 0), freqM(26, 0);
-        int cost = 0;
-        for (int i = 0; i < s.size(); i++) {
-            freqS[getInt(s[i])]++;
-            freqM[getInt(match[i])]++;
-
-            if (s[i] != match[i]) {
-                cost++;
-            }
-        }
-
-        return (freqS == freqM ? cost : INT_MAX);
-    }
-
-    int getInt(char c) {
-        return (int) (c - 'a');
-    }
-};
+The transition from the first to the second version of the solution demonstrated the value of iterative refinement in algorithm design — simplifying logic, improving efficiency, and increasing clarity without losing correctness.
+This problem also reinforced how **combining DP with string matching** can elegantly handle complex transformation and segmentation challenges.
 
