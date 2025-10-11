@@ -125,3 +125,73 @@ Complexity:
 Time: O(1) — constant operations.
 
 Space: O(1) — only a few variables used.
+
+
+
+Problem: [HandsShaking]
+
+Design Thinking:
+The goal of this problem was to calculate the number of ways n people can shake hands such that no two handshakes cross. This is a classic Catalan number problem, where each handshake divides the circle into two smaller, independent handshake subproblems.
+
+I used dynamic programming (DP) to compute the solution efficiently.
+
+Let dp[i] represent the number of valid handshake arrangements for i people.
+
+The recurrence relation is based on pairing the first person with another, splitting the remaining into two groups:
+    Base case: dp[0] = 1 (no people, one valid configuration).
+
+    Only even n are valid (odd n means one person is left unpaired).
+
+Troubleshooting:
+Initially, I misunderstood the pairing pattern and tried a recursive approach without memoization, which led to exponential time complexity. After realizing that this problem followed the Catalan recurrence, I switched to a bottom-up DP approach.
+
+Another issue was handling odd values of n — these should return 0, since handshake pairs require even numbers of participants. Adding a simple check (if (n % 2 == 1) return 0;) fixed that edge case.
+
+Reflection:
+This problem was an excellent exercise in recognizing combinatorial patterns and converting them into a DP formulation. Understanding how each handshake divides the problem into smaller subproblems was key.
+
+It reinforced my understanding of the Catalan sequence and how it appears in different combinatorial contexts like balanced parentheses, polygon triangulations, and handshake problems.
+
+Complexity:
+
+    Time: O(n²) — two nested loops for DP state computation.
+    Space: O(n) — storing the DP table.
+
+
+
+
+Weekly Reflection
+
+This week’s focus was on strengthening my problem-solving and algorithmic reasoning through a mix of recursive, dynamic programming, and greedy problems from the TopCoder archives. Each problem challenged a different aspect of my thinking — from dependency resolution and combinatorial logic to optimization and handling edge cases.
+
+Learning and Progress
+
+I started the week with FillBox, which turned out to be a challenging 3D spatial reasoning problem. My initial recursive and volume-based attempts failed to properly manage cube placement and space partitioning. Although I wasn’t able to complete it fully, the process taught me how difficult true 3D decomposition can be, especially when overlap and space-fitting constraints come into play. Rather than getting stuck, I made the conscious choice to move on — a valuable reminder that stepping away from a tough problem to build confidence on another can be productive.
+
+Moving to CorporationSalary was a turning point. The problem modeled a company’s hierarchy as a directed acyclic graph (DAG), where each employee’s salary depends on their subordinates. Implementing this with DFS and memoization helped me consolidate my understanding of recursion with caching. It also reinforced how base cases and dependency tracking are essential in recursive computations. By the end, I felt much more confident designing bottom-up recursive solutions.
+
+Next, I tackled ProblemsToSolve, which required logical reasoning and careful state tracking. This problem deepened my understanding of how constraints (like parity in indexing) can complicate what seems like a straightforward iteration. Through several debugging cycles, I learned to maintain multiple simultaneous trackers (odd/even min and max values) — a key insight that ultimately led to a clean O(n) solution. It reminded me how iterative refinement and attention to small off-by-one or parity conditions can turn an almost-correct solution into a fully correct one.
+
+The RockStar problem was a fun application of greedy algorithms. It involved sequencing songs based on tempo rules. My first attempts oversimplified the transitions, but through step-by-step testing, I identified edge cases — particularly when there were more slow-to-fast than fast-to-slow transitions. The final condition (if (sf > fs) return ans + 1;) captured those edge scenarios elegantly. It showed how small logical insights can make a greedy algorithm robust and reliable.
+
+Finally, I completed HandsShaking, which introduced me to the Catalan number pattern — a classic in combinatorial mathematics. I started with recursion but soon realized that a bottom-up DP approach was necessary for efficiency. This problem tied together multiple themes I’d encountered throughout the week: recursion, DP, base cases, and recognizing deeper mathematical structures behind algorithmic patterns.
+
+Key Takeaways
+
+Recognizing Problem Structures:
+Whether it’s a DAG (CorporationSalary), parity-based sequence (ProblemsToSolve), or Catalan sequence (HandsShaking), identifying underlying mathematical or structural patterns makes complex problems much simpler.
+
+Balancing Recursion and DP:
+Several problems (CorporationSalary, HandsShaking) reinforced when to transition from pure recursion to memoized or bottom-up DP to improve efficiency.
+
+Handling Edge Cases Thoughtfully:
+In RockStar and ProblemsToSolve, the difference between a partially correct and fully correct solution often came down to subtle edge conditions. Testing diverse inputs proved invaluable.
+
+Learning from Failures:
+FillBox reminded me that not every problem needs to be solved immediately — sometimes the real value lies in understanding why an approach fails and applying those lessons later.
+
+Overall Reflection
+
+This week’s work significantly improved my algorithmic reasoning, particularly around recursion, dynamic programming, and greedy logic. Each problem required a unique thought process, and moving through them sequentially helped me develop a stronger problem-solving intuition.
+
+I also noticed improvement in debugging skills — instead of randomly trying fixes, I began methodically testing hypotheses and tracing small examples to pinpoint errors. By the end of the week, I felt more confident tackling both abstract combinatorial problems and concrete logic puzzles, balancing theoretical understanding with practical coding strategies.
