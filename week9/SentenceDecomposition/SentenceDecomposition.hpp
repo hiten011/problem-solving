@@ -13,7 +13,6 @@ public:
         int n = sentence.size();
         vector<int> dp(n + 1, INT_MAX);
         dp[0] = 0;
-        bool isStart = false;
         for (int i = 0; i < n; i++) {
             string s = "";
             for (int j = i; j < n; j++) {
@@ -22,15 +21,15 @@ public:
                 s += sentence[j];
                 int cost = helper(s, sentence, sizeToWords);
 
-                if (i == 0 && cost != INT_MAX) isStart = true;
                 if (cost == INT_MAX) continue;
 
                 // update dp
                 dp[j + 1] = min(dp[j + 1], dp[i] + cost);
             }
+
         }
 
-        return (dp[n] == INT_MAX || !isStart ? -1 : dp[n]);
+        return (dp[n] == INT_MAX ? -1 : dp[n]);
     }
 
 private:
