@@ -1,0 +1,111 @@
+### **Problem: ErdosNumber**
+
+#### **Design Thinking:**
+
+The goal of this problem was to compute the *Erdős number* for each author based on a list of co-authored publications. The Erdős number measures the “collaboration distance” between a given author and the mathematician Paul Erdős — defined as 0 for Erdős himself, 1 for direct co-authors, 2 for co-authors of co-authors, and so on.
+
+This naturally formed a **graph problem**, where each author is a node and edges represent co-authorship. Once the graph is constructed, the shortest collaboration distance from “ERDOS” to every other author can be found using a **Breadth-First Search (BFS)** traversal.
+
+I used an adjacency list (`unordered_map<string, vector<string>>`) to represent the co-authorship connections and a `set` to store all unique authors. BFS was implemented level by level using a queue and a level marker (`"#"`) to track the current Erdős number distance.
+
+---
+
+#### **Troubleshooting:**
+
+Initially, I misread the problem statement and made an error when generating the output list. For authors who did **not** have an Erdős number (i.e., disconnected from “ERDOS”), I mistakenly assigned them a number `0`.
+However, the correct behavior was to **only output their names** without a number, since they are not connected to Erdős at all.
+
+Once I identified this misunderstanding, I fixed the issue by checking whether the author existed in the `number` map:
+
+```cpp
+if (number.count(s) > 0)
+    ans.push_back(s + " " + to_string(number[s]));
+else
+    ans.push_back(s);
+```
+
+This corrected the output and ensured that only reachable authors displayed a valid Erdős number.
+
+Another small learning point was ensuring that the BFS correctly tracked levels using the marker `"#"`. This helped keep the code intuitive and prevented off-by-one errors when computing distances.
+
+---
+
+#### **Reflection:**
+
+This problem reinforced how **graph traversal (BFS)** can be used to compute shortest paths or “degrees of separation” in real-world relationship networks. I also learned the importance of **carefully reading problem statements**, since even a small misinterpretation (like output formatting or handling disconnected nodes) can lead to subtle logical errors.
+
+Once the misunderstanding was resolved, the BFS structure worked smoothly, and the algorithm produced accurate results. The problem also strengthened my understanding of **string parsing** (extracting author names from publication strings) and building adjacency lists efficiently.
+
+---
+
+#### **Complexity:**
+
+* **Time Complexity:** O(N × M²)
+  where N is the number of publications and M is the average number of authors per publication (since each publication connects every pair of co-authors).
+  BFS then runs in O(V + E), where V is the number of authors and E is the number of co-authorship edges.
+* **Space Complexity:** O(V + E)
+  for the adjacency list, queue, and maps.
+
+
+
+
+### **Problem: SentenceDecomposition**
+
+#### **Design Thinking:**
+
+The goal of this problem was to decompose a continuous sentence into a sequence of valid words, minimizing the total number of character mismatches. Each segment of the sentence can correspond to any valid word that is an anagram (i.e., contains the same letters), and the cost of each segment is the number of differing positions between the segment and the valid word.
+If a segment cannot be matched to any valid word (even as an anagram), the decomposition is invalid.
+
+This problem combines **dynamic programming (DP)** with **string matching and frequency comparison** logic. The challenge was efficiently checking all possible partitions of the input string and determining the minimum cost for each valid decomposition.
+
+The key insight was to treat it as a **sequence optimization problem** — at each index `i`, try to match every substring starting from `i` with a valid word, compute its transformation cost (if possible), and update a DP array where `dp[j + 1]` stores the minimum cost to decompose the substring up to index `j`.
+
+---
+
+#### **Troubleshooting:**
+
+My **first approach** was more complex than necessary.
+I precomputed a list of potential matches (`cost` array with start, end, and cost for each substring), then sorted and iterated over them in a second DP phase.
+While this technically worked, it was both inefficient and error-prone — managing indices and sorting made the logic harder to follow. It also caused unnecessary recomputation and edge cases when multiple valid substrings overlapped.
+
+After reviewing the code, I realized I could simplify everything by performing **inline DP computation** directly inside the nested loops.
+In the improved version:
+
+* I removed the redundant preprocessing phase.
+* For every starting index `i`, I built substrings incrementally (`s += sentence[j]`), computed the cost immediately using the `helper()` function, and updated `dp[j + 1]` on the fly.
+
+This change made the code more readable, efficient, and logically aligned with standard DP string segmentation problems (similar to “Word Break” or “Minimum Edit Cost” patterns).
+
+A small but critical detail was ensuring that when no valid word of the current substring’s length existed in the dictionary, I immediately skipped processing it — saving unnecessary cost computation.
+Also, I verified that only anagrams were considered valid matches by comparing character frequency vectors (`freqS == freqM`).
+
+---
+
+#### **Reflection:**
+
+This problem significantly strengthened my understanding of **dynamic programming with string-based states** and **nested substring evaluation**. It showed how a problem that initially feels combinatorial and complex can be efficiently solved by carefully designing state transitions.
+
+One of the biggest takeaways was the importance of **simplifying your approach**. My first version was logically correct but overly complicated — introducing unnecessary data structures and sorting steps. The second version achieved the same outcome in a cleaner, more direct way by integrating substring exploration and DP updates together.
+
+I also gained experience with **string frequency comparison** and learned to handle subtle issues like differentiating valid anagrams from invalid ones, even when characters differ in order.
+
+---
+
+#### **Complexity:**
+
+* **Time Complexity:**
+  O(N² × K)
+  where N is the length of the sentence and K is the number of valid words (since each substring is compared against all words of the same length).
+  Each comparison requires O(L) time for strings of length L.
+
+* **Space Complexity:**
+  O(N + 26) ≈ O(N)
+  for the DP array and frequency vectors.
+
+---
+
+#### **Summary:**
+
+The transition from the first to the second version of the solution demonstrated the value of iterative refinement in algorithm design — simplifying logic, improving efficiency, and increasing clarity without losing correctness.
+This problem also reinforced how **combining DP with string matching** can elegantly handle complex transformation and segmentation challenges.
+
