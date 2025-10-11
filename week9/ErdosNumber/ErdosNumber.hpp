@@ -27,9 +27,6 @@ class ErdosNumber {
                         if (v == u) continue;
                         adj[u].push_back(v);
                         adj[v].push_back(u);
-
-                        // insert in nodes
-                        nodes.insert(v);
                     }
                 }
             }
@@ -76,7 +73,7 @@ class ErdosNumber {
                 if (number.count(s) > 0) {
                     ans.push_back(s + " " + to_string(number[s]));
                 } else {
-                    ans.push_back(s + " 0");
+                    ans.push_back(s);
                 }
 
                 // cout << ans[ans.size() - 1] << " ";
