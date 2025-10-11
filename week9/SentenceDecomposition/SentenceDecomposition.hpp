@@ -9,42 +9,33 @@ public:
             sizeToWords[s.size()].push_back(s);
         }
 
-        vector<vector<int>> cost; // [endIdx, stIdx, cost]
+        // DP
         int n = sentence.size();
+        vector<int> dp(n + 1, INT_MAX);
+        dp[0] = 0;
+        bool isStart = false;
         for (int i = 0; i < n; i++) {
             string s = "";
             for (int j = i; j < n; j++) {
+                if (dp[i] == INT_MAX) continue;
+
                 s += sentence[j];
-                helper(s, sentence, cost, sizeToWords, i, j);
+                int cost = helper(s, sentence, sizeToWords);
+
+                if (i == 0 && cost != INT_MAX) isStart = true;
+                if (cost == INT_MAX) continue;
+
+                // update dp
+                dp[j + 1] = min(dp[j + 1], dp[i] + cost);
             }
         }
 
-        // DP
-        sort(cost.begin(), cost.end(), [](vector<int> &a, vector<int> &b){
-            return (a[1] == b[1] ? a[0] < b[0] : a[1] < b[1]);
-        });
-
-        // for (vector<int> &i : cost) {
-        //     cout << i[0] << " " << i[1] << " " << i[2] << endl;
-        // }
-
-        vector<int> dp(n + 1, INT_MAX);
-        if (cost.size() == 0 || cost[0][1] != 0) return -1;
-
-        dp[0] = 0;
-        for (vector<int> &i : cost) {
-            if (dp[i[1]] == INT_MAX) continue;
-
-            int curCost = dp[i[1]] + i[2];
-            dp[i[0] + 1] = min(dp[i[0] + 1], curCost);
-        }
-
-        return (dp[n] == INT_MAX ? -1 : dp[n]);
+        return (dp[n] == INT_MAX || !isStart ? -1 : dp[n]);
     }
 
 private:
-    void helper(string &s, string &sentence, vector<vector<int>> &cost, unordered_map<int, vector<string>> &sizeToWords, int st, int en) {
-        if (sizeToWords.count(s.size()) == 0) return;
+    int helper(string &s, string &sentence, unordered_map<int, vector<string>> &sizeToWords) {
+        if (sizeToWords.count(s.size()) == 0) return INT_MAX;
 
         int minCost = INT_MAX;
         for (string &str : sizeToWords[s.size()]) {
@@ -52,8 +43,7 @@ private:
             minCost = min(curCost, minCost);
         }
 
-        if (minCost == INT_MAX) return;
-        cost.push_back({en, st, minCost});
+        return minCost;
     }
 
     int findCost(string &s, string &match) {
