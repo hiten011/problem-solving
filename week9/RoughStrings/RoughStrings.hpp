@@ -13,9 +13,15 @@ public:
     }
 
 private:
+    unordered_map<string, unordered_map<int, unordered_map<int, int>>> memo;
     int rec(vector<int> &freq, int n, int idx) {
         if (idx == freq.size()) {
             return calcRoughness(freq);
+        }
+
+        string str = getString(freq);
+        if (memo.count(str) > 0 && memo[str].count(n) > 0 && memo[str][n].count(idx) > 0) {
+            return memo[str][n][idx];
         }
 
         if (freq[idx] == 0) {
@@ -29,7 +35,18 @@ private:
             freq[idx] += i;
         }
 
-        return ans;
+        return memo[str][n][idx] = ans;
+    }
+
+    string getString(vector<int> &freq) {
+        sort(freq.begin(), freq.end());
+        string str = "";
+        for (int i : freq) {
+            if (i == 0) continue;
+            str += to_string(i) + "/";
+        }
+
+        return str;
     }
 
     int calcRoughness(vector<int> &freq) {
