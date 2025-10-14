@@ -235,7 +235,115 @@ Although I did not fully solve the problem optimally, the exercise deepened my u
 * **Time Complexity (heuristic):** O(n × k) per iteration for selecting and updating the adjacency lists, where `n` is the number of switches and `k` is the number of bulbs.
 * **Space Complexity:** O(n × k) to store the adjacency lists for switches and bulbs, plus O(k) for the `used` array.
 
-This approach is feasible for moderate-sized graphs but may not scale to very large bipartite graphs due to repeated adjacency updates.
 
 
+### **Problem: CubeStickers**
 
+#### **Design Thinking:**
+
+The task was to determine whether a cube can be fully labeled using a given set of stickers. Each cube has **6 faces**, and each sticker can only be used up to **two times** per type. The challenge was to verify if the stickers provided can cover all faces of the cube while respecting these constraints.
+
+The problem can be approached as a **counting/frequency problem**:
+
+1. Count the occurrences of each sticker type using a frequency map.
+2. For each sticker type, calculate how many cube faces it can cover (up to 2 per type).
+3. Sum the contributions from all sticker types and check if the total is **≥ 6**, which is the number of cube faces.
+
+This approach avoids unnecessary permutations or brute-force assignments because only the frequency counts matter.
+
+---
+
+#### **Troubleshooting:**
+
+The problem was relatively straightforward, but I had to be careful with:
+
+* **Limiting each sticker to 2 faces:** Simply summing frequencies is not enough; any sticker beyond 2 occurrences does not contribute more than 2 faces.
+* **Handling insufficient stickers:** If the sum of available faces from all sticker types is less than 6, the cube cannot be fully labeled.
+* **Edge cases:** For instance, having exactly 3 different sticker types, each appearing twice, satisfies the requirement, but fewer or uneven distributions might fail.
+
+By iterating over the frequency map and subtracting the contribution of each sticker from the required faces, the solution elegantly determines feasibility.
+
+---
+
+#### **Reflection:**
+
+This problem reinforced the value of **frequency counting** and **limiting contributions per type** in combinatorial constraints. It showed that even seemingly geometric problems can often be reduced to simple **count-based checks**.
+
+I also learned to consider:
+
+* How constraints on **maximum usage per item** affect coverage.
+* Simple reductions from a geometric context (cube faces) to an arithmetic check (sum of min(2, count)) can significantly simplify the solution.
+
+Overall, this problem demonstrated that careful **modeling of constraints** often leads to clean, efficient solutions without resorting to brute-force enumeration.
+
+---
+
+#### **Complexity:**
+
+* **Time Complexity:** O(n), where `n` is the number of stickers, for counting frequencies and iterating over the map.
+* **Space Complexity:** O(n) in the worst case to store the frequency map.
+
+The solution is efficient and handles edge cases naturally by design.
+
+
+### **Weekly Reflection**
+
+This week’s problem-solving practice focused heavily on **graph modeling, dynamic programming, combinatorial optimization, and frequency-based reasoning**. Across the diverse set of problems, several key learning patterns and insights emerged.
+
+---
+
+#### **1. Importance of Problem Modeling**
+
+Many problems (e.g., *ErdosNumber*, *LightSwitches*) required translating real-world or abstract scenarios into **graph representations**:
+
+* *ErdosNumber* became a **co-authorship graph**, where BFS efficiently computed shortest collaboration paths.
+* *LightSwitches* was naturally a **bipartite graph**, capturing switch-to-bulb relationships and exploring unique coverage configurations.
+
+Modeling problems correctly simplified the solution strategy, allowing standard algorithms like BFS or greedy heuristics to be applied effectively.
+
+---
+
+#### **2. Iterative Refinement and Optimization**
+
+Several problems (e.g., *SentenceDecomposition*, *RoughStrings*) highlighted the importance of **progressive refinement**:
+
+* Initial recursive or preprocessing-heavy approaches were often correct but inefficient.
+* By analyzing the problem structure, I could often replace recursion/memoization with **direct DP updates** or **mathematical iteration**, drastically improving runtime.
+* For *RoughStrings*, moving from TLE-prone recursion to a **frequency range check** exemplified how reframing the problem can reduce complexity from exponential to polynomial.
+
+This reinforced that **simpler, more direct solutions** are often more reliable than complex multi-stage approaches.
+
+---
+
+#### **3. Frequency and Constraint Reasoning**
+
+In problems like *CubeStickers* and parts of *SentenceDecomposition*, the key insight was that **constraints could often be captured with frequency counts** rather than explicit enumeration:
+
+* Limiting sticker usage to 2 per type simplified the cube labeling problem.
+* Using character frequency vectors allowed efficient checking of anagrams and mismatch costs in sentence decomposition.
+
+This approach reduced unnecessary combinatorial exploration and demonstrated that careful **count-based modeling** often suffices for constraint satisfaction problems.
+
+---
+
+#### **4. Greedy Heuristics and Edge Cases**
+
+*LightSwitches* showed that **greedy heuristics** can be helpful but may not guarantee optimality:
+
+* Choosing switches controlling the fewest bulbs first helped reduce conflicts in bulb coverage.
+* However, some configurations may still be missed, highlighting the importance of understanding **algorithm limitations**.
+
+Learning to **balance heuristic efficiency with correctness guarantees** is a valuable skill for tackling NP-hard or combinatorial problems.
+
+---
+
+#### **5. Key Takeaways**
+
+* **Graph problems**: BFS, bipartite modeling, and adjacency representations are foundational tools for relationship and coverage problems.
+* **Dynamic programming**: Inline DP and careful state management can turn initially combinatorial problems into tractable ones.
+* **Constraint modeling**: Counting and bounding elements (like sticker frequencies or character occurrences) often simplify problems with usage limits.
+* **Problem-solving workflow**: Start with a clear model, attempt a straightforward solution, analyze bottlenecks, and iteratively optimize while validating correctness.
+
+---
+
+Overall, this week strengthened my ability to **abstract complex problems into familiar algorithmic paradigms** while emphasizing **clarity, efficiency, and careful handling of constraints**. The exercises reinforced that sometimes **rethinking the approach mathematically or structurally** is more powerful than adding layers of code complexity.
