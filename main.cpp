@@ -15,10 +15,12 @@ int main() {
     cout << c3.minRoughness("gggggggooooooodddddddllllllluuuuuuuccckkk", 5) << endl;
 
     LightSwitches c4;
-    cout << c4.countPossibleConfigurations({"YYN",
-                                            "NNY",
-                                            "YYY",
-                                            "NNN"})
+    cout << c4.countPossibleConfigurations({"NYNYNYN",
+                                            "YNYNYNY",
+                                            "YYNNNYN",
+                                            "NNNYNYN",
+                                            "YYYYYNN",
+                                            "YNNNNYN"})
          << endl;
 
     return 0;
