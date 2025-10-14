@@ -111,55 +111,69 @@ This problem also reinforced how **combining DP with string matching** can elega
 
 
 
+### **Problem: RoughStrings**
 
-Rough Strings
+#### **Design Thinking:**
 
-#include <bits/stdc++.h>
-using namespace std;
+The goal of this problem was to determine the *minimum roughness* of a given string after removing at most `n` characters.
+The *roughness* of a string is defined as the difference between the highest and lowest frequency of any remaining character.
 
-class RoughStrings {
-public:
-    int minRoughness(string s, int n) {
-        vector<int> freq(26, 0);
-        for (char c : s) {
-            freq[getInt(c)]++;
-        }
+To solve this, I first needed to calculate the frequency of all characters in the string. Then, the objective was to strategically remove characters (up to `n`) such that the resulting frequencies were as close together as possible. The smaller the gap between the most and least frequent characters, the lower the roughness.
 
-        return rec(freq, n, 0);
-    }
+My **initial design** was a **recursive backtracking** approach. At each step, I attempted to remove between `0` and `n` occurrences of each character, recursively evaluating all possible frequency distributions. The base case calculated the roughness by finding the difference between the maximum and minimum nonzero frequencies.
 
-private:
-    int rec(vector<int> &freq, int n, int idx) {
-        if (idx == freq.size()) {
-            return calcRoughness(freq);
-        }
+Conceptually, this approach explored all valid frequency combinations and selected the one with the smallest roughness — but its exponential growth quickly became infeasible for larger strings.
 
-        if (freq[idx] == 0) {
-            return rec(freq, n, idx + 1);
-        }
+---
 
-        int ans = INT_MAX;
-        for (int i = 0; i <= n; i++) {
-            freq[idx] -= i;
-            ans = min(rec(freq, n - i, idx + 1), ans);
-            freq[idx] += i;
-        }
+#### **Troubleshooting:**
 
-        return ans;
-    }
+My **first version (pure recursion)** produced correct results for small cases but failed on larger inputs with a **Time Limit Exceeded (TLE)** error. This happened because the recursive solution explored an enormous state space — every combination of frequency reductions for each character.
 
-    int calcRoughness(vector<int> &freq) {
-        int maxValue = INT_MIN, minValue = INT_MAX;
-        for (int i : freq) {
-            if (i == 0) continue;
-            maxValue = max(maxValue, i);
-            minValue = min(minValue, i);
-        }
+To improve this, I implemented **memoization** by caching intermediate results.
+Each recursive state was represented by:
 
-        return (maxValue == INT_MAX ? INT_MAX : maxValue - minValue);
-    }
+* The frequency vector (serialized as a string)
+* The number of removals left (`n`)
+* The current character index (`idx`)
 
-    int getInt(char c) {
-        return (int) (c - 'a');
-    }
-};
+The memoized version reduced redundant computations and reused previous results. However, it **still resulted in TLE**, since serializing and hashing the frequency vector for each recursive state was too costly. The exponential nature of the recursion meant the optimization wasn’t sufficient.
+
+After analyzing the problem again, I realized recursion was unnecessary. The key insight was that rather than simulating every removal, I could **directly iterate over possible frequency ranges** (`minValue` to `maxValue`) and check if the string could be adjusted to fit within those bounds using at most `n` deletions.
+
+The final optimized solution used two nested loops for `minV` and `maxV`, and a helper function `isPos()` that computed how many deletions were required to bring all frequencies within `[minV, maxV]`.
+If this number was less than or equal to `n`, the range was feasible, and I updated the minimum roughness.
+
+This approach reduced the complexity drastically and efficiently handled all test cases.
+
+---
+
+#### **Reflection:**
+
+This problem was a strong reminder of the importance of **reframing problems mathematically** rather than immediately defaulting to recursion or brute force.
+Initially, I focused on exploring all possible removal combinations, which was both elegant and intuitive but ultimately computationally infeasible.
+By stepping back and analyzing the relationship between frequency ranges and the number of removals, I was able to design a much simpler and faster solution.
+
+I also learned how to better recognize when **memoization cannot overcome exponential branching**, and that sometimes a direct mathematical or iterative approach can be exponentially faster.
+The process from recursion → memoization → range-based iteration highlighted the evolution of an algorithm through successive refinements in logic and efficiency.
+
+---
+
+#### **Complexity:**
+
+* **Time Complexity:**
+  O(F² × 26)
+  where F is the maximum frequency of any character. The nested loops iterate over all possible `(minV, maxV)` pairs, and the `isPos()` function scans all 26 letters.
+
+* **Space Complexity:**
+  O(26) ≈ O(1)
+  since only a fixed number of frequency counts are stored.
+
+---
+
+#### **Summary:**
+
+This problem taught me how **rethinking the structure of a problem** can lead to major performance gains.
+Instead of relying on heavy recursion or memoization, I learned to simplify the logic by analyzing the mathematical relationships between variables — a valuable skill for both algorithm design and optimization.
+
+
