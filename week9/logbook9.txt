@@ -177,3 +177,65 @@ This problem taught me how **rethinking the structure of a problem** can lead to
 Instead of relying on heavy recursion or memoization, I learned to simplify the logic by analyzing the mathematical relationships between variables — a valuable skill for both algorithm design and optimization.
 
 
+
+
+### **Problem: LightSwitches**
+
+#### **Design Thinking:**
+
+The goal of this problem was to determine the number of possible configurations of switches that can turn on bulbs. Each switch can control multiple bulbs, and the bulbs need to be uniquely associated with at least one switch to count as a configuration. Essentially, the problem can be represented as a **bipartite graph**:
+
+* One set of nodes represents **switches**.
+* The other set represents **bulbs**.
+* An edge exists if a switch can turn on a bulb.
+
+The task was to compute all **independent configurations** where each bulb is associated with exactly one unique switch, which is equivalent to counting the number of **independent sets of switches** that can uniquely cover the bulbs. I approached this by:
+
+1. Building adjacency lists for both switches (`adjS`) and bulbs (`adjB`).
+2. Iteratively picking a switch with the fewest connected bulbs (greedy heuristic).
+3. Assigning bulbs to switches in a way that ensures uniqueness.
+4. Clearing already assigned connections to avoid overlapping coverage.
+5. Counting the number of switches that successfully controlled at least one unique bulb.
+
+Finally, since each selected switch can be either ON or OFF independently in a valid configuration, the total number of configurations is `2^ans`.
+
+---
+
+#### **Troubleshooting:**
+
+While implementing this, I encountered several challenges:
+
+* **Choosing the correct switch order:** Initially, I iterated switches in input order. This sometimes resulted in conflicts where multiple switches could claim the same bulb. Switching to a heuristic of picking the switch with the **smallest number of connected bulbs** helped reduce conflicts.
+
+* **Maintaining unique bulb assignments:** It was tricky to ensure that once a bulb was claimed by a switch, no other switch could claim it. I solved this by using the `used` array and erasing connections from the adjacency list (`adjS`) of other switches.
+
+* **Complexity handling:** Updating adjacency lists dynamically and ensuring correctness was subtle. There was a risk of accidentally removing connections that should still be available for future switches.
+
+* **Overflow caution:** Using `pow(2, ans)` is fine for small `ans`, but for larger cases, a `long long` or modular arithmetic might be needed to avoid overflow.
+
+Despite these, I realized that the greedy heuristic approach only gives **an approximation** and may not be optimal for all configurations, so I decided to pause this problem and move on to focus on other challenges.
+
+---
+
+#### **Reflection:**
+
+This problem reinforced several key points:
+
+1. **Graph modeling:** Representing the switch-bulb relationship as a bipartite graph clarified the problem and allowed me to apply graph-based strategies.
+2. **Greedy heuristics:** Picking the switch with the fewest connections is a common heuristic to reduce conflicts, similar to techniques in vertex cover approximations.
+3. **Dynamic updates in algorithms:** Modifying adjacency lists dynamically is powerful but requires careful handling to maintain correctness.
+4. **Problem recognition:** I learned to recognize when a heuristic may not fully solve a problem (here, finding all possible unique configurations is NP-hard) and when it’s reasonable to move on to regain progress in problem-solving.
+
+Although I did not fully solve the problem optimally, the exercise deepened my understanding of **bipartite graph modeling**, **independent set heuristics**, and **greedy algorithm design**.
+
+---
+
+#### **Complexity:**
+
+* **Time Complexity (heuristic):** O(n × k) per iteration for selecting and updating the adjacency lists, where `n` is the number of switches and `k` is the number of bulbs.
+* **Space Complexity:** O(n × k) to store the adjacency lists for switches and bulbs, plus O(k) for the `used` array.
+
+This approach is feasible for moderate-sized graphs but may not scale to very large bipartite graphs due to repeated adjacency updates.
+
+
+
