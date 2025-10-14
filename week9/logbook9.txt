@@ -286,64 +286,47 @@ Overall, this problem demonstrated that careful **modeling of constraints** ofte
 The solution is efficient and handles edge cases naturally by design.
 
 
+
+
 ### **Weekly Reflection**
 
-This week’s problem-solving practice focused heavily on **graph modeling, dynamic programming, combinatorial optimization, and frequency-based reasoning**. Across the diverse set of problems, several key learning patterns and insights emerged.
+This week’s focus was on enhancing my **problem-solving skills** and **algorithmic thinking** through a diverse set of problems from the TopCoder archives and similar combinatorial challenges. Each problem required a different perspective, from graph traversal and dynamic programming to greedy heuristics and frequency-based reasoning.
 
 ---
 
-#### **1. Importance of Problem Modeling**
+#### **Learning and Progress**
 
-Many problems (e.g., *ErdosNumber*, *LightSwitches*) required translating real-world or abstract scenarios into **graph representations**:
+I began the week with **ErdosNumber**, which involved computing collaboration distances between authors. Modeling the problem as a **graph** and implementing **BFS** helped me consolidate my understanding of shortest path traversal in unweighted graphs. A key challenge was handling authors disconnected from the main graph, which taught me the importance of **careful reading of problem constraints** — specifically, correctly outputting names without numbers for unreachable nodes.
 
-* *ErdosNumber* became a **co-authorship graph**, where BFS efficiently computed shortest collaboration paths.
-* *LightSwitches* was naturally a **bipartite graph**, capturing switch-to-bulb relationships and exploring unique coverage configurations.
+Next, I tackled **SentenceDecomposition**, where a sentence had to be split into valid words with minimal mismatches. My first approach involved preprocessing all possible substrings and sorting costs, which was correct but inefficient. The improvement came from **integrating substring exploration with dynamic programming**, which eliminated unnecessary data structures and made the solution both faster and clearer. This reinforced how **DP can simplify combinatorial substring problems** when states are carefully designed.
 
-Modeling problems correctly simplified the solution strategy, allowing standard algorithms like BFS or greedy heuristics to be applied effectively.
+**RoughStrings** required minimizing the roughness of a string by removing characters. My initial recursive solution, followed by memoization, produced TLE due to the exponential state space. The breakthrough was recognizing that I could **directly iterate over frequency ranges** to determine feasibility with at most `n` removals. This taught me the value of **rethinking the problem mathematically** rather than relying solely on recursion or memoization.
 
----
+In **LightSwitches**, I attempted to compute all valid configurations of switches controlling bulbs, modeling it as a **bipartite graph**. While the greedy heuristic of choosing switches with the fewest connections was insightful, I realized that some configurations could still be missed — demonstrating the limitations of heuristics and the importance of recognizing **approximate solutions versus exact solutions**.
 
-#### **2. Iterative Refinement and Optimization**
-
-Several problems (e.g., *SentenceDecomposition*, *RoughStrings*) highlighted the importance of **progressive refinement**:
-
-* Initial recursive or preprocessing-heavy approaches were often correct but inefficient.
-* By analyzing the problem structure, I could often replace recursion/memoization with **direct DP updates** or **mathematical iteration**, drastically improving runtime.
-* For *RoughStrings*, moving from TLE-prone recursion to a **frequency range check** exemplified how reframing the problem can reduce complexity from exponential to polynomial.
-
-This reinforced that **simpler, more direct solutions** are often more reliable than complex multi-stage approaches.
+Finally, **CubeStickers** provided a simpler combinatorial problem. It involved determining if six cube faces could be covered with given stickers, each usable up to two times. By reducing the problem to a **frequency counting exercise**, I learned how constraints can often be simplified mathematically, avoiding unnecessary enumeration.
 
 ---
 
-#### **3. Frequency and Constraint Reasoning**
+#### **Key Takeaways**
 
-In problems like *CubeStickers* and parts of *SentenceDecomposition*, the key insight was that **constraints could often be captured with frequency counts** rather than explicit enumeration:
-
-* Limiting sticker usage to 2 per type simplified the cube labeling problem.
-* Using character frequency vectors allowed efficient checking of anagrams and mismatch costs in sentence decomposition.
-
-This approach reduced unnecessary combinatorial exploration and demonstrated that careful **count-based modeling** often suffices for constraint satisfaction problems.
-
----
-
-#### **4. Greedy Heuristics and Edge Cases**
-
-*LightSwitches* showed that **greedy heuristics** can be helpful but may not guarantee optimality:
-
-* Choosing switches controlling the fewest bulbs first helped reduce conflicts in bulb coverage.
-* However, some configurations may still be missed, highlighting the importance of understanding **algorithm limitations**.
-
-Learning to **balance heuristic efficiency with correctness guarantees** is a valuable skill for tackling NP-hard or combinatorial problems.
+1. **Graph Modeling is Powerful:** Problems like ErdosNumber and LightSwitches highlighted the importance of representing relationships as graphs, enabling standard traversal or coverage techniques.
+2. **Iterative Refinement Improves Efficiency:** Problems such as SentenceDecomposition and RoughStrings demonstrated that starting with a correct but complex solution, then iteratively simplifying and integrating key operations (like DP updates or range checks), is often more effective.
+3. **Frequency and Constraint Analysis:** CubeStickers and parts of SentenceDecomposition reinforced that **frequency counting** is a robust tool to handle limits and constraints efficiently.
+4. **Greedy Heuristics Have Limits:** LightSwitches emphasized that greedy approaches can reduce conflicts but may not always produce an exact solution, teaching me to recognize **approximation vs. optimality**.
+5. **Careful Problem Reading Matters:** Across all problems, especially ErdosNumber, small misinterpretations (like output format or disconnected nodes) could lead to subtle bugs.
 
 ---
 
-#### **5. Key Takeaways**
+#### **Overall Reflection**
 
-* **Graph problems**: BFS, bipartite modeling, and adjacency representations are foundational tools for relationship and coverage problems.
-* **Dynamic programming**: Inline DP and careful state management can turn initially combinatorial problems into tractable ones.
-* **Constraint modeling**: Counting and bounding elements (like sticker frequencies or character occurrences) often simplify problems with usage limits.
-* **Problem-solving workflow**: Start with a clear model, attempt a straightforward solution, analyze bottlenecks, and iteratively optimize while validating correctness.
+This week improved my **algorithmic intuition**, particularly in graph traversal, dynamic programming, and combinatorial reasoning. Working through a mix of recursive, DP, greedy, and frequency-based problems helped me:
+
+* Recognize structural patterns in problems (graphs, frequency distributions, sequence optimization).
+* Understand when to move from recursion to DP for efficiency.
+* Handle edge cases thoughtfully and anticipate potential pitfalls in logic.
+* Balance correctness and efficiency, especially when heuristics are involved.
+
+I also developed better **debugging habits**, systematically testing hypotheses and tracing small examples to identify subtle errors. By the end of the week, I felt more confident tackling both **complex combinatorial challenges** and **constraint-driven logic problems**, combining theoretical insights with practical coding strategies.
 
 ---
-
-Overall, this week strengthened my ability to **abstract complex problems into familiar algorithmic paradigms** while emphasizing **clarity, efficiency, and careful handling of constraints**. The exercises reinforced that sometimes **rethinking the approach mathematically or structurally** is more powerful than adding layers of code complexity.
