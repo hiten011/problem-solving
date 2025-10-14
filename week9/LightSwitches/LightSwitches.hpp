@@ -27,6 +27,7 @@ class LightSwitches {
             int ans = 0;
             vector<bool> used(k, false);
             for (int i = 0; i < n; i++) {
+                cout << adj[i].size() << endl;
                 bool isUnique = false;
                 for (int to : adj[i]) {
                     if (!used[to]) {
