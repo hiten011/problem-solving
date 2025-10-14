@@ -11,7 +11,7 @@ int main() {
     cout << c2.decompose("ommwreehisymkiml", {"we", "were", "here", "my", "is", "mom", "here", "si", "milk", "where", "si"}) << endl;
 
     RoughStrings c3;
-    cout << c3.minRoughness("aaaaabbc", 1) << endl;
+    cout << c3.minRoughness("gggggggooooooodddddddllllllluuuuuuuccckkk", 5) << endl;
 
     return 0;
 }

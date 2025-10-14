@@ -9,58 +9,36 @@ public:
             freq[getInt(c)]++;
         }
 
-        return rec(freq, n, 0);
+        int maxValue = *max_element(freq.begin(), freq.end());
+        int minValue = *min_element(freq.begin(), freq.end());
+
+        int st = 0, en = maxValue, ans = maxValue - minValue;
+        for (int i = st; i <= en; i++) {
+            for (int j = i; j <= en; j++) {
+                if (isPos(i, j, n, freq)) {
+                    ans = min(j - i, ans);
+                }
+            }
+        }
+
+        return ans;
     }
 
 private:
-    unordered_map<string, unordered_map<int, unordered_map<int, int>>> memo;
-    int rec(vector<int> &freq, int n, int idx) {
-        if (idx == freq.size()) {
-            return calcRoughness(freq);
-        }
-
-        string str = getString(freq);
-        if (memo.count(str) > 0 && memo[str].count(n) > 0 && memo[str][n].count(idx) > 0) {
-            return memo[str][n][idx];
-        }
-
-        if (freq[idx] == 0) {
-            return rec(freq, n, idx + 1);
-        }
-
-        int ans = INT_MAX;
-        for (int i = 0; i <= n; i++) {
-            freq[idx] -= i;
-            ans = min(rec(freq, n - i, idx + 1), ans);
-            freq[idx] += i;
-        }
-
-        return memo[str][n][idx] = ans;
-    }
-
-    string getString(vector<int> &freq) {
-        sort(freq.begin(), freq.end());
-        string str = "";
-        for (int i : freq) {
-            if (i == 0) continue;
-            str += to_string(i) + "/";
-        }
-
-        return str;
-    }
-
-    int calcRoughness(vector<int> &freq) {
-        int maxValue = INT_MIN, minValue = INT_MAX;
-        for (int i : freq) {
-            if (i == 0) continue;
-            maxValue = max(maxValue, i);
-            minValue = min(minValue, i);
-        }
-
-        return (maxValue == INT_MAX ? INT_MAX : maxValue - minValue);
-    }
-
     int getInt(char c) {
         return (int) (c - 'a');
+    }
+
+    bool isPos(int minV, int maxV, int n, vector<int> &freq) {
+        int rE = 0;
+        for (int i : freq) {
+            if (i < minV) {
+                rE += i;
+            } else if (i > maxV) {
+                rE += (i - maxV);
+            }
+        }
+
+        return rE <= n;
     }
 };
