@@ -2,6 +2,7 @@
 #include "week9/ErdosNumber/ErdosNumber.hpp"
 #include "week9/SentenceDecomposition/SentenceDecomposition.hpp"
 #include "week9/RoughStrings/RoughStrings.hpp"
+#include "week9/LightSwitches/LightSwitches.hpp"
 
 int main() {
     ErdosNumber c1;
@@ -12,6 +13,13 @@ int main() {
 
     RoughStrings c3;
     cout << c3.minRoughness("gggggggooooooodddddddllllllluuuuuuuccckkk", 5) << endl;
+
+    LightSwitches c4;
+    cout << c4.countPossibleConfigurations({"YYN",
+                                            "NNY",
+                                            "YYY",
+                                            "NNN"})
+         << endl;
 
     return 0;
 }

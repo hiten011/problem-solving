@@ -18,33 +18,49 @@ class LightSwitches {
 
                 g.push_back(bulbs);
             }
-            
+
+            vector<unordered_set<int>> vec(1);
             mt.assign(k, -1);
-            vector<bool> used1(n, false);
-            for (int v = 0; v < n; ++v) {
+            for (int v = 0; v < n; v++) {
+                unordered_set<int> temp;
                 for (int to : g[v]) {
                     if (mt[to] == -1) {
                         mt[to] = v;
-                        used1[v] = true;
-                        break;
+                        isPos = true;
+                    } else {
+                        temp.insert(mt[to]);
                     }
                 }
             }
+
+            // // khun's algo
+            // mt.assign(k, -1);
+            // vector<bool> used1(n, false);
+            // for (int v = 0; v < n; ++v) {
+            //     for (int to : g[v]) {
+            //         if (mt[to] == -1) {
+            //             mt[to] = v;
+            //             used1[v] = true;
+            //             break;
+            //         }
+            //     }
+            // }
             
-            for (int v = 0; v < n; ++v) {
-                if (used1[v]) continue;
-                used.assign(n, false);
-                try_kuhn(v);
-            }
+            // for (int v = 0; v < n; ++v) {
+            //     if (used1[v]) continue;
+            //     used.assign(n, false);
+            //     try_kuhn(v);
+            // }
 
-            int maxmimMatching = 0;
-            for (int i = 0; i < k; ++i) {
-                if (mt[i] != -1) {
-                    maxmimMatching++; 
-                }
-            }
-
-            return n - maxmimMatching;
+            // int maxmimMatching = 0;
+            // for (int i = 0; i < k; ++i) {
+            //     if (mt[i] != -1) {
+            //         maxmimMatching++; 
+            //     }
+            // }
+            
+            // cout << n - maxmimMatching << endl;
+            return pow(2, maxmimMatching);
         }
 
     private:
