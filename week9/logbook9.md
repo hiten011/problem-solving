@@ -109,3 +109,224 @@ I also gained experience with **string frequency comparison** and learned to han
 The transition from the first to the second version of the solution demonstrated the value of iterative refinement in algorithm design — simplifying logic, improving efficiency, and increasing clarity without losing correctness.
 This problem also reinforced how **combining DP with string matching** can elegantly handle complex transformation and segmentation challenges.
 
+
+
+### **Problem: RoughStrings**
+
+#### **Design Thinking:**
+
+The goal of this problem was to determine the *minimum roughness* of a given string after removing at most `n` characters.
+The *roughness* of a string is defined as the difference between the highest and lowest frequency of any remaining character.
+
+To solve this, I first needed to calculate the frequency of all characters in the string. Then, the objective was to strategically remove characters (up to `n`) such that the resulting frequencies were as close together as possible. The smaller the gap between the most and least frequent characters, the lower the roughness.
+
+My **initial design** was a **recursive backtracking** approach. At each step, I attempted to remove between `0` and `n` occurrences of each character, recursively evaluating all possible frequency distributions. The base case calculated the roughness by finding the difference between the maximum and minimum nonzero frequencies.
+
+Conceptually, this approach explored all valid frequency combinations and selected the one with the smallest roughness — but its exponential growth quickly became infeasible for larger strings.
+
+---
+
+#### **Troubleshooting:**
+
+My **first version (pure recursion)** produced correct results for small cases but failed on larger inputs with a **Time Limit Exceeded (TLE)** error. This happened because the recursive solution explored an enormous state space — every combination of frequency reductions for each character.
+
+To improve this, I implemented **memoization** by caching intermediate results.
+Each recursive state was represented by:
+
+* The frequency vector (serialized as a string)
+* The number of removals left (`n`)
+* The current character index (`idx`)
+
+The memoized version reduced redundant computations and reused previous results. However, it **still resulted in TLE**, since serializing and hashing the frequency vector for each recursive state was too costly. The exponential nature of the recursion meant the optimization wasn’t sufficient.
+
+After analyzing the problem again, I realized recursion was unnecessary. The key insight was that rather than simulating every removal, I could **directly iterate over possible frequency ranges** (`minValue` to `maxValue`) and check if the string could be adjusted to fit within those bounds using at most `n` deletions.
+
+The final optimized solution used two nested loops for `minV` and `maxV`, and a helper function `isPos()` that computed how many deletions were required to bring all frequencies within `[minV, maxV]`.
+If this number was less than or equal to `n`, the range was feasible, and I updated the minimum roughness.
+
+This approach reduced the complexity drastically and efficiently handled all test cases.
+
+---
+
+#### **Reflection:**
+
+This problem was a strong reminder of the importance of **reframing problems mathematically** rather than immediately defaulting to recursion or brute force.
+Initially, I focused on exploring all possible removal combinations, which was both elegant and intuitive but ultimately computationally infeasible.
+By stepping back and analyzing the relationship between frequency ranges and the number of removals, I was able to design a much simpler and faster solution.
+
+I also learned how to better recognize when **memoization cannot overcome exponential branching**, and that sometimes a direct mathematical or iterative approach can be exponentially faster.
+The process from recursion → memoization → range-based iteration highlighted the evolution of an algorithm through successive refinements in logic and efficiency.
+
+---
+
+#### **Complexity:**
+
+* **Time Complexity:**
+  O(F² × 26)
+  where F is the maximum frequency of any character. The nested loops iterate over all possible `(minV, maxV)` pairs, and the `isPos()` function scans all 26 letters.
+
+* **Space Complexity:**
+  O(26) ≈ O(1)
+  since only a fixed number of frequency counts are stored.
+
+---
+
+#### **Summary:**
+
+This problem taught me how **rethinking the structure of a problem** can lead to major performance gains.
+Instead of relying on heavy recursion or memoization, I learned to simplify the logic by analyzing the mathematical relationships between variables — a valuable skill for both algorithm design and optimization.
+
+
+
+
+### **Problem: LightSwitches**
+
+#### **Design Thinking:**
+
+The goal of this problem was to determine the number of possible configurations of switches that can turn on bulbs. Each switch can control multiple bulbs, and the bulbs need to be uniquely associated with at least one switch to count as a configuration. Essentially, the problem can be represented as a **bipartite graph**:
+
+* One set of nodes represents **switches**.
+* The other set represents **bulbs**.
+* An edge exists if a switch can turn on a bulb.
+
+The task was to compute all **independent configurations** where each bulb is associated with exactly one unique switch, which is equivalent to counting the number of **independent sets of switches** that can uniquely cover the bulbs. I approached this by:
+
+1. Building adjacency lists for both switches (`adjS`) and bulbs (`adjB`).
+2. Iteratively picking a switch with the fewest connected bulbs (greedy heuristic).
+3. Assigning bulbs to switches in a way that ensures uniqueness.
+4. Clearing already assigned connections to avoid overlapping coverage.
+5. Counting the number of switches that successfully controlled at least one unique bulb.
+
+Finally, since each selected switch can be either ON or OFF independently in a valid configuration, the total number of configurations is `2^ans`.
+
+---
+
+#### **Troubleshooting:**
+
+While implementing this, I encountered several challenges:
+
+* **Choosing the correct switch order:** Initially, I iterated switches in input order. This sometimes resulted in conflicts where multiple switches could claim the same bulb. Switching to a heuristic of picking the switch with the **smallest number of connected bulbs** helped reduce conflicts.
+
+* **Maintaining unique bulb assignments:** It was tricky to ensure that once a bulb was claimed by a switch, no other switch could claim it. I solved this by using the `used` array and erasing connections from the adjacency list (`adjS`) of other switches.
+
+* **Complexity handling:** Updating adjacency lists dynamically and ensuring correctness was subtle. There was a risk of accidentally removing connections that should still be available for future switches.
+
+* **Overflow caution:** Using `pow(2, ans)` is fine for small `ans`, but for larger cases, a `long long` or modular arithmetic might be needed to avoid overflow.
+
+Despite these, I realized that the greedy heuristic approach only gives **an approximation** and may not be optimal for all configurations, so I decided to pause this problem and move on to focus on other challenges.
+
+---
+
+#### **Reflection:**
+
+This problem reinforced several key points:
+
+1. **Graph modeling:** Representing the switch-bulb relationship as a bipartite graph clarified the problem and allowed me to apply graph-based strategies.
+2. **Greedy heuristics:** Picking the switch with the fewest connections is a common heuristic to reduce conflicts, similar to techniques in vertex cover approximations.
+3. **Dynamic updates in algorithms:** Modifying adjacency lists dynamically is powerful but requires careful handling to maintain correctness.
+4. **Problem recognition:** I learned to recognize when a heuristic may not fully solve a problem (here, finding all possible unique configurations is NP-hard) and when it’s reasonable to move on to regain progress in problem-solving.
+
+Although I did not fully solve the problem optimally, the exercise deepened my understanding of **bipartite graph modeling**, **independent set heuristics**, and **greedy algorithm design**.
+
+---
+
+#### **Complexity:**
+
+* **Time Complexity (heuristic):** O(n × k) per iteration for selecting and updating the adjacency lists, where `n` is the number of switches and `k` is the number of bulbs.
+* **Space Complexity:** O(n × k) to store the adjacency lists for switches and bulbs, plus O(k) for the `used` array.
+
+
+
+### **Problem: CubeStickers**
+
+#### **Design Thinking:**
+
+The task was to determine whether a cube can be fully labeled using a given set of stickers. Each cube has **6 faces**, and each sticker can only be used up to **two times** per type. The challenge was to verify if the stickers provided can cover all faces of the cube while respecting these constraints.
+
+The problem can be approached as a **counting/frequency problem**:
+
+1. Count the occurrences of each sticker type using a frequency map.
+2. For each sticker type, calculate how many cube faces it can cover (up to 2 per type).
+3. Sum the contributions from all sticker types and check if the total is **≥ 6**, which is the number of cube faces.
+
+This approach avoids unnecessary permutations or brute-force assignments because only the frequency counts matter.
+
+---
+
+#### **Troubleshooting:**
+
+The problem was relatively straightforward, but I had to be careful with:
+
+* **Limiting each sticker to 2 faces:** Simply summing frequencies is not enough; any sticker beyond 2 occurrences does not contribute more than 2 faces.
+* **Handling insufficient stickers:** If the sum of available faces from all sticker types is less than 6, the cube cannot be fully labeled.
+* **Edge cases:** For instance, having exactly 3 different sticker types, each appearing twice, satisfies the requirement, but fewer or uneven distributions might fail.
+
+By iterating over the frequency map and subtracting the contribution of each sticker from the required faces, the solution elegantly determines feasibility.
+
+---
+
+#### **Reflection:**
+
+This problem reinforced the value of **frequency counting** and **limiting contributions per type** in combinatorial constraints. It showed that even seemingly geometric problems can often be reduced to simple **count-based checks**.
+
+I also learned to consider:
+
+* How constraints on **maximum usage per item** affect coverage.
+* Simple reductions from a geometric context (cube faces) to an arithmetic check (sum of min(2, count)) can significantly simplify the solution.
+
+Overall, this problem demonstrated that careful **modeling of constraints** often leads to clean, efficient solutions without resorting to brute-force enumeration.
+
+---
+
+#### **Complexity:**
+
+* **Time Complexity:** O(n), where `n` is the number of stickers, for counting frequencies and iterating over the map.
+* **Space Complexity:** O(n) in the worst case to store the frequency map.
+
+The solution is efficient and handles edge cases naturally by design.
+
+
+
+
+### **Weekly Reflection**
+
+This week’s focus was on enhancing my **problem-solving skills** and **algorithmic thinking** through a diverse set of problems from the TopCoder archives and similar combinatorial challenges. Each problem required a different perspective, from graph traversal and dynamic programming to greedy heuristics and frequency-based reasoning.
+
+---
+
+#### **Learning and Progress**
+
+I began the week with **ErdosNumber**, which involved computing collaboration distances between authors. Modeling the problem as a **graph** and implementing **BFS** helped me consolidate my understanding of shortest path traversal in unweighted graphs. A key challenge was handling authors disconnected from the main graph, which taught me the importance of **careful reading of problem constraints** — specifically, correctly outputting names without numbers for unreachable nodes.
+
+Next, I tackled **SentenceDecomposition**, where a sentence had to be split into valid words with minimal mismatches. My first approach involved preprocessing all possible substrings and sorting costs, which was correct but inefficient. The improvement came from **integrating substring exploration with dynamic programming**, which eliminated unnecessary data structures and made the solution both faster and clearer. This reinforced how **DP can simplify combinatorial substring problems** when states are carefully designed.
+
+**RoughStrings** required minimizing the roughness of a string by removing characters. My initial recursive solution, followed by memoization, produced TLE due to the exponential state space. The breakthrough was recognizing that I could **directly iterate over frequency ranges** to determine feasibility with at most `n` removals. This taught me the value of **rethinking the problem mathematically** rather than relying solely on recursion or memoization.
+
+In **LightSwitches**, I attempted to compute all valid configurations of switches controlling bulbs, modeling it as a **bipartite graph**. While the greedy heuristic of choosing switches with the fewest connections was insightful, I realized that some configurations could still be missed — demonstrating the limitations of heuristics and the importance of recognizing **approximate solutions versus exact solutions**.
+
+Finally, **CubeStickers** provided a simpler combinatorial problem. It involved determining if six cube faces could be covered with given stickers, each usable up to two times. By reducing the problem to a **frequency counting exercise**, I learned how constraints can often be simplified mathematically, avoiding unnecessary enumeration.
+
+---
+
+#### **Key Takeaways**
+
+1. **Graph Modeling is Powerful:** Problems like ErdosNumber and LightSwitches highlighted the importance of representing relationships as graphs, enabling standard traversal or coverage techniques.
+2. **Iterative Refinement Improves Efficiency:** Problems such as SentenceDecomposition and RoughStrings demonstrated that starting with a correct but complex solution, then iteratively simplifying and integrating key operations (like DP updates or range checks), is often more effective.
+3. **Frequency and Constraint Analysis:** CubeStickers and parts of SentenceDecomposition reinforced that **frequency counting** is a robust tool to handle limits and constraints efficiently.
+4. **Greedy Heuristics Have Limits:** LightSwitches emphasized that greedy approaches can reduce conflicts but may not always produce an exact solution, teaching me to recognize **approximation vs. optimality**.
+5. **Careful Problem Reading Matters:** Across all problems, especially ErdosNumber, small misinterpretations (like output format or disconnected nodes) could lead to subtle bugs.
+
+---
+
+#### **Overall Reflection**
+
+This week improved my **algorithmic intuition**, particularly in graph traversal, dynamic programming, and combinatorial reasoning. Working through a mix of recursive, DP, greedy, and frequency-based problems helped me:
+
+* Recognize structural patterns in problems (graphs, frequency distributions, sequence optimization).
+* Understand when to move from recursion to DP for efficiency.
+* Handle edge cases thoughtfully and anticipate potential pitfalls in logic.
+* Balance correctness and efficiency, especially when heuristics are involved.
+
+I also developed better **debugging habits**, systematically testing hypotheses and tracing small examples to identify subtle errors. By the end of the week, I felt more confident tackling both **complex combinatorial challenges** and **constraint-driven logic problems**, combining theoretical insights with practical coding strategies.
+
+---
