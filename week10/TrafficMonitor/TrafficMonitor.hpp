@@ -15,59 +15,47 @@ class TrafficMonitor {
                 }
             }
             
-            int st = 0, en = n - 1;
-            while (st < en) {
-                int mid = (st + en - 1) / 2;
-                // cout << mid << endl;
-
-                if (isPos(mid)) {
-                    en = mid;
-                } else {
-                    st = mid + 1;
+            color = vector<int>(n, -1);
+            int ans = 0;
+            for (int i = 0; i < n; i++) {
+                if (color[i] == -1) {
+                    pair<int, int> p = bfs(i);
+                    ans += min(p.first, p.second);
                 }
             }
 
-            return st;
+            return ans;
         }
 
     private:
         int n;
         vector<vector<int>> adj;
+        vector<int> color;
 
-        bool isPos(int k) {
-            unsigned long long set = (1ULL << k) - 1;
-            unsigned long long limit = (1ULL << n);
+        pair<int, int> bfs(int node) {
+            int red = 1, blue = 0;
+            color[node] = 1;
 
-            while (set < limit) {
-                
-                // current combination
-                vector<bool> isCamera(n, false);
-                for (int i = n - 1; i >= 0; i--) {
-                    isCamera[i] = ((set >> i) & 1);
-                }
+            queue<int> q;
+            q.push(node);
+            while (!q.empty()) {
+                int curNode = q.front();
+                q.pop();
 
-                if (isCovered(isCamera)) {
-                    return true;
-                }
+                for (int to : adj[curNode]) {
+                    if (color[to] == -1) {
+                        color[to] = (color[curNode] + 1) % 2;
+                        q.push(to);
 
-                // Gosper’s hack
-                unsigned long long c = set & -set;
-                unsigned long long r = set + c;
-                set = (((r ^ set) >> 2) / c) | r;
-            }
-
-            return false;
-        }
-
-        bool isCovered(vector<bool> &isCamera) {
-            for (int i = 0; i < n; i++) {
-                if (isCamera[i]) continue;
-                for (int to : adj[i]) {
-                    if (!isCamera[to]) return false;
+                        if (color[to] == 0) {
+                            blue++;
+                        } else {
+                            red++;
+                        }
+                    }
                 }
             }
 
-            return true;
+            return {blue, red};
         }
-
 };
