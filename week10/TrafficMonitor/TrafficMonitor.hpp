@@ -18,7 +18,7 @@ class TrafficMonitor {
             int st = 0, en = n - 1;
             while (st < en) {
                 int mid = (st + en - 1) / 2;
-                cout << mid << endl;
+                // cout << mid << endl;
 
                 if (isPos(mid)) {
                     en = mid;
