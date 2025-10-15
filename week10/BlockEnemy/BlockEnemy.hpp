@@ -45,6 +45,7 @@ class BlockEnemy {
 
                 for (pair<int, int> r : remove) {
                     int u = r.first, v = r.second;
+                    if (adj[u][v] == -1) continue;
 
                     ans += adj[u][v];
                     adj[u][v] = -1;
