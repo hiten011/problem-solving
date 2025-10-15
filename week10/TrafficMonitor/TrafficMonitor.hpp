@@ -16,8 +16,8 @@ class TrafficMonitor {
             }
 
             int st = 0, en = n - 1;
-            while (st < en) {
-                int mid = (st + en - 1) / 2;
+            while (st < en - 1) {
+                int mid = (st + en) / 2;
 
                 if (isPos(mid)) {
                     en = mid;
@@ -26,7 +26,7 @@ class TrafficMonitor {
                 }
             }
 
-            return st;
+            return (isPos(st) ? st : en);
         }
 
     private:
