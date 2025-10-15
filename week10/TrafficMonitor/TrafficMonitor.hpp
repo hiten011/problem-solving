@@ -14,45 +14,60 @@ class TrafficMonitor {
                     }
                 }
             }
+            
+            int st = 0, en = n - 1;
+            while (st < en) {
+                int mid = (st + en - 1) / 2;
+                cout << mid << endl;
 
-            isCamera = vector<int>(n, 0);
-            for (int i = 0; i < n; i++) {
-                if (dfs(i)) {
-                    isCamera[i] = true;
+                if (isPos(mid)) {
+                    en = mid;
+                } else {
+                    st = mid + 1;
                 }
             }
 
-            int ans = 0;
-            for (int i : isCamera) {
-                if (i == 2) ans++;
-            }
-
-            return ans;
+            return st;
         }
 
     private:
         int n;
         vector<vector<int>> adj;
-        vector<int> isCamera;
 
-        bool dfs(int node) {
-            isCamera[node] = 3;
+        bool isPos(int k) {
+            unsigned long long set = (1ULL << k) - 1;
+            unsigned long long limit = (1ULL << n);
 
-            bool isPos = true;
-            for (int to : adj[node]) {
-                if (isCamera[to] == 3) continue;
-                if (isCamera[to] == 0) {
-                    isPos = false;
-                    continue;
+            while (set < limit) {
+                
+                // current combination
+                vector<bool> isCamera(n, false);
+                for (int i = n - 1; i >= 0; i--) {
+                    isCamera[i] = ((set >> i) & 1);
                 }
 
-                if (dfs(to)) {
-                    isCamera[to] = 0;
-                    isPos = false;
+                if (isCovered(isCamera)) {
+                    return true;
+                }
+
+                // Gosper’s hack
+                unsigned long long c = set & -set;
+                unsigned long long r = set + c;
+                set = (((r ^ set) >> 2) / c) | r;
+            }
+
+            return false;
+        }
+
+        bool isCovered(vector<bool> &isCamera) {
+            for (int i = 0; i < n; i++) {
+                if (isCamera[i]) continue;
+                for (int to : adj[i]) {
+                    if (!isCamera[to]) return false;
                 }
             }
 
-            isCamera[node] = 2;
-            return isPos;
+            return true;
         }
+
 };
