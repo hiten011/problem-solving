@@ -16,12 +16,7 @@ class TrafficMonitor {
             }
             
             dp = vector<vector<int>>(2, vector<int>(n, -1));
-            int ans = 0;
-            for (int i = 0; i < 1; i++) {
-                ans = min(dfs(i, true), dfs(i, false));
-            }
-
-            return ans;
+            return min(dfs(0, true), dfs(0, false));
         }
 
     private:
@@ -30,6 +25,8 @@ class TrafficMonitor {
         vector<vector<int>> dp;
 
         int dfs(int curNode, bool putCamera, int par = -1) {
+            if (dp[putCamera][curNode] != -1) return dp[putCamera][curNode];
+
             int ans = 0;
 
             for (int to : adj[curNode]) {
@@ -41,6 +38,6 @@ class TrafficMonitor {
                 }
             }
 
-            return ans + putCamera;
+            return dp[putCamera][curNode] = ans + putCamera;
         }
 };
