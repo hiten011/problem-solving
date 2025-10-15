@@ -15,75 +15,44 @@ class TrafficMonitor {
                 }
             }
 
-            int st = 0, en = n - 1;
-            while (st < en - 1) {
-                int mid = (st + en) / 2;
-
-                if (isPos(mid)) {
-                    en = mid;
-                } else {
-                    st = mid + 1;
+            isCamera = vector<int>(n, 0);
+            for (int i = 0; i < n; i++) {
+                if (dfs(i)) {
+                    isCamera[i] = true;
                 }
             }
 
-            return (isPos(st) ? st : en);
+            int ans = 0;
+            for (int i : isCamera) {
+                if (i == 2) ans++;
+            }
+
+            return ans;
         }
 
     private:
         int n;
         vector<vector<int>> adj;
-        vector<bool> isCamera;
+        vector<int> isCamera;
 
-        bool isPos(int numCamera) {
-            isCamera = vector<bool>(n, false);
-            while(numCamera--) {
-                isCamera[numCamera] = true;
-            }
+        bool dfs(int node) {
+            isCamera[node] = 3;
 
-            for (int i = 0; i < n; i++) {
-                if (!checkCamera(i)) return false;
-            }
-
-            return true;
-        }
-
-        // check if need a camera on this node or not, and if yes can we put it or not
-        bool checkCamera(int curNode) {
-            if (isCamera[curNode]) {
-                return true;
-            }
-
-            for (int to : adj[curNode]) {
-                if (!isCamera[to]) {
-                    // need to put camera on  curNode
-                    isCamera[curNode] = true;
-                    if (freeCamera()) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        bool freeCamera() {
-            for (int i = 0; i < n; i++) {
-                if (isCamera[i] && ifFree(i)) {
-                    isCamera[i] = false;
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        bool ifFree(int node) {
+            bool isPos = true;
             for (int to : adj[node]) {
-                if (!isCamera[to]) return false;
+                if (isCamera[to] == 3) continue;
+                if (isCamera[to] == 0) {
+                    isPos = false;
+                    continue;
+                }
+
+                if (dfs(to)) {
+                    isCamera[to] = 0;
+                    isPos = false;
+                }
             }
 
-            return true;
+            isCamera[node] = 2;
+            return isPos;
         }
 };
