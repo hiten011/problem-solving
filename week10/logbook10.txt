@@ -1,0 +1,19 @@
+Problem: [TrafficMonitor]
+
+Design Thinking:
+I needed the fewest monitors placed on nodes so every edge (link) is watched; a monitor watches all incident edges. The crucial observation from the problem statement — “there will be at most one path between any two nodes” — means the network is a forest (collection of trees). That converts the problem to minimum vertex cover on a forest, which has a standard linear-time DP. I represented the graph with an adjacency list, then used a recursive DFS on each component computing two states per node: dp[node][0] = cost when the node does not have a camera, and dp[node][1] = cost when the node does have a camera. Transitions are the usual tree-VC rules:
+
+dp[u][1] = 1 + sum(min(dp[v][0], dp[v][1]))
+
+dp[u][0] = sum(dp[v][1])
+The final answer is the sum over components of min(dp[root][0], dp[root][1]). In your code this is implemented as dfs(cur, putCamera) returning the optimal cost of the subtree given whether cur has a camera.
+
+Troubleshooting:
+I went through a long debugging/experiment loop before landing on the DP. I initially didn’t realize the graph was guaranteed acyclic, so I tried many approaches: brute-force subset enumeration (Gosper’s hack + binary search), augmentation / matching attempts (Kuhn’s), greedy heuristics (highest-degree picks), and level-coloring (BFS bipartite coloring). Each approach either was exponential, unnecessary for forests, or produced non-optimal covers in some tree shapes. Key pitfalls that forced iteration were: handling disconnected components and isolated nodes, recognizing that min(#red, #blue) (level coloring) is an upper bound but not always tight, and ensuring DP states were computed per component without revisiting parent nodes. Once I recognized the forest property, I switched to the tree DP and verified it on edge cases (isolated nodes, long chains, stars, small components). That resolved the counterexample where the coloring heuristic returned 23 but the optimal was 22.
+
+Reflection:
+This problem reinforced two important lessons. First, carefully read problem constraints — the “at most one path” phrase was the turning point: it transformed the task from an NP-hard general graph vertex-cover into a linear-time tree DP. Second, it taught a fruitful debugging pattern: try simple heuristics and brute force to get intuition, but be ready to pivot to the provably-correct algorithm when the constraints allow it. The experimentation (Gosper’s hack, matching attempts, greedy) was valuable for understanding where heuristics fail and why DP is the right tool here. Finally, pay attention to component handling (disconnected graphs) and trivial cases (isolated vertices), which often cause off-by-one or over-counting bugs.
+
+TC: O(N + E) time (for a forest E ≤ N−number_of_components, so effectively O(N)), O(N) space for adjacency + DP arrays.
+(For the given constraints N ≤ 50 this is extremely fast and exact.)
+

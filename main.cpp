@@ -1,5 +1,7 @@
 // personal files
 #include "week10/TrafficMonitor/TrafficMonitor.hpp"
+#include "week10/BlockEnemy/BlockEnemy.hpp"
+
 int main()
 {
     TrafficMonitor c1;
@@ -55,5 +57,8 @@ int main()
                        "NNNNNNNNNNNNNNNNNNNNNNNYNNNNNNNNNNNNNNNYNNNNNNNNNN"})
          << endl;
 
-    return 0;
+        BlockEnemy c2;
+        cout << c2.minEffort(5, {"1 0 1", "1 2 2", "0 3 3", "4 0 4"}, {3, 2, 4}) << endl;
+
+                    return 0;
 }
