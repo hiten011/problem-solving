@@ -15,13 +15,10 @@ class TrafficMonitor {
                 }
             }
             
-            color = vector<int>(n, -1);
+            dp = vector<vector<int>>(2, vector<int>(n, -1));
             int ans = 0;
-            for (int i = 0; i < n; i++) {
-                if (color[i] == -1) {
-                    pair<int, int> p = bfs(i);
-                    ans += min(p.first, p.second);
-                }
+            for (int i = 0; i < 1; i++) {
+                ans = min(dfs(i, true), dfs(i, false));
             }
 
             return ans;
@@ -30,32 +27,20 @@ class TrafficMonitor {
     private:
         int n;
         vector<vector<int>> adj;
-        vector<int> color;
+        vector<vector<int>> dp;
 
-        pair<int, int> bfs(int node) {
-            int red = 1, blue = 0;
-            color[node] = 1;
+        int dfs(int curNode, bool putCamera, int par = -1) {
+            int ans = 0;
 
-            queue<int> q;
-            q.push(node);
-            while (!q.empty()) {
-                int curNode = q.front();
-                q.pop();
-
-                for (int to : adj[curNode]) {
-                    if (color[to] == -1) {
-                        color[to] = (color[curNode] + 1) % 2;
-                        q.push(to);
-
-                        if (color[to] == 0) {
-                            blue++;
-                        } else {
-                            red++;
-                        }
-                    }
+            for (int to : adj[curNode]) {
+                if (to == par) continue;
+                if (putCamera) {
+                    ans += min(dfs(to, true, curNode), dfs(to, false, curNode));
+                } else {
+                    ans += dfs(to, true, curNode);
                 }
             }
 
-            return {blue, red};
+            return ans + putCamera;
         }
 };
