@@ -22,6 +22,7 @@ class TrafficMonitor {
                     ans += min(dfs(i, true), dfs(i, false));
                 }
             }
+            
             return ans;
         }
 
