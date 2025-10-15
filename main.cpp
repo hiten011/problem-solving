@@ -1,6 +1,7 @@
 // personal files
 #include "week10/TrafficMonitor/TrafficMonitor.hpp"
-int main() {
+int main()
+{
     TrafficMonitor c1;
     cout << c1.getMin({"NNNNNNNYNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
                        "NNNNNNNNYNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
@@ -53,5 +54,6 @@ int main() {
                        "NNNNNNNNNNNNNNNYNNNNNYNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
                        "NNNNNNNNNNNNNNNNNNNNNNNYNNNNNNNNNNNNNNNYNNNNNNNNNN"})
          << endl;
+
     return 0;
 }

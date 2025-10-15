@@ -15,32 +15,18 @@ class TrafficMonitor {
                 }
             }
 
-            isCamera = vector<bool>(n, false);
-            for (int i = 0; i < n; i++) {
-                isCamera[i] = true;
-                bool isCameraTemp = false;
-                for (int to : adj[i]) {
-                    if (!isCamera[to]) {
-                        isCameraTemp = true;
-                    } else {
-                        if (ifRemove(to)) {
-                            isCameraTemp = true;
-                            isCamera[to] = false;
-                        }
-                    }
-                }
+            int st = 0, en = n - 1;
+            while (st < en) {
+                int mid = (st + en - 1) / 2;
 
-                if (!isCameraTemp) {
-                    isCamera[i] = false;
+                if (isPos(mid)) {
+                    en = mid;
+                } else {
+                    st = mid + 1;
                 }
             }
 
-            int ans = 0;
-            for (bool i : isCamera) {
-                if (i) ans++;
-            }
-
-            return ans;
+            return st;
         }
 
     private:
@@ -48,7 +34,52 @@ class TrafficMonitor {
         vector<vector<int>> adj;
         vector<bool> isCamera;
 
-        bool ifRemove(int node) {
+        bool isPos(int numCamera) {
+            isCamera = vector<bool>(n, false);
+            while(numCamera--) {
+                isCamera[numCamera] = true;
+            }
+
+            for (int i = 0; i < n; i++) {
+                if (!checkCamera(i)) return false;
+            }
+
+            return true;
+        }
+
+        // check if need a camera on this node or not, and if yes can we put it or not
+        bool checkCamera(int curNode) {
+            if (isCamera[curNode]) {
+                return true;
+            }
+
+            for (int to : adj[curNode]) {
+                if (!isCamera[to]) {
+                    // need to put camera on  curNode
+                    isCamera[curNode] = true;
+                    if (freeCamera()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        bool freeCamera() {
+            for (int i = 0; i < n; i++) {
+                if (isCamera[i] && ifFree(i)) {
+                    isCamera[i] = false;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        bool ifFree(int node) {
             for (int to : adj[node]) {
                 if (!isCamera[to]) return false;
             }
