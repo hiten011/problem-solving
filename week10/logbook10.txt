@@ -17,3 +17,16 @@ This problem reinforced two important lessons. First, carefully read problem con
 TC: O(N + E) time (for a forest E ≤ N−number_of_components, so effectively O(N)), O(N) space for adjacency + DP arrays.
 (For the given constraints N ≤ 50 this is extremely fast and exact.)
 
+
+
+Problem: [BlockEnemy]
+Design Thinking:
+The goal was to block paths between enemy towns while minimizing the total effort (sum of road costs). I represented the network as an adjacency matrix, where adj[u][v] stores the cost of the edge between nodes u and v. My approach was to perform DFS starting from each enemy town. During DFS, whenever we encounter another enemy town along a path, we identify the minimum-cost edge along that path and mark it for removal. This ensures that the connectivity is broken while adding the least possible cost. After DFS, we remove the selected edges and accumulate their costs into the total.
+
+Troubleshooting:
+Initially, I tried removing edges immediately during DFS, which sometimes led to incorrect results because other paths still needed some edges. To fix this, I deferred edge removal until after the DFS, keeping track of the minimum-cost edge along each path. Parsing the input roads strings into integer triplets also required careful handling because of spaces. Additionally, I tracked parent nodes to avoid revisiting edges or counting the same edge twice.
+
+Reflection:
+The problem was interesting because it combined graph traversal with greedy decision-making. The key insight was that removing the minimum-cost edge along enemy-to-enemy paths minimizes total effort while successfully disconnecting enemy towns. Deferring edge removal until DFS completes ensures correctness. This exercise reinforced how to combine DFS with path-based greedy selection and careful bookkeeping of edge costs.
+
+TC: O(E * N) in the worst case (DFS from each enemy town), Space: O(N^2) for adjacency matrix + recursion stack O(N).
