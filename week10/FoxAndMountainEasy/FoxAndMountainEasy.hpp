@@ -23,7 +23,7 @@ public:
         // cout << len << " " << n << " " << num << endl; 
         n -= len;
         int diff = abs(hn - num);
-        if (n >= 0 && ((n % 2 == 0 && diff % 2 == 0) || (n % 2 == 1 && diff % 2 == 1))) {
+        if (n >= 0 && (diff <= n) && ((n % 2 == 0 && diff % 2 == 0) || (n % 2 == 1 && diff % 2 == 1))) {
             return "YES";
         } else {
             return "NO";
