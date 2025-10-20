@@ -1,6 +1,7 @@
 // personal files
 #include "week10/TrafficMonitor/TrafficMonitor.hpp"
 #include "week10/BlockEnemy/BlockEnemy.hpp"
+#include "week10/FoxAndMountainEasy/FoxAndMountainEasy.hpp"
 
 int main()
 {
@@ -59,6 +60,9 @@ int main()
 
         BlockEnemy c2;
         cout << c2.minEffort(5, {"1 0 1", "1 2 2", "0 3 3", "4 0 4"}, {3, 2, 4}) << endl;
+
+        FoxAndMountainEasy c3;
+        cout << c3.possible(4, 0, 0, "DDU") << endl;
 
                     return 0;
 }
