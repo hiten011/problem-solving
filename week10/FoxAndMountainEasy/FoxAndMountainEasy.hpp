@@ -21,6 +21,12 @@ public:
         }
 
         // cout << len << " " << n << " " << num << endl; 
-        return (len <= n && abs(num - hn) <= (n - len) ? "YES" : "NO");
+        n -= len;
+        int diff = abs(hn - num);
+        if (n >= 0 && ((n % 2 == 0 && diff % 2 == 0) || (n % 2 == 1 && diff % 2 == 1))) {
+            return "YES";
+        } else {
+            return "NO";
+        }
     }
 };

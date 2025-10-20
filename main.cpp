@@ -62,7 +62,7 @@ int main()
         cout << c2.minEffort(5, {"1 0 1", "1 2 2", "0 3 3", "4 0 4"}, {3, 2, 4}) << endl;
 
         FoxAndMountainEasy c3;
-        cout << c3.possible(4, 0, 0, "DDU") << endl;
+        cout << c3.possible(10, 10, 11, "D") << endl;
 
                     return 0;
 }
