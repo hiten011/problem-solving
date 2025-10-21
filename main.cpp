@@ -2,6 +2,7 @@
 #include "week10/TrafficMonitor/TrafficMonitor.hpp"
 #include "week10/BlockEnemy/BlockEnemy.hpp"
 #include "week10/FoxAndMountainEasy/FoxAndMountainEasy.hpp"
+#include "week10/DengklekBuildingRoads/DengklekBuildingRoads.hpp"
 
 int main()
 {
@@ -64,5 +65,8 @@ int main()
         FoxAndMountainEasy c3;
         cout << c3.possible(10, 10, 11, "D") << endl;
 
-                    return 0;
+        DengklekBuildingRoads c4;
+        cout << c4.numWays(4, 3, 3) << endl;
+
+        return 0;
 }
