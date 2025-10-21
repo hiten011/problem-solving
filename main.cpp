@@ -66,7 +66,7 @@ int main()
         cout << c3.possible(10, 10, 11, "D") << endl;
 
         DengklekBuildingRoads c4;
-        cout << c4.numWays(4, 3, 3) << endl;
+        cout << c4.numWays(10, 20, 5) << endl;
 
         return 0;
 }
