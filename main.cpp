@@ -3,6 +3,7 @@
 #include "week10/BlockEnemy/BlockEnemy.hpp"
 #include "week10/FoxAndMountainEasy/FoxAndMountainEasy.hpp"
 #include "week10/DengklekBuildingRoads/DengklekBuildingRoads.hpp"
+#include "week10/BridgeSort/BridgeSort.hpp"
 
 int main()
 {
@@ -66,7 +67,10 @@ int main()
         cout << c3.possible(10, 10, 11, "D") << endl;
 
         DengklekBuildingRoads c4;
-        cout << c4.numWays(10, 20, 5) << endl;
+        // cout << c4.numWays(10, 20, 5) << endl;
+
+        BridgeSort c5;
+        cout << c5.sortedHand("HAH2H3C4D5ST") << endl;
 
         return 0;
 }

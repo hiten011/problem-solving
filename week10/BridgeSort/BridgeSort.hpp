@@ -15,12 +15,12 @@ class BridgeSort {
                 } 
             }
 
-            sort(str);
+            sort(str.begin(), str.end());
             string ans = "";
             for (string &s : str) {
                 ans += s;
             }
 
-            return s;
+            return ans;
         }
 };
