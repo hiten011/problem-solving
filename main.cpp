@@ -70,7 +70,7 @@ int main()
         // cout << c4.numWays(10, 20, 5) << endl;
 
         BridgeSort c5;
-        cout << c5.sortedHand("HAH2H3C4D5ST") << endl;
+        cout << c5.sortedHand("C2C3C4C5C6C7C8C9CTCJCQCKCA") << endl;
 
         return 0;
 }

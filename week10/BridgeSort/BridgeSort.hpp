@@ -16,6 +16,16 @@ class BridgeSort {
             }
 
             sort(str.begin(), str.end());
+
+            for (int i = 0; i < str.size(); i++) {
+                if (isalpha(str[i][1])) {
+                    sort(str.begin() + i, str.end(), [](string &s1, string &s2){
+                        return s1[1] > s2[1];
+                    });
+                    break;
+                }
+            }
+
             string ans = "";
             for (string &s : str) {
                 ans += s;
