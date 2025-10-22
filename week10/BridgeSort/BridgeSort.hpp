@@ -33,7 +33,7 @@ class BridgeSort {
                 {'J', 14},
                 {'Q', 15},
                 {'K', 16},
-                {'A', 16}
+                {'A', 17}
             };
 
             sort(str.begin(), str.end(), [&](string &s1, string &s2) {
