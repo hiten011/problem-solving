@@ -30,3 +30,25 @@ Reflection:
 The problem was interesting because it combined graph traversal with greedy decision-making. The key insight was that removing the minimum-cost edge along enemy-to-enemy paths minimizes total effort while successfully disconnecting enemy towns. Deferring edge removal until DFS completes ensures correctness. This exercise reinforced how to combine DFS with path-based greedy selection and careful bookkeeping of edge costs.
 
 TC: O(E * N) in the worst case (DFS from each enemy town), Space: O(N^2) for adjacency matrix + recursion stack O(N).
+
+
+Problem: [FoxAndMountainEasy]
+Design Thinking:
+
+The task was to determine if a climber can reach a target height hn in exactly n steps, starting from h0, while following a partial path (history) that must never go below ground level.
+
+I simulated the height changes step-by-step. If the path dipped below zero, I added two extra steps (len += 2) and reset the height to 0 to correct the path. After processing history, I checked if the remaining steps were enough — and with matching parity — to reach the target height (hn).
+
+Troubleshooting:
+
+Initially, I forgot to handle the parity condition and miscounted steps when the height became negative. Adding len += 2 for each invalid dip and verifying that both the remaining steps and height difference had the same parity fixed all edge cases.
+
+Reflection:
+
+This problem strengthened my understanding of path simulation and parity-based feasibility. It showed how small details — like handling negative heights or parity mismatches — can change the correctness of the entire solution. Simulating the path directly also made the logic more intuitive and easier to debug.
+
+Complexity:
+
+Time Complexity: O(L) — one pass over the history string.
+Space Complexity: O(1) — constant extra space.
+
