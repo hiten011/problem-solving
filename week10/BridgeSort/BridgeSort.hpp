@@ -15,16 +15,29 @@ class BridgeSort {
                 } 
             }
 
-            sort(str.begin(), str.end());
+            unordered_map<char, int> order = {
+                {'C', 0},
+                {'D', 1},
+                {'H', 2},
+                {'S', 3},
+                {'1', 4},
+                {'2', 5},
+                {'3', 6},
+                {'4', 7},
+                {'5', 8},
+                {'6', 9},
+                {'7', 10},
+                {'8', 11},
+                {'9', 12},
+                {'T', 13},
+                {'J', 14},
+                {'Q', 15},
+                {'K', 16}
+            };
 
-            for (int i = 0; i < str.size(); i++) {
-                if (isalpha(str[i][1])) {
-                    sort(str.begin() + i, str.end(), [](string &s1, string &s2){
-                        return (s1[0] == s2[0] ? s1[1] > s2[1] : s1[0]) < s1[0];
-                    });
-                    break;
-                }
-            }
+            sort(str.begin(), str.end(), [&](string &s1, string &s2) {
+                return (s1[0] == s2[0] ? order[s1[1]] < order[s2[1]] : order[s1[0]] < order[s2[0]]);
+            });
 
             string ans = "";
             for (string &s : str) {
