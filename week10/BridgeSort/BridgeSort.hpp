@@ -20,7 +20,7 @@ class BridgeSort {
             for (int i = 0; i < str.size(); i++) {
                 if (isalpha(str[i][1])) {
                     sort(str.begin() + i, str.end(), [](string &s1, string &s2){
-                        return s1[1] > s2[1];
+                        return (s1[0] == s2[0] ? s1[1] > s2[1] : s1[0]) < s1[0];
                     });
                     break;
                 }
