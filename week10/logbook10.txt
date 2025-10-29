@@ -52,3 +52,23 @@ Complexity:
 Time Complexity: O(L) — one pass over the history string.
 Space Complexity: O(1) — constant extra space.
 
+Problem: BridgeSort
+Design Thinking:
+
+The goal was to sort a string representing a bridge hand (pairs of suit and rank) according to bridge rules — suits in the order Clubs, Diamonds, Hearts, Spades, and ranks from 2 to A.
+
+I split the input into two-character card strings (e.g., "C2", "DA") and stored them in a vector. Using a predefined order map, I assigned numeric priorities to each suit and rank, then applied a custom comparator in sort() to order the cards correctly. Finally, I concatenated the sorted pairs to form the output string.
+
+Troubleshooting:
+
+The main challenge was ensuring correct lexicographic sorting for both suits and ranks. Initially, sorting by character ASCII values gave incorrect results (e.g., "T" < "2"). Defining a custom order mapping for ranks resolved this. Another fix was handling the cards as pairs instead of individual characters to maintain suit-rank integrity.
+
+Reflection:
+
+This problem reinforced the use of custom comparators in sorting and the importance of defining explicit order mappings when natural character order doesn’t match problem constraints. It also improved my fluency in processing structured strings efficiently using vector and lambda-based sorting.
+
+Complexity:
+
+Time Complexity: O(n log n) — sorting the hand.
+
+Space Complexity: O(n) — storing card pairs.
